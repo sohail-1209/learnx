@@ -30,7 +30,8 @@
   <section class="py-24 px-6 text-center" id="register">
     <h2 class="text-3xl md:text-4xl font-semibold mb-8">Create Your LearnX Account</h2>
     <div class="max-w-lg mx-auto bg-[#1f1f1f] p-8 rounded-lg shadow-lg" data-aos="fade-up">
-      <form action="#" method="POST">
+     <form id="registrationForm" action="http://127.0.0.1:5000/signup" method="POST">
+
         <!-- Role Selection -->
  <div class="mb-4">
  <label class="block text-lg font-semibold mb-2" for="role">I want to join as:</label>
@@ -78,7 +79,7 @@
         </button>
       </form>
     </div>
-    <p class="mt-6 text-lg">Already have an account? <a href="#login.html" class="text-[#00bfa6] hover:underline">Login</a></p>
+    <p class="mt-6 text-lg">Already have an account? <a href="login.html" class="text-[#00bfa6] hover:underline">Login</a></p>
   </section>
 
   <!-- Footer -->
@@ -93,6 +94,44 @@
       duration: 800,
       easing: 'ease-in-out',
       once: true
+    });
+  </script>
+  <script>
+    document.getElementById('registrationForm').addEventListener('submit', function(event) {
+      event.preventDefault(); // Prevent the default form submission
+
+      const form = event.target;
+      const formData = new FormData(form);
+      const jsonData = {};
+
+      // Convert form data to JSON
+      formData.forEach((value, key) => {
+        jsonData[key] = value;
+      });
+
+      // Send data to your Flask backend's signup endpoint
+      fetch(form.action, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(jsonData)
+      })
+      .then(response => {
+        if (response.ok) {
+          // Registration successful - redirect to login page
+          window.location.href = 'login.html';
+        } else {
+          // Registration failed - handle errors (e.g., display error message)
+          response.json().then(data => {
+            alert('Registration failed: ' + (data.error || response.statusText));
+          });
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred during registration.');
+      });
     });
   </script>
 </body>

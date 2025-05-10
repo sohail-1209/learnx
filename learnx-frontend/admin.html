@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Admin Panel - LearnX</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
@@ -38,30 +38,78 @@
       <div class="bg-[#1f1f1f] p-6 rounded-lg shadow-lg mb-8" data-aos="fade-up">
         <h3 class="text-2xl font-semibold mb-4">User Management</h3>
         <p class="text-gray-400">Manage user accounts, roles, and permissions.</p>
-        <!-- Placeholder for user list and management tools -->
-        <div class="mt-4 bg-[#2d2d2d] p-4 rounded-lg">
-          <p class="text-sm text-gray-500">User list, search, edit, delete, suspend accounts here...</p>
-        </div>_CODE
+        <div class="overflow-auto mt-4 bg-[#2d2d2d] p-4 rounded-lg">
+          <table class="w-full text-left">
+            <thead>
+              <tr class="text-[#00bfa6] border-b border-gray-600">
+                <th class="py-2">Username</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="hover:bg-[#3a3a3a]">
+                <td class="py-2">sohail1209</td>
+                <td>sohail@example.com</td>
+                <td>Teacher</td>
+                <td>Active</td>
+                <td class="space-x-2">
+                  <button class="px-2 py-1 bg-blue-600 rounded hover:bg-blue-700 text-sm">Edit</button>
+                  <button class="px-2 py-1 bg-red-600 rounded hover:bg-red-700 text-sm">Delete</button>
+                  <button class="px-2 py-1 bg-yellow-600 rounded hover:bg-yellow-700 text-sm">Suspend</button>
+                </td>
+              </tr>
+              <!-- More rows -->
+            </tbody>
+          </table>
+        </div>
       </div>
 
       <!-- Session Management -->
       <div class="bg-[#1f1f1f] p-6 rounded-lg shadow-lg mb-8" data-aos="fade-up">
         <h3 class="text-2xl font-semibold mb-4">Session Management</h3>
         <p class="text-gray-400">Monitor and manage ongoing and scheduled sessions.</p>
-        <!-- Placeholder for session list and management tools -->
-        <div class="mt-4 bg-[#2d2d2d] p-4 rounded-lg">
-          <p class="text-sm text-gray-500">Session list, details, cancel sessions, review feedback here...</p>
-        </div>_CODE
+        <div class="overflow-auto mt-4 bg-[#2d2d2d] p-4 rounded-lg">
+          <table class="w-full text-left">
+            <thead>
+              <tr class="text-[#00bfa6] border-b border-gray-600">
+                <th class="py-2">Session ID</th>
+                <th>Instructor</th>
+                <th>Student</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="hover:bg-[#3a3a3a]">
+                <td class="py-2">#A23Z</td>
+                <td>sohail1209</td>
+                <td>learner001</td>
+                <td>2025-05-10</td>
+                <td>Scheduled</td>
+                <td>
+                  <button class="px-2 py-1 bg-red-600 rounded hover:bg-red-700 text-sm">Cancel</button>
+                </td>
+              </tr>
+              <!-- More rows -->
+            </tbody>
+          </table>
+        </div>
       </div>
 
       <!-- Content Management -->
       <div class="bg-[#1f1f1f] p-6 rounded-lg shadow-lg mb-8" data-aos="fade-up">
         <h3 class="text-2xl font-semibold mb-4">Content Management</h3>
         <p class="text-gray-400">Manage platform content like skill categories, listings, and articles.</p>
-        <!-- Placeholder for content management tools -->
         <div class="mt-4 bg-[#2d2d2d] p-4 rounded-lg">
-          <p class="text-sm text-gray-500">Manage skill categories, teaching listings, educational content here...</p>
-        </div>_CODE
+          <form class="space-y-4">
+            <input type="text" placeholder="New Skill Category" class="w-full p-2 rounded bg-[#121212] text-white border border-gray-600" />
+            <button type="submit" class="px-4 py-2 bg-[#00bfa6] hover:bg-[#009e8d] text-white rounded">Add Category</button>
+          </form>
+        </div>
       </div>
 
       <!-- Analytics and Moderation -->
@@ -69,18 +117,23 @@
         <div class="bg-[#1f1f1f] p-6 rounded-lg shadow-lg" data-aos="fade-up">
           <h3 class="text-xl font-semibold mb-4">Basic Analytics</h3>
           <p class="text-gray-400">View key platform metrics and insights.</p>
-          <!-- Placeholder for analytics charts or data -->
-          <div class="mt-4 bg-[#2d2d2d] p-4 rounded-lg">
-            <p class="text-sm text-gray-500">Graphs and data about active users, sessions, popular skills here...</p>
-          </div>_CODE
+          <div class="mt-4 bg-[#2d2d2d] p-4 rounded-lg text-sm text-gray-500 text-center">
+            📊 Placeholder for charts (e.g., active users, popular skills)
+          </div>
         </div>
         <div class="bg-[#1f1f1f] p-6 rounded-lg shadow-lg" data-aos="fade-up">
           <h3 class="text-xl font-semibold mb-4">Moderation Tools</h3>
           <p class="text-gray-400">Tools for reviewing reports and taking action.</p>
-          <!-- Placeholder for moderation tools -->
           <div class="mt-4 bg-[#2d2d2d] p-4 rounded-lg">
-            <p class="text-sm text-gray-500">Review reported content, user behavior, issue warnings, or bans here...</p>
-          </div>_CODE
+            <div class="flex justify-between items-center mb-2">
+              <span class="text-sm">Reported: "Inappropriate language in session"</span>
+              <div class="space-x-2">
+                <button class="px-2 py-1 bg-green-600 rounded hover:bg-green-700 text-sm">Warn</button>
+                <button class="px-2 py-1 bg-red-600 rounded hover:bg-red-700 text-sm">Ban</button>
+              </div>
+            </div>
+            <!-- More reports -->
+          </div>
         </div>
       </div>
 

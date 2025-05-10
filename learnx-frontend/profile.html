@@ -20,11 +20,11 @@
       <div class="flex flex-col space-y-6">
         <a href="#" class="text-2xl font-semibold text-[#00bfa6] hover:text-[#009e8d] transition-colors">LearnX</a>
         <ul class="flex flex-col space-y-4">
-          <li><a href=teach.html class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Teach</a></li>
-          <li><a href=learn.html class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Learn</a></li>
-          <li><a href=profile.html class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Profile</a></li>
-          <li><a href=chat.html class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Chat</a></li>
-          <li><a href=settigs.html class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Settings</a></li>
+          <li><a href="teach.html" class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Teach</a></li>
+          <li><a href="learn.html" class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Learn</a></li>
+          <li><a href="profile.html" class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Profile</a></li>
+          <li><a href="chat.html" class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Chat</a></li>
+          <li><a href="settings.html" class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Settings</a></li>
         </ul>
       </div>
     </div>
@@ -36,13 +36,13 @@
       <!-- Profile Information -->
       <div class="bg-[#2d2d2d] p-6 rounded-lg shadow-lg" data-aos="fade-up">
         <div class="flex items-center space-x-6 mb-6">
-          <img src="https://via.placeholder.com/150" alt="User" class="w-24 h-24 md:w-32 md:h-32 rounded-full border-4 border-[#00bfa6]">
+          <img src="https://via.placeholder.com/150" alt="User" class="w-24 h-24 md:w-32 md:h-32 rounded-full border-4 border-[#00bfa6]" id="profile-img">
           <div>
-            <h3 class="text-3xl font-semibold">John Doe</h3>
-            <p class="text-lg text-gray-400">Web Developer | JavaScript Expert</p>
- <div class="flex space-x-4 mt-2">
- <a href="#" class="text-[#00bfa6] hover:underline">View Public Profile</a>
- </div>
+            <h3 class="text-3xl font-semibold" id="username">John Doe</h3>
+            <p class="text-lg text-gray-400" id="bio">Web Developer | JavaScript Expert</p>
+            <div class="flex space-x-4 mt-2">
+              <a href="#" class="text-[#00bfa6] hover:underline">View Public Profile</a>
+            </div>
             <button class="mt-4 bg-[#00bfa6] text-white py-2 px-6 rounded-lg hover:bg-[#009e8d] transition-colors">Edit Profile</button>
           </div>
         </div>
@@ -51,61 +51,40 @@
         <div class="space-y-6">
           <div>
             <h4 class="text-xl font-semibold">Bio</h4>
-            <p class="text-sm text-gray-400">A passionate developer specializing in web technologies. I love to build applications and solve real-world problems.</p>
+            <p class="text-sm text-gray-400" id="bio-text">A passionate developer specializing in web technologies. I love to build applications and solve real-world problems.</p>
           </div>
 
           <div>
             <h4 class="text-xl font-semibold">Skills</h4>
-            <ul class="flex flex-wrap gap-4">
-              <li class="bg-[#00bfa6] text-white py-2 px-6 rounded-lg">JavaScript</li>
-              <li class="bg-[#00bfa6] text-white py-2 px-6 rounded-lg">React</li>
-              <li class="bg-[#00bfa6] text-white py-2 px-6 rounded-lg">Node.js</li>
-              <li class="bg-[#00bfa6] text-white py-2 px-6 rounded-lg">Web Design</li>
+            <ul class="flex flex-wrap gap-4" id="skills">
+              <!-- Skills will be populated here -->
             </ul>
           </div>
         </div>
       </div>
  
- <!-- Ratings -->
- <div class="bg-[#2d2d2d] p-6 rounded-lg shadow-lg mt-8" data-aos="fade-up">
- <h3 class="text-xl font-semibold mb-4">Ratings</h3>
- <div class="flex items-center mb-4">
- <span class="text-yellow-500 text-2xl mr-2">★★★★☆</span>
- <p class="text-lg text-gray-400">4.5 out of 5 based on 15 reviews</p>
- </div>
- <!-- Individual reviews could go here -->
- </div>
+      <!-- Ratings -->
+      <div class="bg-[#2d2d2d] p-6 rounded-lg shadow-lg mt-8" data-aos="fade-up">
+        <h3 class="text-xl font-semibold mb-4">Ratings</h3>
+        <div class="flex items-center mb-4">
+          <span class="text-yellow-500 text-2xl mr-2" id="rating-stars">★★★★☆</span>
+          <p class="text-lg text-gray-400" id="rating-text">4.5 out of 5 based on 15 reviews</p>
+        </div>
+      </div>
 
- <!-- Portfolio -->
- <div class="bg-[#2d2d2d] p-6 rounded-lg shadow-lg mt-8" data-aos="fade-up">
- <h3 class="text-xl font-semibold mb-4">Portfolio</h3>
- <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
- <!-- Example Portfolio Item -->
- <div class="bg-[#1f1f1f] rounded-lg overflow-hidden shadow-lg">
- <img src="https://via.placeholder.com/400x250" alt="Portfolio Item" class="w-full h-40 object-cover">
- <div class="p-4">
- <h4 class="text-lg font-semibold mb-2">Project Title</h4>
- <p class="text-sm text-gray-400">A brief description of the project and technologies used.</p>
- </div>
- </div>
- </div>
+      <!-- Portfolio -->
+      <div class="bg-[#2d2d2d] p-6 rounded-lg shadow-lg mt-8" data-aos="fade-up">
+        <h3 class="text-xl font-semibold mb-4">Portfolio</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="portfolio">
+          <!-- Portfolio items will be populated here -->
+        </div>
+      </div>
 
       <!-- User Activity -->
       <div class="bg-[#2d2d2d] p-6 rounded-lg shadow-lg mt-8" data-aos="fade-up">
         <h3 class="text-xl font-semibold mb-4">Recent Activity</h3>
-        <ul class="space-y-4">
-          <li class="flex justify-between">
-            <span class="text-gray-400">Completed a JavaScript course</span>
-            <span class="text-sm text-[#00bfa6]">1 day ago</span>
-          </li>
-          <li class="flex justify-between">
-            <span class="text-gray-400">Started mentoring a beginner in React</span>
-            <span class="text-sm text-[#00bfa6]">3 days ago</span>
-          </li>
-          <li class="flex justify-between">
-            <span class="text-gray-400">Joined a Web Design group</span>
-            <span class="text-sm text-[#00bfa6]">5 days ago</span>
-          </li>
+        <ul class="space-y-4" id="activity">
+          <!-- User activity will be populated here -->
         </ul>
       </div>
 
@@ -124,6 +103,68 @@
       duration: 800,
       easing: 'ease-in-out',
       once: true
+    });
+
+    document.addEventListener("DOMContentLoaded", function() {
+      // Get the user_id from localStorage
+      const userId = localStorage.getItem('user_id');
+      
+      if (userId) {
+        // Fetch user data from backend
+        fetch(`http://127.0.0.1:5000/profile/${userId}`)
+          .then(response => response.json())
+          .then(data => {
+            if (data.user) {
+              // Populate the profile details
+              document.querySelector('#username').textContent = data.user.username; // Username
+              document.querySelector('#bio-text').textContent = data.user.bio; // Bio
+              document.querySelector('#rating-stars').textContent = "★".repeat(Math.round(data.user.ratings.average)); // Ratings stars
+              document.querySelector('#rating-text').textContent = `${data.user.ratings.average} out of 5 based on ${data.user.ratings.count} reviews`; // Ratings text
+
+              // Populate skills
+              const skillsList = document.querySelector('#skills');
+              data.user.skills.forEach(skill => {
+                const skillElement = document.createElement('li');
+                skillElement.classList.add('bg-[#00bfa6]', 'text-white', 'py-2', 'px-6', 'rounded-lg');
+                skillElement.textContent = skill;
+                skillsList.appendChild(skillElement);
+              });
+
+              // Populate portfolio (example)
+              const portfolioSection = document.querySelector('#portfolio');
+              data.user.portfolio.forEach(project => {
+                const portfolioItem = document.createElement('div');
+                portfolioItem.classList.add('bg-[#1f1f1f]', 'rounded-lg', 'overflow-hidden', 'shadow-lg');
+                portfolioItem.innerHTML = `
+                  <img src="${project.image}" alt="Portfolio Item" class="w-full h-40 object-cover">
+                  <div class="p-4">
+                    <h4 class="text-lg font-semibold mb-2">${project.title}</h4>
+                    <p class="text-sm text-gray-400">${project.description}</p>
+                  </div>
+                `;
+                portfolioSection.appendChild(portfolioItem);
+              });
+
+              // Populate recent activity
+              const activitySection = document.querySelector('#activity');
+              data.user.activity.forEach(activity => {
+                const activityItem = document.createElement('li');
+                activityItem.classList.add('flex', 'justify-between');
+                activityItem.innerHTML = `
+                  <span class="text-gray-400">${activity.text}</span>
+                  <span class="text-sm text-[#00bfa6]">${activity.time}</span>
+                `;
+                activitySection.appendChild(activityItem);
+              });
+
+            } else {
+              console.error('User not found');
+            }
+          })
+          .catch(error => console.error('Error fetching user data:', error));
+      } else {
+        // window.location.href = 'login.html'; // Redirect to login page if no user_id
+      }
     });
   </script>
 </body>
