@@ -33,34 +33,44 @@
     <div class="flex-1 ml-64 p-8">
       <h2 class="text-3xl md:text-4xl font-semibold mb-6" data-aos="fade-up">Chat with Mentors and Peers</h2>
 
-      <!-- Chat List -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8" data-aos="fade-up">
-        <!-- Example Chat User -->
-        <div class="bg-[#2d2d2d] p-6 rounded-lg shadow-lg hover:bg-[#00bfa6] transition-colors cursor-pointer">
-          <div class="flex items-center space-x-4">
-            <img src="https://via.placeholder.com/50" alt="User" class="w-12 h-12 rounded-full">
-            <div>
-              <h3 class="text-xl font-semibold">John Doe</h3>
-              <p class="text-sm text-gray-400">Available for Coding Mentorship</p>
-            </div>
-          </div>
+      <div class="flex flex-col md:flex-row gap-8">
+        <!-- Chat List / Sidebar -->
+        <div class="w-full md:w-1/3 bg-[#1f1f1f] p-6 rounded-lg shadow-lg" data-aos="fade-right">
+          <h3 class="text-xl font-semibold mb-4">Conversations</h3>
+          <ul class="space-y-4">
+            <!-- Example One-on-One Chat -->
+            <li class="flex items-center space-x-4 bg-[#2d2d2d] p-4 rounded-lg hover:bg-[#00bfa6] transition-colors cursor-pointer">
+              <img src="https://via.placeholder.com/50" alt="User" class="w-10 h-10 rounded-full">
+              <div>
+                <h4 class="text-lg font-semibold">John Doe</h4>
+                <p class="text-sm text-gray-400">Last message preview...</p>
+              </div>
+            </li>
+            <!-- Example Group Chat -->
+            <li class="flex items-center space-x-4 bg-[#2d2d2d] p-4 rounded-lg hover:bg-[#00bfa6] transition-colors cursor-pointer">
+              <img src="https://via.placeholder.com/50" alt="Group" class="w-10 h-10 rounded-full">
+              <div>
+                <h4 class="text-lg font-semibold">JavaScript Study Group</h4>
+                <p class="text-sm text-gray-400">New message in group...</p>
+              </div>
+            </li>
+            <!-- Example Session-Based Chat -->
+             <li class="flex items-center space-x-4 bg-[#2d2d2d] p-4 rounded-lg hover:bg-[#00bfa6] transition-colors cursor-pointer">
+              <img src="https://via.placeholder.com/50" alt="Session" class="w-10 h-10 rounded-full">
+              <div>
+                <h4 class="text-lg font-semibold">UI/UX Session with Jane</h4>
+                <p class="text-sm text-gray-400">Regarding our next session...</p>
+              </div>
+            </li>
+          </ul>
         </div>
-        <!-- Another Chat User -->
-        <div class="bg-[#2d2d2d] p-6 rounded-lg shadow-lg hover:bg-[#00bfa6] transition-colors cursor-pointer">
-          <div class="flex items-center space-x-4">
-            <img src="https://via.placeholder.com/50" alt="User" class="w-12 h-12 rounded-full">
-            <div>
-              <h3 class="text-xl font-semibold">Jane Smith</h3>
-              <p class="text-sm text-gray-400">Looking to collaborate on Design Projects</p>
-            </div>
-          </div>
-        </div>
-      </div>
 
-      <!-- Chat Window -->
-      <div class="bg-[#2d2d2d] p-6 rounded-lg shadow-lg" data-aos="fade-up">
-        <h3 class="text-xl font-semibold mb-4">Chat with John Doe</h3>
-        <div class="h-80 overflow-y-scroll mb-6">
+        <!-- Chat Window -->
+        <div class="w-full md:w-2/3 bg-[#1f1f1f] p-6 rounded-lg shadow-lg" data-aos="fade-left">
+          <h3 class="text-xl font-semibold mb-4">Chat with John Doe</h3> <!-- Dynamic Chat Title -->
+          <div class="h-80 overflow-y-scroll mb-6 flex flex-col-reverse">
+            </div>
+          </div>
           <!-- Chat Messages -->
           <div class="flex items-start mb-4">
             <img src="https://via.placeholder.com/50" alt="User" class="w-12 h-12 rounded-full">

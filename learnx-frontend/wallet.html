@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wallet - LearnX</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+  </style>
+</head>
+<body class="bg-[#121212] text-white font-sans">
+
+  <!-- Sidebar Navigation -->
+  <div class="flex">
+    <div class="w-64 bg-[#1f1f1f] p-6 h-screen fixed top-0 left-0">
+      <div class="flex flex-col space-y-6">
+        <a href="#" class="text-2xl font-semibold text-[#00bfa6] hover:text-[#009e8d] transition-colors">LearnX</a>
+        <ul class="flex flex-col space-y-4">
+          <li><a href="teach.html" class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Teach</a></li>
+          <li><a href="learn.html" class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Learn</a></li>
+          <li><a href="profile.html" class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Profile</a></li>
+          <li><a href="chat.html" class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Chat</a></li>
+          <li><a href="settings.html" class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Settings</a></li>
+          <li><a href="wallet.html" class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Wallet</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="flex-1 ml-64 p-8">
+      <h2 class="text-3xl md:text-4xl font-semibold mb-6" data-aos="fade-up">Your Wallet</h2>
+
+      <!-- Wallet Summary -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8" data-aos="fade-up">
+        <div class="bg-[#1f1f1f] p-6 rounded-lg shadow-lg text-center">
+          <h3 class="text-xl font-semibold">Earnings</h3>
+          <p class="mt-2 text-3xl text-[#00bfa6]">$500.00</p>
+        </div>
+        <div class="bg-[#1f1f1f] p-6 rounded-lg shadow-lg text-center">
+          <h3 class="text-xl font-semibold">Points</h3>
+          <p class="mt-2 text-3xl text-[#00bfa6]">1200</p>
+        </div>
+        <div class="bg-[#1f1f1f] p-6 rounded-lg shadow-lg text-center">
+          <h3 class="text-xl font-semibold">Available Funds</h3>
+          <p class="mt-2 text-3xl text-[#00bfa6]">$500.00</p>
+        </div>
+      </div>
+
+      <!-- Transaction History -->
+      <div class="bg-[#1f1f1f] p-6 rounded-lg shadow-lg mb-8 overflow-x-auto" data-aos="fade-up">
+        <h3 class="text-2xl font-semibold mb-4">Transaction History</h3>
+        <div class="overflow-x-auto">
+          <table class="min-w-full divide-y divide-[#2d2d2d]">
+            <thead>
+              <tr>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Date</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Description</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Amount</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Type</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-[#2d2d2d]">
+              <tr>
+                <td class="px-6 py-4 whitespace-nowrap">2023-10-26</td>
+                <td class="px-6 py-4 whitespace-nowrap">Mentorship session with Jane Smith</td>
+                <td class="px-6 py-4 whitespace-nowrap text-green-500">+$50.00</td>
+                <td class="px-6 py-4 whitespace-nowrap">Earning</td>
+              </tr>
+              <tr>
+                <td class="px-6 py-4 whitespace-nowrap">2023-10-25</td>
+                <td class="px-6 py-4 whitespace-nowrap">Purchase of Python course</td>
+                <td class="px-6 py-4 whitespace-nowrap text-red-500">-$25.00</td>
+                <td class="px-6 py-4 whitespace-nowrap">Payment</td>
+              </tr>
+              <tr>
+                <td class="px-6 py-4 whitespace-nowrap">2023-10-24</td>
+                <td class="px-6 py-4 whitespace-nowrap">Points earned from completing profile</td>
+                <td class="px-6 py-4 whitespace-nowrap text-blue-500">+100</td>
+                <td class="px-6 py-4 whitespace-nowrap">Points</td>
+              </tr>
+              <!-- Add more transaction rows as needed -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Payment Gateway Integration Placeholder -->
+      <div class="bg-[#1f1f1f] p-6 rounded-lg shadow-lg mb-8" data-aos="fade-up">
+        <h3 class="text-2xl font-semibold mb-4">Payment Options</h3>
+        <p class="text-gray-400 mb-4">Connect your payment accounts to easily manage earnings and payments.</p>
+        <div class="flex space-x-4">
+          <button class="bg-[#00bfa6] text-white py-3 px-6 rounded-lg hover:bg-[#009e8d] transition-colors">Connect with Razorpay (Placeholder)</button>
+          <button class="bg-[#00bfa6] text-white py-3 px-6 rounded-lg hover:bg-[#009e8d] transition-colors">Connect with Stripe (Placeholder)</button>
+        </div>
+      </div>
+
+      <!-- Withdraw/Redeem Options -->
+      <div class="bg-[#1f1f1f] p-6 rounded-lg shadow-lg" data-aos="fade-up">
+        <h3 class="text-2xl font-semibold mb-4">Withdraw / Redeem</h3>
+        <div class="space-y-4">
+          <div>
+            <label for="withdrawAmount" class="block text-lg mb-2">Amount to Withdraw ($):</label>
+            <input type="number" id="withdrawAmount" name="withdrawAmount" class="w-full bg-[#2d2d2d] text-white p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00bfa6]" placeholder="Enter amount">
+          </div>
+          <div>
+            <button class="bg-[#00bfa6] text-white py-3 px-6 rounded-lg hover:bg-[#009e8d] transition-colors">Withdraw Funds (Placeholder)</button>
+          </div>
+          <div>
+            <button class="bg-[#00bfa6] text-white py-3 px-6 rounded-lg hover:bg-[#009e8d] transition-colors">Redeem Points (Placeholder)</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-[#1f1f1f] py-6 text-center text-white mt-8">
+    <p>&copy; 2025 LearnX - All Rights Reserved</p>
+  </footer>
+
+  <!-- AOS Animation Init -->
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      duration: 800,
+      easing: 'ease-in-out',
+      once: true
+    });
+  </script>
+</body>
+</html>

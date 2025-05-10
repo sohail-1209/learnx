@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Live Session - LearnX</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+  </style>
+  <script>
+    // Placeholder for timer functionality - will need server-side implementation for accuracy
+  </script>
+</head>
+<body class="bg-[#121212] text-white font-sans">
+
+  <!-- Sidebar Navigation -->
+  <div class="flex">
+    <div class="w-64 bg-[#1f1f1f] p-6 h-screen fixed top-0 left-0">
+      <div class="flex flex-col space-y-6">
+        <a href="#" class="text-2xl font-semibold text-[#00bfa6] hover:text-[#009e8d] transition-colors">LearnX</a>
+        <ul class="flex flex-col space-y-4">
+          <li><a href="teach.html" class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Teach</a></li>
+          <li><a href="learn.html" class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Learn</a></li>
+          <li><a href="profile.html" class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Profile</a></li>
+          <li><a href=chat.html class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Chat</a></li>
+          <li><a href="settings.html" class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Settings</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="flex-1 ml-64 p-8">
+      <h2 class="text-3xl md:text-4xl font-semibold mb-6" data-aos="fade-up">Live Session: [Session Title]</h2>
+
+      <!-- Video Placeholder and Timer -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div class="md:col-span-2 bg-[#1f1f1f] rounded-lg shadow-lg p-6" data-aos="fade-right">
+          <h3 class="text-xl font-semibold mb-4">Session Video</h3>
+          <div class="aspect-video bg-[#2d2d2d] rounded-lg flex items-center justify-center text-gray-400 text-lg">
+            [Video Embedded Here - e.g., Zoom, Jitsi]
+          </div>
+        </div>
+        <div class="bg-[#1f1f1f] rounded-lg shadow-lg p-6 flex flex-col justify-between" data-aos="fade-left">
+          <div>
+            <h3 class="text-xl font-semibold mb-4">Timer</h3>
+            <div class="text-center text-4xl font-bold text-[#00bfa6]" id="session-timer">00:00:00</div>
+          </div>
+          <button class="mt-4 bg-[#00bfa6] text-white py-3 px-6 rounded-lg hover:bg-[#009e8d] transition-colors">End Session</button>
+        </div>
+      </div>
+
+      <!-- Note Taking Area -->
+      <div class="bg-[#1f1f1f] rounded-lg shadow-lg p-6 mb-8" data-aos="fade-up">
+        <h3 class="text-xl font-semibold mb-4">Notes</h3>
+        <textarea class="w-full h-40 bg-[#2d2d2d] text-white p-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00bfa6]" placeholder="Take notes here..."></textarea>
+      </div>
+
+      <!-- Post-Session Feedback -->
+      <div class="bg-[#1f1f1f] rounded-lg shadow-lg p-6" data-aos="fade-up">
+        <h3 class="text-xl font-semibold mb-4">Post-Session Feedback</h3>
+        <form action="#" method="POST" class="space-y-6">
+          <div>
+            <label for="rating" class="block text-lg font-semibold mb-2">Rate the session:</label>
+            <select id="rating" name="rating" class="w-full bg-[#2d2d2d] text-white p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00bfa6]">
+              <option value="5">5 Stars</option>
+              <option value="4">4 Stars</option>
+              <option value="3">3 Stars</option>
+              <option value="2">2 Stars</option>
+              <option value="1">1 Star</option>
+            </select>
+          </div>
+          <div>
+            <label for="feedback" class="block text-lg font-semibold mb-2">Your Feedback:</label>
+            <textarea id="feedback" name="feedback" rows="4" class="w-full bg-[#2d2d2d] text-white p-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00bfa6]" placeholder="Share your thoughts on the session..."></textarea>
+          </div>
+          <button type="submit" class="bg-[#00bfa6] text-white py-3 px-6 rounded-lg hover:bg-[#009e8d] transition-colors">Submit Feedback</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-[#1f1f1f] py-6 text-center text-white mt-8">
+    <p>&copy; 2025 LearnX - All Rights Reserved</p>
+  </footer>
+
+  <!-- AOS Animation Init -->
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      duration: 800,
+      easing: 'ease-in-out',
+      once: true
+    });
+
+    // Basic client-side timer (for demonstration - needs server logic for robust use)
+    const timerElement = document.getElementById('session-timer');
+    let seconds = 0;
+    let timerInterval;
+
+    function updateTimer() {
+      seconds++;
+      const h = Math.floor(seconds / 3600);
+      const m = Math.floor((seconds % 3600) / 60);
+      const s = seconds % 60;
+
+      const formattedTime = `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+      timerElement.textContent = formattedTime;
+    }
+
+    timerInterval = setInterval(updateTimer, 1000);
+    // You would likely stop the timer and handle session end server-side
+    // For demonstration, you could add an event listener to the "End Session" button
+    // document.querySelector('button').addEventListener('click', () => clearInterval(timerInterval));
+
+  </script>
+</body>
+</html>
