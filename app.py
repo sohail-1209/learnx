@@ -183,8 +183,9 @@ def change_password():
         # Update the user's password in the database
         result = db.users.update_one({"_id": ObjectId(user_id)}, {"$set": {"password": hashed_new_password}})
         if result.modified_count == 0:
- return jsonify({"message": "Password not changed, possibly same as old password"}), 200 # Or 400
+            return jsonify({"message": "Password not changed, possibly same as old password"}), 200 # Or 400
 
+    # This return statement was causing the IndentationError and should be here
     return jsonify({"message": "Password change request received"}), 200
 
 @app.route('/save-notification-preferences', methods=['POST'])
