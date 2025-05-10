@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - LearnX</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+  </style>
+</head>
+<body class="bg-[#121212] text-white font-sans">
+
+  <!-- Sidebar Navigation -->
+  <div class="flex">
+    <div class="w-64 bg-[#1f1f1f] p-6 h-screen fixed top-0 left-0">
+      <div class="flex flex-col space-y-6">
+        <a href="#" class="text-2xl font-semibold text-[#00bfa6] hover:text-[#009e8d] transition-colors">LearnX</a>
+        <ul class="flex flex-col space-y-4">
+          <li><a href=teach.html class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Teach</a></li>
+          <li><a href=learn.html class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Learn</a></li>
+          <li><a href=profile.html class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Profile</a></li>
+          <li><a href=chat.html class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Chat</a></li>
+          <li><a href=settigs.html class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Settings</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="flex-1 ml-64 p-8">
+      <h2 class="text-3xl md:text-4xl font-semibold mb-6" data-aos="fade-up">Welcome to Your Dashboard</h2>
+
+      <!-- Notifications -->
+      <div class="bg-[#1f1f1f] rounded-lg p-6 mb-8 shadow-lg" data-aos="fade-up">
+        <h3 class="text-xl font-semibold mb-4">Latest Notifications</h3>
+        <ul>
+          <li class="mb-2">New learning opportunity: Python Bootcamp starting soon! <span class="text-[#00bfa6]">Join now</span></li>
+          <li class="mb-2">You have a new message from a potential mentor.</li>
+          <li>Reminder: Your next mentoring session is scheduled for tomorrow at 10:00 AM.</li>
+        </ul>
+      </div>
+
+      <!-- User Stats -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+        <div class="bg-[#1f1f1f] p-6 rounded-lg shadow-lg" data-aos="fade-up">
+          <h3 class="text-xl font-semibold mb-4">Your Skills</h3>
+          <ul>
+            <li>Python Programming</li>
+            <li>Web Development</li>
+            <li>Data Science</li>
+          </ul>
+        </div>
+        <div class="bg-[#1f1f1f] p-6 rounded-lg shadow-lg" data-aos="fade-up">
+          <h3 class="text-xl font-semibold mb-4">Ongoing Sessions</h3>
+          <ul>
+            <li>Mentoring session with Jane (Web Development) - 3:00 PM</li>
+            <li>Learning session on Python - 5:00 PM</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Upcoming Opportunities -->
+      <div class="bg-[#1f1f1f] p-6 rounded-lg shadow-lg" data-aos="fade-up">
+        <h3 class="text-xl font-semibold mb-4">Upcoming Opportunities</h3>
+        <ul>
+          <li>Join a group study for "Introduction to Machine Learning" - 15th May</li>
+          <li>Becoming a mentor for beginner web developers - Apply by 18th May</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-[#1f1f1f] py-6 text-center text-white mt-8">
+    <p>&copy; 2025 LearnX - All Rights Reserved</p>
+  </footer>
+
+  <!-- AOS Animation Init -->
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      duration: 800,
+      easing: 'ease-in-out',
+      once: true
+    });
+  </script>
+</body>
+</html>

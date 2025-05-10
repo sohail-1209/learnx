@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile - LearnX</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+  </style>
+</head>
+<body class="bg-[#121212] text-white font-sans">
+
+  <!-- Sidebar Navigation -->
+  <div class="flex">
+    <div class="w-64 bg-[#1f1f1f] p-6 h-screen fixed top-0 left-0">
+      <div class="flex flex-col space-y-6">
+        <a href="#" class="text-2xl font-semibold text-[#00bfa6] hover:text-[#009e8d] transition-colors">LearnX</a>
+        <ul class="flex flex-col space-y-4">
+          <li><a href=teach.html class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Teach</a></li>
+          <li><a href=learn.html class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Learn</a></li>
+          <li><a href=profile.html class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Profile</a></li>
+          <li><a href=chat.html class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Chat</a></li>
+          <li><a href=settigs.html class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Settings</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="flex-1 ml-64 p-8">
+      <h2 class="text-3xl md:text-4xl font-semibold mb-6" data-aos="fade-up">Your Profile</h2>
+
+      <!-- Profile Information -->
+      <div class="bg-[#2d2d2d] p-6 rounded-lg shadow-lg" data-aos="fade-up">
+        <div class="flex items-center space-x-6 mb-6">
+          <img src="https://via.placeholder.com/150" alt="User" class="w-32 h-32 rounded-full border-4 border-[#00bfa6]">
+          <div>
+            <h3 class="text-3xl font-semibold">John Doe</h3>
+            <p class="text-lg text-gray-400">Web Developer | JavaScript Expert</p>
+            <button class="mt-4 bg-[#00bfa6] text-white py-2 px-6 rounded-lg hover:bg-[#009e8d] transition-colors">Edit Profile</button>
+          </div>
+        </div>
+
+        <!-- Bio and Skills -->
+        <div class="space-y-6">
+          <div>
+            <h4 class="text-xl font-semibold">Bio</h4>
+            <p class="text-sm text-gray-400">A passionate developer specializing in web technologies. I love to build applications and solve real-world problems.</p>
+          </div>
+
+          <div>
+            <h4 class="text-xl font-semibold">Skills</h4>
+            <ul class="flex flex-wrap gap-4">
+              <li class="bg-[#00bfa6] text-white py-2 px-6 rounded-lg">JavaScript</li>
+              <li class="bg-[#00bfa6] text-white py-2 px-6 rounded-lg">React</li>
+              <li class="bg-[#00bfa6] text-white py-2 px-6 rounded-lg">Node.js</li>
+              <li class="bg-[#00bfa6] text-white py-2 px-6 rounded-lg">Web Design</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- User Activity -->
+      <div class="bg-[#2d2d2d] p-6 rounded-lg shadow-lg mt-8" data-aos="fade-up">
+        <h3 class="text-xl font-semibold mb-4">Recent Activity</h3>
+        <ul class="space-y-4">
+          <li class="flex justify-between">
+            <span class="text-gray-400">Completed a JavaScript course</span>
+            <span class="text-sm text-[#00bfa6]">1 day ago</span>
+          </li>
+          <li class="flex justify-between">
+            <span class="text-gray-400">Started mentoring a beginner in React</span>
+            <span class="text-sm text-[#00bfa6]">3 days ago</span>
+          </li>
+          <li class="flex justify-between">
+            <span class="text-gray-400">Joined a Web Design group</span>
+            <span class="text-sm text-[#00bfa6]">5 days ago</span>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-[#1f1f1f] py-6 text-center text-white mt-8">
+    <p>&copy; 2025 LearnX - All Rights Reserved</p>
+  </footer>
+
+  <!-- AOS Animation Init -->
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      duration: 800,
+      easing: 'ease-in-out',
+      once: true
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - LearnX</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+  </style>
+</head>
+<body class="bg-[#121212] text-white font-sans">
+
+  <!-- Navbar -->
+  <nav class="bg-[#1f1f1f] shadow-lg py-4">
+    <div class="max-w-6xl mx-auto flex justify-between items-center px-6">
+      <a href="#" class="text-2xl font-semibold text-[#00bfa6]">LearnX</a>
+      <ul class="flex space-x-6">
+        <li><a href=index.html class="hover:text-[#00bfa6] transition-colors">Home</a></li>
+        <li><a href="#features" class="hover:text-[#00bfa6] transition-colors">Features</a></li>
+        <li><a href="register.html" class="hover:text-[#00bfa6] transition-colors">Register</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Login Form -->
+  <section class="py-24 px-6 text-center" id="login">
+    <h2 class="text-3xl md:text-4xl font-semibold mb-8">Login to LearnX</h2>
+    <div class="max-w-lg mx-auto bg-[#1f1f1f] p-8 rounded-lg shadow-lg" data-aos="fade-up">
+      <form action="#" method="POST">
+        <div class="mb-4">
+          <input type="email" name="email" placeholder="Email" class="w-full bg-[#121212] border border-[#00bfa6] rounded-lg p-3 text-white focus:outline-none focus:border-[#009e8d] hover:scale-105 transition-transform duration-200" required>
+        </div>
+        <div class="mb-4">
+          <input type="password" name="password" placeholder="Password" class="w-full bg-[#121212] border border-[#00bfa6] rounded-lg p-3 text-white focus:outline-none focus:border-[#009e8d] hover:scale-105 transition-transform duration-200" required>
+        </div>
+        <button type="submit" class="w-full bg-[#00bfa6] py-3 rounded-full text-white font-semibold text-lg hover:bg-[#009e8d] transition-all transform hover:scale-105 duration-300">
+          Login
+        </button>
+      </form>
+    </div>
+    <p class="mt-6 text-lg">Don't have an account? <a href="#register" class="text-[#00bfa6] hover:underline">Register</a></p>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-[#1f1f1f] py-6 text-center text-white">
+    <p>&copy; 2025 LearnX - All Rights Reserved</p>
+  </footer>
+
+  <!-- AOS Animation Init -->
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      duration: 800,
+      easing: 'ease-in-out',
+      once: true
+    });
+  </script>
+</body>
+</html>

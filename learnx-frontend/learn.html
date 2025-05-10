@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Learn - LearnX</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+  </style>
+</head>
+<body class="bg-[#121212] text-white font-sans">
+
+  <!-- Sidebar Navigation -->
+  <div class="flex">
+    <div class="w-64 bg-[#1f1f1f] p-6 h-screen fixed top-0 left-0">
+      <div class="flex flex-col space-y-6">
+        <a href="#" class="text-2xl font-semibold text-[#00bfa6] hover:text-[#009e8d] transition-colors">LearnX</a>
+        <ul class="flex flex-col space-y-4">
+          <li><a href="#teach" class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Teach</a></li>
+          <li><a href="#learn" class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Learn</a></li>
+          <li><a href="#profile" class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Profile</a></li>
+          <li><a href="#settings" class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Settings</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="flex-1 ml-64 p-8">
+      <h2 class="text-3xl md:text-4xl font-semibold mb-6" data-aos="fade-up">Find Mentors</h2>
+
+      <!-- Search Bar -->
+      <div class="flex mb-8" data-aos="fade-up">
+        <input type="text" placeholder="Search for a skill, mentor, or session..." class="w-full p-4 bg-[#2d2d2d] text-white rounded-lg focus:outline-none" />
+        <button class="ml-4 bg-[#00bfa6] text-white py-3 px-6 rounded-lg hover:bg-[#009e8d] transition-colors">Search</button>
+      </div>
+
+      <!-- Categories -->
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-6 mb-8" data-aos="fade-up">
+        <div class="bg-[#1f1f1f] p-6 rounded-lg shadow-lg text-center hover:bg-[#00bfa6] transition-colors">
+          <h3 class="text-xl font-semibold">Coding</h3>
+          <p class="mt-2 text-lg">Find coding sessions in languages like Python, JavaScript, etc.</p>
+        </div>
+        <div class="bg-[#1f1f1f] p-6 rounded-lg shadow-lg text-center hover:bg-[#00bfa6] transition-colors">
+          <h3 class="text-xl font-semibold">Design</h3>
+          <p class="mt-2 text-lg">Explore design skills including UI/UX and graphic design.</p>
+        </div>
+        <div class="bg-[#1f1f1f] p-6 rounded-lg shadow-lg text-center hover:bg-[#00bfa6] transition-colors">
+          <h3 class="text-xl font-semibold">Music</h3>
+          <p class="mt-2 text-lg">Learn music theory, instruments, and more with experienced mentors.</p>
+        </div>
+        <div class="bg-[#1f1f1f] p-6 rounded-lg shadow-lg text-center hover:bg-[#00bfa6] transition-colors">
+          <h3 class="text-xl font-semibold">Fitness</h3>
+          <p class="mt-2 text-lg">Get guidance from fitness experts and trainers.</p>
+        </div>
+        <div class="bg-[#1f1f1f] p-6 rounded-lg shadow-lg text-center hover:bg-[#00bfa6] transition-colors">
+          <h3 class="text-xl font-semibold">Business</h3>
+          <p class="mt-2 text-lg">Access business mentorship and insights from experienced professionals.</p>
+        </div>
+        <div class="bg-[#1f1f1f] p-6 rounded-lg shadow-lg text-center hover:bg-[#00bfa6] transition-colors">
+          <h3 class="text-xl font-semibold">Language</h3>
+          <p class="mt-2 text-lg">Learn new languages from proficient speakers.</p>
+        </div>
+      </div>
+
+      <!-- Available Sessions -->
+      <h2 class="text-3xl md:text-4xl font-semibold mb-6" data-aos="fade-up">Available Sessions</h2>
+      <div class="bg-[#1f1f1f] p-6 rounded-lg shadow-lg" data-aos="fade-up">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Example Session -->
+          <div class="bg-[#2d2d2d] p-6 rounded-lg hover:bg-[#00bfa6] transition-colors">
+            <h4 class="text-xl font-semibold">JavaScript for Beginners</h4>
+            <p class="mt-2 text-lg">A beginner-level course to understand the fundamentals of JavaScript.</p>
+            <div class="flex justify-between mt-4">
+              <span class="text-[#00bfa6]">Mentor: John Doe</span>
+              <span class="text-[#00bfa6]">$25/hr</span>
+            </div>
+            <a href="#book-session" class="mt-4 inline-block bg-[#00bfa6] text-white py-3 px-6 rounded-lg hover:bg-[#009e8d] transition-colors">Book Session</a>
+          </div>
+          <div class="bg-[#2d2d2d] p-6 rounded-lg hover:bg-[#00bfa6] transition-colors">
+            <h4 class="text-xl font-semibold">UI/UX Design Basics</h4>
+            <p class="mt-2 text-lg">Learn the principles of user interface and user experience design.</p>
+            <div class="flex justify-between mt-4">
+              <span class="text-[#00bfa6]">Mentor: Jane Smith</span>
+              <span class="text-[#00bfa6]">$30/hr</span>
+            </div>
+            <a href="#book-session" class="mt-4 inline-block bg-[#00bfa6] text-white py-3 px-6 rounded-lg hover:bg-[#009e8d] transition-colors">Book Session</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Book Session Button -->
+      <div class="mt-8">
+        <a href="#book-session" class="bg-[#00bfa6] text-white py-3 px-6 rounded-lg hover:bg-[#009e8d] transition-colors">Find More Sessions</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-[#1f1f1f] py-6 text-center text-white mt-8">
+    <p>&copy; 2025 LearnX - All Rights Reserved</p>
+  </footer>
+
+  <!-- AOS Animation Init -->
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      duration: 800,
+      easing: 'ease-in-out',
+      once: true
+    });
+  </script>
+</body>
+</html>

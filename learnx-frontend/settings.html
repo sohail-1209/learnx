@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Settings - LearnX</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+  </style>
+</head>
+<body class="bg-[#121212] text-white font-sans">
+
+  <!-- Sidebar Navigation -->
+  <div class="flex">
+    <div class="w-64 bg-[#1f1f1f] p-6 h-screen fixed top-0 left-0">
+      <div class="flex flex-col space-y-6">
+        <a href="#" class="text-2xl font-semibold text-[#00bfa6] hover:text-[#009e8d] transition-colors">LearnX</a>
+        <ul class="flex flex-col space-y-4">
+          <li><a href=teach.html class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Teach</a></li>
+          <li><a href=learn.html class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Learn</a></li>
+          <li><a href=profile.html class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Profile</a></li>
+          <li><a href=chat.html class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Chat</a></li>
+          <li><a href=settings.html class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Settings</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="flex-1 ml-64 p-8">
+      <h2 class="text-3xl md:text-4xl font-semibold mb-6" data-aos="fade-up">Account Settings</h2>
+
+      <!-- Password Change Form -->
+      <div class="bg-[#1f1f1f] p-6 rounded-lg shadow-lg mb-8" data-aos="fade-up">
+        <h3 class="text-2xl font-semibold mb-4">Change Password</h3>
+        <form action="#" method="POST" class="space-y-6">
+          <div class="flex flex-col space-y-2">
+            <label for="currentPassword" class="text-lg">Current Password</label>
+            <input type="password" id="currentPassword" name="currentPassword" class="bg-[#2d2d2d] text-white p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00bfa6]" placeholder="Enter your current password">
+          </div>
+
+          <div class="flex flex-col space-y-2">
+            <label for="newPassword" class="text-lg">New Password</label>
+            <input type="password" id="newPassword" name="newPassword" class="bg-[#2d2d2d] text-white p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00bfa6]" placeholder="Enter your new password">
+          </div>
+
+          <div class="flex flex-col space-y-2">
+            <label for="confirmPassword" class="text-lg">Confirm New Password</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" class="bg-[#2d2d2d] text-white p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00bfa6]" placeholder="Confirm your new password">
+          </div>
+
+          <button type="submit" class="bg-[#00bfa6] text-white py-3 px-6 rounded-lg hover:bg-[#009e8d] transition-colors">Change Password</button>
+        </form>
+      </div>
+
+      <!-- Notification Preferences -->
+      <div class="bg-[#1f1f1f] p-6 rounded-lg shadow-lg mb-8" data-aos="fade-up">
+        <h3 class="text-2xl font-semibold mb-4">Notification Preferences</h3>
+        <form action="#" method="POST" class="space-y-6">
+          <div class="flex items-center space-x-4">
+            <input type="checkbox" id="emailNotifications" name="emailNotifications" class="text-[#00bfa6]">
+            <label for="emailNotifications" class="text-lg">Receive email notifications</label>
+          </div>
+          
+          <div class="flex items-center space-x-4">
+            <input type="checkbox" id="smsNotifications" name="smsNotifications" class="text-[#00bfa6]">
+            <label for="smsNotifications" class="text-lg">Receive SMS notifications</label>
+          </div>
+
+          <button type="submit" class="bg-[#00bfa6] text-white py-3 px-6 rounded-lg hover:bg-[#009e8d] transition-colors">Save Preferences</button>
+        </form>
+      </div>
+
+      <!-- Linked Accounts -->
+      <div class="bg-[#1f1f1f] p-6 rounded-lg shadow-lg" data-aos="fade-up">
+        <h3 class="text-2xl font-semibold mb-4">Linked Accounts</h3>
+        <div class="flex flex-col space-y-4">
+          <div class="flex justify-between items-center">
+            <p class="text-lg">Google</p>
+            <button class="bg-[#00bfa6] text-white py-2 px-6 rounded-lg hover:bg-[#009e8d] transition-colors">Unlink</button>
+          </div>
+          <div class="flex justify-between items-center">
+            <p class="text-lg">LinkedIn</p>
+            <button class="bg-[#00bfa6] text-white py-2 px-6 rounded-lg hover:bg-[#009e8d] transition-colors">Unlink</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Privacy Settings -->
+      <div class="bg-[#1f1f1f] p-6 rounded-lg shadow-lg" data-aos="fade-up">
+        <h3 class="text-2xl font-semibold mb-4">Privacy Settings</h3>
+        <form action="#" method="POST" class="space-y-6">
+          <div class="flex items-center space-x-4">
+            <input type="checkbox" id="profileVisibility" name="profileVisibility" class="text-[#00bfa6]">
+            <label for="profileVisibility" class="text-lg">Make profile public</label>
+          </div>
+
+          <div class="flex items-center space-x-4">
+            <input type="checkbox" id="searchVisibility" name="searchVisibility" class="text-[#00bfa6]">
+            <label for="searchVisibility" class="text-lg">Allow my profile to be found in search</label>
+          </div>
+
+          <button type="submit" class="bg-[#00bfa6] text-white py-3 px-6 rounded-lg hover:bg-[#009e8d] transition-colors">Save Privacy Settings</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-[#1f1f1f] py-6 text-center text-white mt-8">
+    <p>&copy; 2025 LearnX - All Rights Reserved</p>
+  </footer>
+
+  <!-- AOS Animation Init -->
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      duration: 800,
+      easing: 'ease-in-out',
+      once: true
+    });
+  </script>
+</body>
+</html>
