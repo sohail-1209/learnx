@@ -374,10 +374,6 @@ def manage_skill_categories():
 
             if not name:
                 return jsonify({"error": "Skill category name is required"}), 400
-
-        data = request.get_json()
-        name = data.get('name')
-
         if not name:
             return jsonify({"error": "Skill category name is required"}), 400
 
@@ -470,6 +466,35 @@ def get_all_reports():
 
     return jsonify({"message": f"User associated with report {report_id} warned"}), 200
 
+
+@app.route('/admin/reports/<report_id>/ban', methods=['POST'])
+def ban_user_from_report(report_id):
+    """Bans the user associated with a report."""
+    try:
+ report_object_id = ObjectId(report_id)
+    except:
+ return jsonify({"error": "Invalid report ID format"}), 400
+
+    report = db.reports.find_one({"_id": report_object_id})
+    if not report:
+        return jsonify({"error": "Report not found"}), 404
+
+    user_id = report.get('reported_user_id') # Assuming report has a reported_user_id field
+    if not user_id:
+        return jsonify({"error": "Report does not contain a reported user ID"}), 400
+
+    try:
+ user_object_id = ObjectId(user_id)
+    except:
+        return jsonify({"error": "Invalid user ID in report"}), 400
+
+    # Update the report status to 'banned'
+    db.reports.update_one({"_id": report_object_id}, {"$set": {"status": "banned"}})
+
+    # Update the user's status to 'banned'
+    db.users.update_one({"_id": user_object_id}, {"$set": {"status": "banned"}})
+
+    return jsonify({"message": f"User associated with report {report_id} banned"}), 200
 
 # This route was not in the original plan, but is included in the provided code.
 def get_dashboard_data(user_id):
