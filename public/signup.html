@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register - LearnX</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+  </style>
+</head>
+<body class="bg-[#121212] text-white font-sans">
+
+  <!-- Navbar -->
+  <nav class="bg-[#1f1f1f] shadow-lg py-4">
+    <div class="max-w-6xl mx-auto flex justify-between items-center px-6">
+      <a href="#" class="text-2xl font-semibold text-[#00bfa6]">LearnX</a>
+      <ul class="flex space-x-6">
+        <li><a href="#home" class="hover:text-[#00bfa6] transition-colors">Home</a></li>
+        <li><a href="#features" class="hover:text-[#00bfa6] transition-colors">Features</a></li>
+        <li><a href="#login" class="hover:text-[#00bfa6] transition-colors">Login</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Registration Form -->
+  <section class="py-24 px-6 text-center" id="register">
+    <h2 class="text-3xl md:text-4xl font-semibold mb-8">Create Your LearnX Account</h2>
+    <div class="max-w-lg mx-auto bg-[#1f1f1f] p-8 rounded-lg shadow-lg" data-aos="fade-up">
+    <form id="registrationForm" action="/api/auth/signup" method="POST">
+        <!-- Role Selection -->
+        <div class="mb-4">
+          <label class="block text-lg font-semibold mb-2" for="role">I want to join as:</label>
+          <select name="role" id="role" class="w-full bg-[#121212] border border-[#00bfa6] rounded-lg p-3 text-white focus:outline-none focus:border-[#009e8d] hover:scale-105 transition-transform duration-200" required>
+            <option value="" disabled selected>Select your role</option>
+            <option value="learner">Learner</option>
+            <option value="teacher">Teacher</option>
+            <option value="both">Both</option>
+          </select>
+        </div>
+
+       
+        <div class="mb-4">
+          <input type="text" name="name" placeholder="Full Name" class="w-full bg-[#121212] border border-[#00bfa6] rounded-lg p-3 text-white focus:outline-none focus:border-[#009e8d] hover:scale-105 transition-transform duration-200" required>
+        </div>
+        <div class="mb-4">
+          <input type="email" name="email" placeholder="Email" class="w-full bg-[#121212] border border-[#00bfa6] rounded-lg p-3 text-white focus:outline-none focus:border-[#009e8d] hover:scale-105 transition-transform duration-200" required>
+        </div>
+        <div class="mb-4">
+          <input type="password" name="password" placeholder="Password" class="w-full bg-[#121212] border border-[#00bfa6] rounded-lg p-3 text-white focus:outline-none focus:border-[#009e8d] hover:scale-105 transition-transform duration-200" required>
+        </div>
+        <div class="mb-6">
+          <input type="password" name="confirm_password" placeholder="Confirm Password" class="w-full bg-[#121212] border border-[#00bfa6] rounded-lg p-3 text-white focus:outline-none focus:border-[#009e8d] hover:scale-105 transition-transform duration-200" required>
+        </div>
+        <div class="mb-4">
+          <label class="block text-lg font-semibold mb-2" for="profile_photo">Profile Photo (Optional):</label>
+          <input type="file" name="profile_photo" id="profile_photo" accept="image/*" class="w-full bg-[#121212] border border-[#00bfa6] rounded-lg p-3 text-white focus:outline-none focus:border-[#009e8d] hover:scale-105 transition-transform duration-200">
+        </div>
+        <div class="mb-4">
+          <input type="text" name="username" placeholder="Username" class="w-full bg-[#121212] border border-[#00bfa6] rounded-lg p-3 text-white focus:outline-none focus:border-[#009e8d] hover:scale-105 transition-transform duration-200" required>
+        </div>
+        <div class="mb-4">
+          <label class="block text-lg font-semibold mb-2" for="bio">Bio (Optional):</label>
+          <textarea name="bio" id="bio" placeholder="Tell us a little about yourself..." class="w-full bg-[#121212] border border-[#00bfa6] rounded-lg p-3 text-white focus:outline-none focus:border-[#009e8d] hover:scale-105 transition-transform duration-200"></textarea>
+        </div>
+        <div class="mb-6">
+          <label class="block text-lg font-semibold mb-2" for="skills">Skills (Comma-separated, Optional):</label>
+          <input type="text" name="skills" id="skills" placeholder="e.g., Python, Web Development, Design" class="w-full bg-[#121212] border border-[#00bfa6] rounded-lg p-3 text-white focus:outline-none focus:border-[#009e8d] hover:scale-105 transition-transform duration-200">
+        </div>
+        <button type="submit" class="w-full bg-[#00bfa6] py-3 rounded-full text-white font-semibold text-lg hover:bg-[#009e8d] transition-all transform hover:scale-105 duration-300">
+          Register
+        </button>
+      </form>
+    </div>
+    <p class="mt-6 text-lg">Already have an account? <a href="login.html" class="text-[#00bfa6] hover:underline">Login</a></p>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-[#1f1f1f] py-6 text-center text-white">
+    <p>&copy; 2025 LearnX - All Rights Reserved</p>
+  </footer>
+
+  <!-- AOS Animation Init -->
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      duration: 800,
+      easing: 'ease-in-out',
+      once: true
+    });
+  </script>
+ 
+  <script>document.getElementById('registrationForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const form = e.target;
+  const formData = new FormData(form);
+
+  try {
+    const response = await fetch('/api/auth/signup', { // ✅ Correct endpoint
+      method: 'POST',
+      body: formData // Keep as FormData (do NOT set headers for JSON)
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      window.location.href = '/login.html'; // ✅ Explicit redirect
+    } else {
+      alert(`Error: ${data.error || 'Registration failed'}`);
+    }
+  } catch (error) {
+    alert('Network error. Please try again.');
+  }
+});
+
+
+// Auto-select role from URL
+const urlParams = new URLSearchParams(window.location.search);
+const role = urlParams.get('role');
+if (role) document.getElementById('role').value = role;
+</script>
+</body>
+</html>
