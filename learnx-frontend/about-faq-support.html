@@ -10,6 +10,15 @@
     html {
       scroll-behavior: smooth;
     }
+    .faq-item {
+      border-bottom: 1px solid #2d2d2d;
+      padding-bottom: 1.5rem;
+      margin-bottom: 1.5rem;
+      transition: transform 0.3s ease-in-out;
+    }
+    .faq-item:hover {
+      transform: translateY(-3px);
+    }
   </style>
 </head>
 <body class="bg-[#121212] text-white font-sans">
@@ -44,11 +53,11 @@
       <div class="bg-[#1f1f1f] rounded-lg p-6 mb-8 shadow-lg" data-aos="fade-up">
         <h3 class="text-2xl font-semibold mb-4">Frequently Asked Questions</h3>
         <div class="space-y-6">
-          <div>
+          <div class="faq-item">
             <h4 class="text-xl font-semibold text-[#00bfa6]">How does LearnX work?</h4>
             <p class="text-gray-400 mt-2">LearnX connects learners with mentors for one-on-one or group sessions. You can search for skills you want to learn or list skills you can teach. Sessions can be paid or based on skill bartering.</p>
           </div>
-          <div>
+          <div class="faq-item">
             <h4 class="text-xl font-semibold text-[#00bfa6]">What kind of skills can I learn or teach?</h4>
             <p class="text-gray-400 mt-2">You can learn or teach a wide range of skills, including coding, design, music, languages, fitness, business, and more. If you have a skill you want to share, you can create a listing.</p>
           </div>
@@ -56,15 +65,15 @@
  <h4 class="text-xl font-semibold text-[#00bfa6]">How do I become a mentor?</h4>
  <p class="text-gray-400 mt-2">To become a mentor, simply sign up for an account and select the "Teacher" role. You can then create listings for the skills you want to teach and set your availability and session details.</p>
  </div>
- <div>
- <h4 class="text-xl font-semibold text-[#00bfa6]">How do I book a session with a mentor?</h4>
- <p class="text-gray-400 mt-2">Browse the skill marketplace or use the search bar to find mentors in the skill you're interested in. On the mentor's profile or session listing, you'll find an option to book a session. You can choose the session type (paid or barter) and preferred time.</p>
- </div>
-          <div>
+          <div class="faq-item">
+            <h4 class="text-xl font-semibold text-[#00bfa6]">How do I book a session with a mentor?</h4>
+            <p class="text-gray-400 mt-2">Browse the skill marketplace or use the search bar to find mentors in the skill you're interested in. On the mentor's profile or session listing, you'll find an option to book a session. You can choose the session type (paid or barter) and preferred time.</p>
+          </div>
+          <div class="faq-item">
             <h4 class="text-xl font-semibold text-[#00bfa6]">How do payments or bartering work?</h4>
             <p class="text-gray-400 mt-2">Mentors can set a price for their sessions, or offer sessions for bartering (exchanging skills). Our platform facilitates secure payments for paid sessions. Bartering agreements are handled between the users.</p>
           </div>
-          <div>
+          <div class="faq-item">
             <h4 class="text-xl font-semibold text-[#00bfa6]">Is there a mobile app?</h4>
             <p class="text-gray-400 mt-2">Currently, LearnX is a web-based platform. We are exploring options for a mobile application in the future.</p>
           </div>
@@ -96,6 +105,34 @@
       once: true
     });
   </script>
- <script src="about-faq-support.js"></script>
+ <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      // Get the user_id from localStorage
+      const userId = localStorage.getItem('user_id');
+
+      if (userId) {
+        // This is where you would typically fetch user-specific data if needed for this page.
+        // For a static page like this, it might not be necessary unless you plan to
+        // personalize content based on the user (e.g., show past support tickets).
+
+        // Example of a placeholder function (replace with your actual API call)
+        // fetchUserData(userId);
+      } else {
+        // Handle cases where the user is not logged in, if necessary for this page.
+        // window.location.href = 'login.html'; // Example: redirect to login
+      }
+    });
+
+    // Placeholder function for fetching user data (replace with your actual backend API call)
+    function fetchUserData(userId) {
+      console.log(`Fetching data for user: ${userId}`);
+      // Example: fetch('/api/user/' + userId)
+      //   .then(response => response.json())
+      //   .then(data => {
+      //     // Process and display data if needed for this page
+      //   })
+      //   .catch(error => console.error('Error fetching user data:', error));
+    }
+  </script>
 </body>
 </html>

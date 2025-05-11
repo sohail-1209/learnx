@@ -10,9 +10,21 @@
     html {
       scroll-behavior: smooth;
     }
+    /* Add some custom styles */
+    .settings-section {
+      background-color: #1f1f1f;
+      padding: 24px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      margin-bottom: 32px;
+      transition: transform 0.3s ease-in-out;
+    }
+    .settings-section:hover {
+      transform: translateY(-5px);
+    }
   </style>
 </head>
-<body class="bg-[#121212] text-white font-sans">
+<body class="bg-[#121212] text-white font-sans antialiased">
 
   <!-- Sidebar Navigation -->
   <div class="flex">
@@ -21,10 +33,10 @@
         <a href="#" class="text-2xl font-semibold text-[#00bfa6] hover:text-[#009e8d] transition-colors">LearnX</a>
         <ul class="flex flex-col space-y-4">
           <li><a href=teach.html class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Teach</a></li>
-          <li><a href=learn.html class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Learn</a></li>
+          <li><a href=learn.html class="hover:text-[#00bfa6] hover:scale-105 transition-transform ">Learn</a></li>
           <li><a href=profile.html class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Profile</a></li>
           <li><a href=chat.html class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Chat</a></li>
-          <li><a href=settings.html class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Settings</a></li>
+          <li><a href=settings.html class="text-[#00bfa6] hover:text-[#009e8d] hover:scale-105 transition-transform font-bold">Settings</a></li>
         </ul>
       </div>
     </div>
@@ -33,77 +45,88 @@
     <div class="flex-1 ml-64 p-8">
       <h2 class="text-3xl md:text-4xl font-semibold mb-6" data-aos="fade-up">Account Settings</h2>
 
-      <!-- Password Change Form -->
-      <div class="bg-[#1f1f1f] p-6 rounded-lg shadow-lg mb-8" data-aos="fade-up">
-        <h3 class="text-2xl font-semibold mb-4">Change Password</h3>
-        <form action="#" method="POST" class="space-y-6">
-          <div class="flex flex-col space-y-2">
-            <label for="currentPassword" class="text-lg">Current Password</label>
-            <input type="password" id="currentPassword" name="currentPassword" class="bg-[#2d2d2d] text-white p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00bfa6]" placeholder="Enter your current password">
-          </div>
+      <!-- Profile Settings -->
+      <div id="profile-settings" class="settings-section" data-aos="fade-up">
+        <h3 class="text-2xl font-semibold mb-4">Profile Settings</h3>
+        <!-- Add form fields for profile settings (e.g., username, email, bio) with IDs -->
+        <!-- Example fields: -->
+        <p class="text-gray-400">Add your profile details here...</p>
+        </div>
 
-          <div class="flex flex-col space-y-2">
-            <label for="newPassword" class="text-lg">New Password</label>
-            <input type="password" id="newPassword" name="newPassword" class="bg-[#2d2d2d] text-white p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00bfa6]" placeholder="Enter your new password">
-          </div>
+      <!-- Account Settings -->
+      <div id="account-settings" class="settings-section" data-aos="fade-up">
+        <h3 class="text-2xl font-semibold mb-4">Account Settings</h3>
+        <!-- Password Change Form -->
+        <div class="bg-[#2d2d2d] p-6 rounded-lg shadow-lg mb-8" data-aos="fade-up">
+          <h3 class="text-2xl font-semibold mb-4">Change Password</h3>
+          <form action="#" method="POST" class="space-y-6">
+            <div class="flex flex-col space-y-2">
+              <label for="currentPassword" class="text-lg">Current Password</label>
+              <input type="password" id="currentPassword" name="currentPassword" class="bg-[#2d2d2d] text-white p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00bfa6]" placeholder="Enter your current password">
+            </div>
 
-          <div class="flex flex-col space-y-2">
-            <label for="confirmPassword" class="text-lg">Confirm New Password</label>
-            <input type="password" id="confirmPassword" name="confirmPassword" class="bg-[#2d2d2d] text-white p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00bfa6]" placeholder="Confirm your new password">
-          </div>
+            <div class="flex flex-col space-y-2">
+              <label for="newPassword" class="text-lg">New Password</label>
+              <input type="password" id="newPassword" name="newPassword" class="bg-[#2d2d2d] text-white p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00bfa6]" placeholder="Enter your new password">
+            </div>
 
-          <button type="submit" class="bg-[#00bfa6] text-white py-3 px-6 rounded-lg hover:bg-[#009e8d] transition-colors">Change Password</button>
-        </form>
+            <div class="flex flex-col space-y-2">
+              <label for="confirmPassword" class="text-lg">Confirm New Password</label>
+              <input type="password" id="confirmPassword" name="confirmPassword" class="bg-[#2d2d2d] text-white p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00bfa6]" placeholder="Confirm your new password">
+            </div>
+
+            <button type="submit" class="bg-[#00bfa6] text-white py-3 px-6 rounded-lg hover:bg-[#009e8d] transition-colors">Change Password</button>
+          </form>
+        </div>
+        <!-- Linked Accounts -->
+        <div class="bg-[#2d2d2d] p-6 rounded-lg shadow-lg mb-8" data-aos="fade-up">
+          <h3 class="text-2xl font-semibold mb-4">Linked Accounts</h3>
+          <div class="flex flex-col space-y-4">
+            <div class="flex justify-between items-center">
+              <p class="text-lg">Google</p>
+              <button class="bg-[#00bfa6] text-white py-2 px-6 rounded-lg hover:bg-[#009e8d] transition-colors">Unlink</button>
+            </div>
+            <div class="flex justify-between items-center">
+              <p class="text-lg">LinkedIn</p>
+              <button class="bg-[#00bfa6] text-white py-2 px-6 rounded-lg hover:bg-[#009e8d] transition-colors">Unlink</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Privacy Settings -->
+        <div class="bg-[#2d2d2d] p-6 rounded-lg shadow-lg" data-aos="fade-up">
+          <h3 class="text-2xl font-semibold mb-4">Privacy Settings</h3>
+          <form action="#" method="POST" class="space-y-6">
+            <div class="flex items-center space-x-4">
+              <input type="checkbox" id="profileVisibility" name="profileVisibility" class="text-[#00bfa6]">
+              <label for="profileVisibility" class="text-lg">Make profile public</label>
+            </div>
+
+            <div class="flex items-center space-x-4">
+              <input type="checkbox" id="searchVisibility" name="searchVisibility" class="text-[#00bfa6]">
+              <label for="searchVisibility" class="text-lg">Allow my profile to be found in search</label>
+            </div>
+
+            <button type="submit" class="bg-[#00bfa6] text-white py-3 px-6 rounded-lg hover:bg-[#009e8d] transition-colors">Save Privacy Settings</button>
+          </form>
+        </div>
       </div>
 
       <!-- Notification Preferences -->
-      <div class="bg-[#1f1f1f] p-6 rounded-lg shadow-lg mb-8" data-aos="fade-up">
+      <div id="notification-settings" class="settings-section" data-aos="fade-up">
         <h3 class="text-2xl font-semibold mb-4">Notification Preferences</h3>
         <form action="#" method="POST" class="space-y-6">
           <div class="flex items-center space-x-4">
-            <input type="checkbox" id="emailNotifications" name="emailNotifications" class="text-[#00bfa6]">
+            <input type="checkbox" id="emailNotifications" name="emailNotifications" class="text-[#00bfa6]" >
             <label for="emailNotifications" class="text-lg">Receive email notifications</label>
           </div>
-          
+
           <div class="flex items-center space-x-4">
-            <input type="checkbox" id="smsNotifications" name="smsNotifications" class="text-[#00bfa6]">
+            <input type="checkbox" id="smsNotifications" name="smsNotifications" class="text-[#00bfa6]" >
             <label for="smsNotifications" class="text-lg">Receive SMS notifications</label>
           </div>
 
           <button type="submit" class="bg-[#00bfa6] text-white py-3 px-6 rounded-lg hover:bg-[#009e8d] transition-colors">Save Preferences</button>
-        </form>
-      </div>
-
-      <!-- Linked Accounts -->
-      <div class="bg-[#1f1f1f] p-6 rounded-lg shadow-lg" data-aos="fade-up">
-        <h3 class="text-2xl font-semibold mb-4">Linked Accounts</h3>
-        <div class="flex flex-col space-y-4">
-          <div class="flex justify-between items-center">
-            <p class="text-lg">Google</p>
-            <button class="bg-[#00bfa6] text-white py-2 px-6 rounded-lg hover:bg-[#009e8d] transition-colors">Unlink</button>
-          </div>
-          <div class="flex justify-between items-center">
-            <p class="text-lg">LinkedIn</p>
-            <button class="bg-[#00bfa6] text-white py-2 px-6 rounded-lg hover:bg-[#009e8d] transition-colors">Unlink</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Privacy Settings -->
-      <div class="bg-[#1f1f1f] p-6 rounded-lg shadow-lg" data-aos="fade-up">
-        <h3 class="text-2xl font-semibold mb-4">Privacy Settings</h3>
-        <form action="#" method="POST" class="space-y-6">
-          <div class="flex items-center space-x-4">
-            <input type="checkbox" id="profileVisibility" name="profileVisibility" class="text-[#00bfa6]">
-            <label for="profileVisibility" class="text-lg">Make profile public</label>
-          </div>
-
-          <div class="flex items-center space-x-4">
-            <input type="checkbox" id="searchVisibility" name="searchVisibility" class="text-[#00bfa6]">
-            <label for="searchVisibility" class="text-lg">Allow my profile to be found in search</label>
-          </div>
-
-          <button type="submit" class="bg-[#00bfa6] text-white py-3 px-6 rounded-lg hover:bg-[#009e8d] transition-colors">Save Privacy Settings</button>
         </form>
       </div>
     </div>
@@ -122,6 +145,29 @@
       easing: 'ease-in-out',
       once: true
     });
+  </script>
+  <script>
+    // Placeholder function to fetch user settings data
+    async function fetchSettingsData(userId) {
+      // TODO: Integrate with your backend API to fetch user settings data
+      // Replace this with your actual API call
+      console.log(`Fetching settings data for user ID: ${userId}`);
+      const response = await fetch(`/api/settings/${userId}`); // Example API endpoint
+      const data = await response.json();
+      return data.settings; // Assuming your API returns an object with a 'settings' property
+    }
+
+    // Placeholder function to display user settings data
+    function displaySettingsData(settingsData) {
+      // TODO: Populate the HTML elements with the fetched settings data
+      console.log('Displaying settings data:', settingsData);
+      // Example: document.getElementById('emailNotifications').checked = settingsData.emailNotifications;
+      // Example: document.getElementById('username').value = settingsData.username; // Assuming you add an input for username in profile settings
+    }
+
+    // Call fetchSettingsData when the page loads (replace 'placeholderUserId' with actual user ID logic)
+    const userId = 'placeholderUserId'; // TODO: Get the actual user ID (e.g., from session or local storage)
+    fetchSettingsData(userId).then(displaySettingsData);
   </script>
 </body>
 </html>

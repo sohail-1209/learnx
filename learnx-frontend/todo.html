@@ -9,9 +9,20 @@
   <style>
     html {
       scroll-behavior: smooth;
+ height: 100%;
+ overflow-y: auto;
+    }
+ body {
+ min-height: 100vh;
+ display: flex;
+ flex-direction: column;
+    }
+ .content-area {
+ flex: 1;
+ padding-bottom: 4rem; /* Add padding to the bottom */
     }
   </style>
-</head>
+</head> 
 <body class="bg-[#121212] text-white font-sans">
 
   <!-- Sidebar Navigation -->
@@ -33,8 +44,8 @@
       </div>
     </div>
 
-    <!-- Main Content -->
-    <div class="flex-1 ml-64 p-8">
+    <!-- Main Content Area -->
+ <div class="flex-1 ml-64 p-8 content-area">
       <h2 class="text-3xl md:text-4xl font-semibold mb-6" data-aos="fade-up">Your Task Planner</h2>
 
       <!-- Add New Task Form -->
@@ -71,34 +82,38 @@
           <button type="submit" class="bg-[#00bfa6] text-white py-3 px-6 rounded-lg hover:bg-[#009e8d] transition-colors">Add Task</button>
         </form>
       </div>
-
+ 
       <!-- Task List -->
       <div class="bg-[#1f1f1f] p-6 rounded-lg shadow-lg" data-aos="fade-up">
         <h3 class="text-2xl font-semibold mb-4">Your Tasks</h3>
-        <ul id="taskList" class="space-y-4">
+        <ul id="todo-list" class="space-y-4">
           <!-- Task items will be added here by JavaScript -->
-          <li class="bg-[#2d2d2d] p-4 rounded-lg flex justify-between items-center">
+          <li class="bg-[#2d2d2d] p-4 rounded-lg flex flex-col md:flex-row justify-between items-start md:items-center transition-transform transform hover:scale-[1.01]">
             <div>
               <h4 class="text-xl font-semibold">Example Learning Task <span class="text-xs text-gray-500 ml-2">Progress: 50%</span></h4>
               <p class="text-gray-400 text-sm">Type: Learning | Priority: Medium | Due: 2023-12-31</p>
               <p class="text-sm text-[#00bfa6] mt-1">Session: <a href="#" class="hover:underline">Link to Session</a></p>
               <div class="w-full bg-gray-600 rounded-full h-2.5 mt-2"><div class="bg-[#00bfa6] h-2.5 rounded-full" style="width: 50%"></div></div>
             </div>
-            <div class="flex space-x-2">
-              <button class="text-[#00bfa6] hover:underline">Update Progress</button>
-              <button class="text-red-500 hover:underline">Delete</button>
+ <div class="flex space-x-2 mt-4 md:mt-0">
+ <button class="text-[#00bfa6] hover:underline transition-colors">Update Progress</button>
+ <button class="text-red-500 hover:underline transition-colors">Delete</button>
             </div>
           </li>
-
-          <li class="bg-[#2d2d2d] p-4 rounded-lg flex justify-between items-center">
+ 
+          <li class="bg-[#2d2d2d] p-4 rounded-lg flex flex-col md:flex-row justify-between items-start md:items-center transition-transform transform hover:scale-[1.01]">
             <div>
               <h4 class="text-xl font-semibold">Example Teaching Commitment</h4>
               <p class="text-gray-400 text-sm">Type: Teaching | Priority: High | Due: 2024-01-15</p>
               <p class="text-sm text-[#00bfa6] mt-2">Progress: 80%</p>
+ <div class="w-full bg-gray-600 rounded-full h-2.5 mt-2">
+ <div class="bg-[#00bfa6] h-2.5 rounded-full" style="width: 80%;"></div>
+ </div>
             </div>
             <div class="flex space-x-2">
               <button class="text-[#00bfa6] hover:underline">Mark Complete</button>
               <button class="text-red-500 hover:underline">Archive</button>
+ <button class="text-red-500 hover:underline transition-colors">Delete</button>
             </div>
           </li>
         </ul>
@@ -130,7 +145,7 @@
       const taskPriority = document.getElementById('taskPriority').value;
       const taskSessionLink = document.getElementById('taskSessionLink').value;
 
-      const taskList = document.getElementById('taskList');
+      const taskList = document.getElementById('todo-list');
       const newTaskItem = document.createElement('li');
       newTaskItem.classList.add('bg-[#2d2d2d]', 'p-4', 'rounded-lg', 'flex', 'justify-between', 'items-center');
 
@@ -157,6 +172,35 @@
       document.getElementById('taskDueDate').value = '';
     });
 
+    // Placeholder for fetching user to-do data from the backend
+    async function fetchTodoData(userId) {
+      // In a real application, you would make an API call here,
+      // e.g., using fetch or a library like Axios:
+      // const response = await fetch(`/api/users/${userId}/todos`);
+      // const data = await response.json();
+      // return data.todos;
+
+      // Simulate fetching data
+      console.log(`Fetching to-do data for user ${userId}...`);
+      return []; // Return an empty array for now
+    }
+
+    // Function to display to-do data
+    function displayTodoData(todoItems) {
+      const todoList = document.getElementById('todo-list');
+      // Clear existing placeholder items if needed
+      // todoList.innerHTML = '';
+
+      // Loop through todoItems and create list items to display them
+      // Example: todoItems.forEach(item => { ... create list item ... });
+    }
+
+    // Call the fetch function when the page loads (with a placeholder user ID)
+    document.addEventListener('DOMContentLoaded', async () => {
+      const placeholderUserId = '123'; // Replace with actual user ID retrieval logic
+      const todoItems = await fetchTodoData(placeholderUserId);
+      displayTodoData(todoItems);
+    });
   </script>
 </body>
 </html>

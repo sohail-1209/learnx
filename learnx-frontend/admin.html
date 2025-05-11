@@ -33,42 +33,18 @@
     <!-- Main Content -->
     <div class="flex-1 ml-64 p-8">
       <h2 class="text-3xl md:text-4xl font-semibold mb-6" data-aos="fade-up">Admin Panel</h2>
-
       <!-- User Management -->
-      <div class="bg-[#1f1f1f] p-6 rounded-lg shadow-lg mb-8" data-aos="fade-up">
+      <div class="bg-[#1f1f1f] p-6 rounded-lg shadow-xl mb-8 transform transition-transform hover:scale-105" data-aos="fade-up">
         <h3 class="text-2xl font-semibold mb-4">User Management</h3>
-        <p class="text-gray-400">Manage user accounts, roles, and permissions.</p>
-        <div class="overflow-auto mt-4 bg-[#2d2d2d] p-4 rounded-lg">
-          <table class="w-full text-left">
-            <thead>
-              <tr class="text-[#00bfa6] border-b border-gray-600">
-                <th class="py-2">Username</th>
-                <th>Email</th>
-                <th>Role</th>
-                <th>Status</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr class="hover:bg-[#3a3a3a]">
-                <td class="py-2">sohail1209</td>
-                <td>sohail@example.com</td>
-                <td>Teacher</td>
-                <td>Active</td>
-                <td class="space-x-2">
-                  <button class="px-2 py-1 bg-blue-600 rounded hover:bg-blue-700 text-sm">Edit</button>
-                  <button class="px-2 py-1 bg-red-600 rounded hover:bg-red-700 text-sm">Delete</button>
-                  <button class="px-2 py-1 bg-yellow-600 rounded hover:bg-yellow-700 text-sm">Suspend</button>
-                </td>
-              </tr>
-              <!-- More rows -->
-            </tbody>
-          </table>
+        
+ <p class="text-gray-400">Manage user accounts, roles, and permissions.</p>
+ <div id="user-list" class="overflow-auto mt-4 bg-[#2d2d2d] p-4 rounded-lg">
+ <!-- User list will be populated here by JavaScript -->
         </div>
       </div>
 
-      <!-- Session Management -->
-      <div class="bg-[#1f1f1f] p-6 rounded-lg shadow-lg mb-8" data-aos="fade-up">
+ <!-- Session Management -->
+      <div class="bg-[#1f1f1f] p-6 rounded-lg shadow-xl mb-8 transform transition-transform hover:scale-105" data-aos="fade-up">
         <h3 class="text-2xl font-semibold mb-4">Session Management</h3>
         <p class="text-gray-400">Monitor and manage ongoing and scheduled sessions.</p>
         <div class="overflow-auto mt-4 bg-[#2d2d2d] p-4 rounded-lg">
@@ -101,7 +77,7 @@
       </div>
 
       <!-- Content Management -->
-      <div class="bg-[#1f1f1f] p-6 rounded-lg shadow-lg mb-8" data-aos="fade-up">
+      <div class="bg-[#1f1f1f] p-6 rounded-lg shadow-xl mb-8 transform transition-transform hover:scale-105" data-aos="fade-up">
         <h3 class="text-2xl font-semibold mb-4">Content Management</h3>
         <p class="text-gray-400">Manage platform content like skill categories, listings, and articles.</p>
         <div class="mt-4 bg-[#2d2d2d] p-4 rounded-lg">
@@ -114,14 +90,14 @@
 
       <!-- Analytics and Moderation -->
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-        <div class="bg-[#1f1f1f] p-6 rounded-lg shadow-lg" data-aos="fade-up">
+        <div class="bg-[#1f1f1f] p-6 rounded-lg shadow-xl transform transition-transform hover:scale-105" data-aos="fade-up">
           <h3 class="text-xl font-semibold mb-4">Basic Analytics</h3>
           <p class="text-gray-400">View key platform metrics and insights.</p>
           <div class="mt-4 bg-[#2d2d2d] p-4 rounded-lg text-sm text-gray-500 text-center">
             📊 Placeholder for charts (e.g., active users, popular skills)
           </div>
         </div>
-        <div class="bg-[#1f1f1f] p-6 rounded-lg shadow-lg" data-aos="fade-up">
+        <div class="bg-[#1f1f1f] p-6 rounded-lg shadow-xl transform transition-transform hover:scale-105" data-aos="fade-up">
           <h3 class="text-xl font-semibold mb-4">Moderation Tools</h3>
           <p class="text-gray-400">Tools for reviewing reports and taking action.</p>
           <div class="mt-4 bg-[#2d2d2d] p-4 rounded-lg">
@@ -154,6 +130,43 @@
       once: true
     });
   </script>
-  <script src="admin.js"></script>
+  <script>
+    // Function to simulate fetching all users (replace with backend API call)
+    async function fetchAllUsers() {
+      try {
+        // TODO: Replace with actual API call to fetch all users from your backend
+        // const response = await fetch('/api/users');
+        // const data = await response.json();
+
+        // Placeholder data for demonstration
+        const placeholderUsers = [
+          { id: 1, username: 'sohail1209', email: 'sohail@example.com', role: 'Teacher', status: 'Active' },
+          { id: 2, username: 'learner001', email: 'learner1@example.com', role: 'Student', status: 'Active' },
+          { id: 3, username: 'admin_user', email: 'admin@example.com', role: 'Admin', status: 'Active' },
+        ];
+
+        displayUsers(placeholderUsers);
+      } catch (error) {
+        console.error('Error fetching users:', error);
+        // Handle error (e.g., display an error message)
+      }
+    }
+
+    // Function to display users in the HTML
+    function displayUsers(users) {
+      const userListContainer = document.getElementById('user-list');
+      userListContainer.innerHTML = ''; // Clear existing content
+
+      // TODO: Customize the HTML structure to display user details as needed
+      users.forEach(user => {
+        const userElement = document.createElement('p');
+        userElement.textContent = `ID: ${user.id}, Username: ${user.username}, Email: ${user.email}, Role: ${user.role}, Status: ${user.status}`;
+        userListContainer.appendChild(userElement);
+      });
+    }
+
+    // Fetch users when the page loads
+    document.addEventListener('DOMContentLoaded', fetchAllUsers);
+  </script>
 </body>
 </html>

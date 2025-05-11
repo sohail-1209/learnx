@@ -27,7 +27,7 @@
   </nav>
 
   <!-- Login Form -->
-  <section class="py-24 px-6 text-center" id="login">
+  <section class="py-24 px-6 text-center flex items-center justify-center min-h-screen" id="login">
     <h2 class="text-3xl md:text-4xl font-semibold mb-8">Login to LearnX</h2>
     <div class="max-w-lg mx-auto bg-[#1f1f1f] p-8 rounded-lg shadow-lg" data-aos="fade-up">
       <form id="login-form">
@@ -40,6 +40,7 @@
         <button type="submit" class="w-full bg-[#00bfa6] py-3 rounded-full text-white font-semibold text-lg hover:bg-[#009e8d] transition-all transform hover:scale-105 duration-300">
           Login
         </button>
+        <p id="login-error-message" class="text-red-500 mt-4"></p>
       </form>
       <div class="mt-6">
         <p class="mb-4">Or login with:</p>
@@ -82,20 +83,26 @@
         password: password
       };
 
+      // Clear previous error messages
+      const errorMessageElement = document.getElementById('login-error-message');
+      errorMessageElement.textContent = '';
+
       try {
+        // TODO: Integrate with your backend login API endpoint
         const response = await fetch('http://127.0.0.1:5000/login', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify(data),
+          // TODO: Handle authentication tokens or session management here
         });
 
         const result = await response.json();
 
         if (response.ok) {
-  alert(result.message);  // Success: show the success message
-  window.location.href = "profile.html";  // Redirect to the dashboard page (or wherever you want)
+  // TODO: Handle successful login (e.g., store token, redirect to dashboard)
+  window.location.href = "dashboard.html";  // Example: Redirect to the dashboard
 } else {
   alert(result.error);  // Error: show the error message
 }
@@ -105,7 +112,6 @@
         alert('An error occurred during login');
       }
     });
-  </script> 
- <script src="login.js"></script>
+  </script>
 </body>
 </html>

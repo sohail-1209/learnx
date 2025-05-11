@@ -10,6 +10,15 @@
     html {
       scroll-behavior: smooth;
     }
+    .form-input {
+      transition: border-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+    }
+    .form-input:focus {
+      border-color: #009e8d;
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(0, 191, 166, 0.3);
+    }
+
   </style>
 </head>
 <body class="bg-[#121212] text-white font-sans">
@@ -35,7 +44,7 @@
         <!-- Role Selection -->
         <div class="mb-4">
           <label class="block text-lg font-semibold mb-2" for="role">I want to join as:</label>
-          <select name="role" id="role" class="w-full bg-[#121212] border border-[#00bfa6] rounded-lg p-3 text-white focus:outline-none focus:border-[#009e8d] hover:scale-105 transition-transform duration-200" required>
+          <select name="role" id="role" class="w-full bg-[#121212] border border-[#00bfa6] rounded-lg p-3 text-white form-input" required>
             <option value="" disabled selected>Select your role</option>
             <option value="learner">Learner</option>
             <option value="teacher">Teacher</option>
@@ -63,38 +72,39 @@
         </div>
 
         <div class="mb-4">
-          <input type="text" name="name" placeholder="Full Name" class="w-full bg-[#121212] border border-[#00bfa6] rounded-lg p-3 text-white focus:outline-none focus:border-[#009e8d] hover:scale-105 transition-transform duration-200" required>
+          <input type="text" name="name" placeholder="Full Name" class="w-full bg-[#121212] border border-[#00bfa6] rounded-lg p-3 text-white form-input" required>
         </div>
         <div class="mb-4">
-          <input type="email" name="email" placeholder="Email" class="w-full bg-[#121212] border border-[#00bfa6] rounded-lg p-3 text-white focus:outline-none focus:border-[#009e8d] hover:scale-105 transition-transform duration-200" required>
+          <input type="email" name="email" placeholder="Email" class="w-full bg-[#121212] border border-[#00bfa6] rounded-lg p-3 text-white form-input" required>
         </div>
         <div class="mb-4">
-          <input type="password" name="password" placeholder="Password" class="w-full bg-[#121212] border border-[#00bfa6] rounded-lg p-3 text-white focus:outline-none focus:border-[#009e8d] hover:scale-105 transition-transform duration-200" required>
+          <input type="password" name="password" placeholder="Password" class="w-full bg-[#121212] border border-[#00bfa6] rounded-lg p-3 text-white form-input" required>
         </div>
         <div class="mb-6">
-          <input type="password" name="confirm_password" placeholder="Confirm Password" class="w-full bg-[#121212] border border-[#00bfa6] rounded-lg p-3 text-white focus:outline-none focus:border-[#009e8d] hover:scale-105 transition-transform duration-200" required>
+          <input type="password" name="confirm_password" placeholder="Confirm Password" class="w-full bg-[#121212] border border-[#00bfa6] rounded-lg p-3 text-white form-input" required>
         </div>
         <div class="mb-4">
+          <p id="registration-message"></p>
           <label class="block text-lg font-semibold mb-2" for="profile_photo">Profile Photo (Optional):</label>
-          <input type="file" name="profile_photo" id="profile_photo" accept="image/*" class="w-full bg-[#121212] border border-[#00bfa6] rounded-lg p-3 text-white focus:outline-none focus:border-[#009e8d] hover:scale-105 transition-transform duration-200">
+          <input type="file" name="profile_photo" id="profile_photo" accept="image/*" class="w-full bg-[#121212] border border-[#00bfa6] rounded-lg p-3 text-white form-input">
         </div>
         <div class="mb-4">
-          <input type="text" name="username" placeholder="Username" class="w-full bg-[#121212] border border-[#00bfa6] rounded-lg p-3 text-white focus:outline-none focus:border-[#009e8d] hover:scale-105 transition-transform duration-200" required>
+          <input type="text" name="username" placeholder="Username" class="w-full bg-[#121212] border border-[#00bfa6] rounded-lg p-3 text-white form-input" required>
         </div>
         <div class="mb-4">
           <label class="block text-lg font-semibold mb-2" for="bio">Bio (Optional):</label>
-          <textarea name="bio" id="bio" placeholder="Tell us a little about yourself..." class="w-full bg-[#121212] border border-[#00bfa6] rounded-lg p-3 text-white focus:outline-none focus:border-[#009e8d] hover:scale-105 transition-transform duration-200"></textarea>
+          <textarea name="bio" id="bio" placeholder="Tell us a little about yourself..." class="w-full bg-[#121212] border border-[#00bfa6] rounded-lg p-3 text-white form-input"></textarea>
         </div>
         <div class="mb-6">
           <label class="block text-lg font-semibold mb-2" for="skills">Skills (Comma-separated, Optional):</label>
-          <input type="text" name="skills" id="skills" placeholder="e.g., Python, Web Development, Design" class="w-full bg-[#121212] border border-[#00bfa6] rounded-lg p-3 text-white focus:outline-none focus:border-[#009e8d] hover:scale-105 transition-transform duration-200">
+          <input type="text" name="skills" id="skills" placeholder="e.g., Python, Web Development, Design" class="w-full bg-[#121212] border border-[#00bfa6] rounded-lg p-3 text-white form-input">
         </div>
         <button type="submit" class="w-full bg-[#00bfa6] py-3 rounded-full text-white font-semibold text-lg hover:bg-[#009e8d] transition-all transform hover:scale-105 duration-300">
           Register
         </button>
       </form>
     </div>
-    <p class="mt-6 text-lg">Already have an account? <a href="login.html" class="text-[#00bfa6] hover:underline">Login</a></p>
+    <p class="mt-6 text-lg" data-aos="fade-up" data-aos-delay="100">Already have an account? <a href="login.html" class="text-[#00bfa6] hover:underline">Login</a></p>
   </section>
 
   <!-- Footer -->
@@ -111,6 +121,8 @@
       once: true
     });
   </script>
+  <!-- Add an HTML element with an ID to display registration messages (e.g., `<p id="registration-message"></p>`). Add a script tag at the end of the body. Inside the script, add a basic structure to handle form submission and display messages based on the registration attempt. Add comments explaining where to integrate the backend API for the registration process. -->
+
   <script src="register.js"></script>
   <script>
     document.getElementById('registrationForm').addEventListener('submit', function(event) {

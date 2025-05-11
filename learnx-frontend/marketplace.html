@@ -31,7 +31,7 @@
 
     <!-- Main Content -->
     <div class="flex-1 ml-64 p-8">
-      <h2 class="text-3xl md:text-4xl font-semibold mb-6" data-aos="fade-up">Skill Marketplace</h2>
+      <h2 class="text-3xl md:text-4xl font-bold mb-6 text-[#00bfa6] tracking-wide" data-aos="fade-down">Skill Marketplace</h2>
 
       <!-- Search and Filter -->
       <div class="flex flex-col md:flex-row items-center gap-6 mb-8" data-aos="fade-up">
@@ -51,12 +51,12 @@
           </select>
         </div>
         <div class="w-full md:w-auto">
-          <button class="bg-[#00bfa6] text-white py-4 px-6 rounded-lg hover:bg-[#009e8d] transition-colors">Search</button>
+          <button class="bg-[#00bfa6] text-white font-bold py-4 px-8 rounded-full hover:bg-[#009e8d] transition-all transform hover:scale-105">Search</button>
         </div>
       </div>
 
       <!-- Mentor Profile Cards -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" data-aos="fade-up">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" data-aos="fade-up">
 
         <!-- Example Mentor Card 1 -->
         <div class="bg-[#1f1f1f] p-6 rounded-lg shadow-lg hover:bg-[#2d2d2d] transition-colors">
@@ -69,9 +69,9 @@
           </div>
           <p class="text-sm text-gray-400 mb-4">Passionate designer helping others learn the fundamentals of good design.</p>
           <div class="flex flex-wrap gap-2 mb-4">
-            <span class="bg-[#00bfa6] text-white text-xs px-3 py-1 rounded-full">UI Design</span>
-            <span class="bg-[#00bfa6] text-white text-xs px-3 py-1 rounded-full">UX Research</span>
-            <span class="bg-[#00bfa6] text-white text-xs px-3 py-1 rounded-full">Figma</span>
+            <span class="bg-[#00bfa6] text-[#121212] text-xs px-3 py-1 rounded-full font-semibold">UI Design</span>
+            <span class="bg-[#00bfa6] text-[#121212] text-xs px-3 py-1 rounded-full font-semibold">UX Research</span>
+            <span class="bg-[#00bfa6] text-[#121212] text-xs px-3 py-1 rounded-full font-semibold">Figma</span>
           </div>
           <a href="book-session.html" class="block w-full text-center bg-[#00bfa6] text-white py-2 rounded-lg hover:bg-[#009e8d] transition-colors">Book Session</a>
         </div>
@@ -87,15 +87,37 @@
           </div>
           <p class="text-sm text-gray-400 mb-4">Helping beginners and intermediate learners master Python.</p>
           <div class="flex flex-wrap gap-2 mb-4">
-            <span class="bg-[#00bfa6] text-white text-xs px-3 py-1 rounded-full">Python</span>
-            <span class="bg-[#00bfa6] text-white text-xs px-3 py-1 rounded-full">Data Science</span>
-            <span class="bg-[#00bfa6] text-white text-xs px-3 py-1 rounded-full">Machine Learning</span>
+            <span class="bg-[#00bfa6] text-[#121212] text-xs px-3 py-1 rounded-full font-semibold">Python</span>
+            <span class="bg-[#00bfa6] text-[#121212] text-xs px-3 py-1 rounded-full font-semibold">Data Science</span>
+            <span class="bg-[#00bfa6] text-[#121212] text-xs px-3 py-1 rounded-full font-semibold">Machine Learning</span>
           </div>
           <a href="book-session.html" class="block w-full text-center bg-[#00bfa6] text-white py-2 rounded-lg hover:bg-[#009e8d] transition-colors">Book Session</a>
         </div>
 
         <!-- Add more mentor cards here -->
 
+      </div>
+
+      <!-- User Specific Marketplace Data Sections -->
+      <div class="mt-8" data-aos="fade-up">
+        <h3 class="text-2xl font-semibold mb-4 text-[#00bfa6]">Your Listings</h3>
+        <div id="user-listings" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- User listings will be populated here -->
+        </div>
+      </div>
+
+      <div class="mt-8" data-aos="fade-up">
+        <h3 class="text-2xl font-semibold mb-4 text-[#00bfa6]">Your Purchase History</h3>
+        <div id="purchase-history" class="space-y-4">
+          <!-- Purchase history will be populated here -->
+        </div>
+      </div>
+
+      <div class="mt-8" data-aos="fade-up">
+        <h3 class="text-2xl font-semibold mb-4 text-[#00bfa6]">Recommended for You</h3>
+        <div id="recommended-items" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Recommended items will be populated here -->
+        </div>
       </div>
     </div>
   </div>
@@ -114,6 +136,43 @@
       once: true
     });
   </script>
-  <script src="marketplace.js"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      // Get the user_id from localStorage or wherever you store it
+      const userId = localStorage.getItem('user_id'); // Replace with your actual way of getting user ID
+
+      if (userId) {
+        fetchMarketplaceData(userId);
+      } else {
+        // Handle case where user is not logged in, maybe hide user-specific sections or redirect
+        console.log("User not logged in. Hiding user-specific marketplace sections.");
+        document.getElementById('user-listings').parentElement.style.display = 'none';
+        document.getElementById('purchase-history').parentElement.style.display = 'none';
+        document.getElementById('recommended-items').parentElement.style.display = 'none';
+      }
+    });
+
+    // Placeholder function to fetch user-specific marketplace data
+    function fetchMarketplaceData(userId) {
+      // TODO: Integrate with your backend API to fetch user listings, purchase history, and recommendations
+      console.log(`Fetching marketplace data for user: ${userId}`);
+      // Once data is fetched, call displayMarketplaceData(data);
+    }
+
+    // Placeholder function to display user-specific marketplace data
+    function displayMarketplaceData(userData) {
+      // TODO: Populate the HTML elements with the fetched user marketplace data
+      console.log("Displaying marketplace data:", userData);
+      // Example: Populating user listings
+      // const userListingsElement = document.getElementById('user-listings');
+      // userData.listings.forEach(listing => {
+      //   const listingElement = document.createElement('div');
+      //   listingElement.textContent = listing.title;
+      //   userListingsElement.appendChild(listingElement);
+      // });
+      // Similarly populate purchase-history and recommended-items
+    }
+  </script>
 </body>
 </html>

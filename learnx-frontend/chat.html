@@ -11,9 +11,24 @@
       scroll-behavior: smooth;
     }
   </style>
+  <style>
+    /* Custom Scrollbar */
+    .overflow-y-scroll::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .overflow-y-scroll::-webkit-scrollbar-track {
+      background: #2d2d2d;
+      border-radius: 10px;
+    }
+
+    .overflow-y-scroll::-webkit-scrollbar-thumb {
+      background: #00bfa6;
+      border-radius: 10px;
+    }
+  </style>
 </head>
 <body class="bg-[#121212] text-white font-sans">
-
   <!-- Sidebar Navigation -->
   <div class="flex">
     <div class="w-64 bg-[#1f1f1f] p-6 h-screen fixed top-0 left-0">
@@ -32,34 +47,38 @@
     <!-- Main Content -->
     <div class="flex-1 ml-64 p-8">
       <h2 class="text-3xl md:text-4xl font-semibold mb-6" data-aos="fade-up">Chat with Mentors and Peers</h2>
+      <div class="flex items-center space-x-4 mb-6">
+        <img id="user-profile-pic" src="https://via.placeholder.com/50" alt="User Profile Picture" class="w-12 h-12 rounded-full">
+        <span class="text-xl font-semibold" id="user-name">Your Name</span>
+      </div>
 
-      <div class="flex flex-col md:flex-row gap-8">
+      <div class="flex flex-col md:flex-row gap-8 h-[calc(100vh-200px)]">
         <!-- Chat List / Sidebar -->
-        <div class="w-full md:w-1/3 bg-[#1f1f1f] p-6 rounded-lg shadow-lg" data-aos="fade-right">
+        <div class="w-full md:w-1/3 bg-[#1f1f1f] p-6 rounded-lg shadow-lg overflow-y-auto" data-aos="fade-right">
           <h3 class="text-xl font-semibold mb-4">Conversations</h3>
           <ul class="space-y-4">
             <!-- Example One-on-One Chat -->
-            <li class="flex items-center space-x-4 bg-[#2d2d2d] p-4 rounded-lg hover:bg-[#00bfa6] transition-colors cursor-pointer">
+            <li class="flex items-center space-x-4 bg-[#2d2d2d] p-4 rounded-lg hover:bg-[#00bfa6] transition-colors cursor-pointer transform hover:scale-105">
               <img src="https://via.placeholder.com/50" alt="User" class="w-10 h-10 rounded-full">
               <div>
                 <h4 class="text-lg font-semibold">John Doe</h4>
-                <p class="text-sm text-gray-400">Last message preview...</p>
+                <p class="text-sm text-gray-400 truncate">Last message preview...</p>
               </div>
             </li>
             <!-- Example Group Chat -->
-            <li class="flex items-center space-x-4 bg-[#2d2d2d] p-4 rounded-lg hover:bg-[#00bfa6] transition-colors cursor-pointer">
+            <li class="flex items-center space-x-4 bg-[#2d2d2d] p-4 rounded-lg hover:bg-[#00bfa6] transition-colors cursor-pointer transform hover:scale-105">
               <img src="https://via.placeholder.com/50" alt="Group" class="w-10 h-10 rounded-full">
               <div>
                 <h4 class="text-lg font-semibold">JavaScript Study Group</h4>
-                <p class="text-sm text-gray-400">New message in group...</p>
+                <p class="text-sm text-gray-400 truncate">New message in group...</p>
               </div>
             </li>
             <!-- Example Session-Based Chat -->
-             <li class="flex items-center space-x-4 bg-[#2d2d2d] p-4 rounded-lg hover:bg-[#00bfa6] transition-colors cursor-pointer">
+             <li class="flex items-center space-x-4 bg-[#2d2d2d] p-4 rounded-lg hover:bg-[#00bfa6] transition-colors cursor-pointer transform hover:scale-105">
               <img src="https://via.placeholder.com/50" alt="Session" class="w-10 h-10 rounded-full">
               <div>
                 <h4 class="text-lg font-semibold">UI/UX Session with Jane</h4>
-                <p class="text-sm text-gray-400">Regarding our next session...</p>
+                <p class="text-sm text-gray-400 truncate">Regarding our next session...</p>
               </div>
             </li>
           </ul>
@@ -67,29 +86,27 @@
 
         <!-- Chat Window -->
         <div class="w-full md:w-2/3 bg-[#1f1f1f] p-6 rounded-lg shadow-lg" data-aos="fade-left">
-          <h3 class="text-xl font-semibold mb-4">Chat with John Doe</h3> <!-- Dynamic Chat Title -->
-          <div class="h-80 overflow-y-scroll mb-6 flex flex-col-reverse">
-            </div>
-          </div>
-          <!-- Chat Messages -->
-          <div class="flex items-start mb-4">
-            <img src="https://via.placeholder.com/50" alt="User" class="w-12 h-12 rounded-full">
-            <div class="ml-4 bg-[#1f1f1f] p-4 rounded-lg max-w-xs">
-              <p class="text-sm">Hey, I’m looking to get started with JavaScript. Any recommendations?</p>
-            </div>
-          </div>
-          <div class="flex items-start justify-end mb-4">
-            <div class="ml-4 bg-[#00bfa6] p-4 rounded-lg max-w-xs text-white">
-              <p class="text-sm">I recommend starting with some basic courses on JavaScript fundamentals. I can guide you through it.</p>
-            </div>
-            <img src="https://via.placeholder.com/50" alt="Mentor" class="w-12 h-12 rounded-full">
-          </div>
-        </div>
+          <h3 class="text-xl font-semibold mb-4 border-b border-[#2d2d2d] pb-4">Chat with John Doe</h3> <!-- Dynamic Chat Title -->
+          <div class="h-96 overflow-y-scroll mb-6 flex flex-col-reverse space-y-4">
+            <div id="chat-messages">
+              <!-- Chat messages will be loaded here -->
 
-        <!-- Message Input -->
-        <div class="flex items-center">
-          <input type="text" placeholder="Type a message..." class="w-full p-4 bg-[#2d2d2d] text-white rounded-lg focus:outline-none">
-          <button class="ml-4 bg-[#00bfa6] text-white py-3 px-6 rounded-lg hover:bg-[#009e8d] transition-colors">Send</button>
+            <!-- Example Incoming Message -->
+            <div class="flex items-start mb-4">
+              <img src="https://via.placeholder.com/50" alt="User" class="w-10 h-10 rounded-full mr-3">
+              <div class="bg-[#2d2d2d] p-3 rounded-lg max-w-xs text-sm">
+                Hey, I’m looking to get started with JavaScript. Any recommendations?
+              </div>
+            </div>
+            <!-- Example Outgoing Message -->
+            <div class="flex justify-end mb-4">
+              <div class="bg-[#00bfa6] text-white p-3 rounded-lg max-w-xs text-sm">
+                I recommend starting with some basic courses on JavaScript fundamentals. I can guide you through it.
+              </div>
+              <img src="https://via.placeholder.com/50" alt="Mentor" class="w-10 h-10 rounded-full ml-3">
+            </div>
+          </div>
+            </div>
         </div>
       </div>
     </div>
@@ -109,6 +126,93 @@
       once: true
     });
   </script>
-  <script src="chat.js"></script>
+  <script>
+     document.addEventListener("DOMContentLoaded", function() {
+      // Get the user_id from localStorage or wherever you store it
+      const userId = localStorage.getItem('user_id'); // Replace with your actual user ID retrieval logic
+
+      if (userId) {
+        fetchChatUserData(userId);
+      } else {
+        // Redirect to login or show a message if user is not logged in
+        console.log("User not logged in.");
+        // window.location.href = 'login.html'; // Example: redirect to login
+      }
+    });
+
+    // Placeholder function to simulate fetching user and chat data
+    function fetchChatUserData(userId) {
+      // TODO: Replace with actual backend API call to fetch user profile and chat messages
+      console.log(`Fetching chat data for user ID: ${userId}`);
+
+      // Simulate fetched data
+      const userData = {
+        name: "Logged In User",
+        profilePic: "https://via.placeholder.com/50", // Replace with actual image URL
+        messages: [ // Messages should be in chronological order for display purposes
+          // Example message structure (you'll get this from your backend)
+          { text: "Hey, I’m looking to get started with JavaScript. Any recommendations?", sender: "other", time: "10:00 AM" },
+          { text: "I recommend starting with some basic courses on JavaScript fundamentals. I can guide you through it.", sender: "you", time: "10:01 AM" }
+        ]
+      };
+      displayChatData(userData);
+    }
+
+    // Function to display user profile and chat data
+    function displayChatData(userData) {
+      document.getElementById('user-name').textContent = userData.name;
+      document.getElementById('user-profile-pic').src = userData.profilePic;
+
+      const chatMessagesElement = document.getElementById('chat-messages');
+      chatMessagesElement.innerHTML = ''; // Clear existing messages before populating
+
+      userData.messages.forEach(message => {
+        const messageElement = document.createElement('div');
+        messageElement.classList.add('flex', 'mb-4');
+
+        if (message.sender === 'you') {
+          messageElement.classList.add('justify-end');
+        } else {
+           messageElement.classList.add('items-start');
+        }
+
+        const messageContent = document.createElement('div');
+        messageContent.classList.add('p-3', 'rounded-lg', 'max-w-xs', 'text-sm');
+
+        if (message.sender === 'you') {
+          messageContent.classList.add('bg-[#00bfa6]', 'text-white', 'ml-3');
+        } else {
+          messageContent.classList.add('bg-[#2d2d2d]', 'mr-3');
+        }
+
+        messageContent.innerHTML = `<p class="text-sm">${message.text}</p>`;
+
+        if (message.sender !== 'you') {
+          // Add sender's profile picture for incoming messages
+           const senderImg = document.createElement('img');
+           senderImg.src = "https://via.placeholder.com/50"; // TODO: Replace with actual sender's profile picture URL from data
+           senderImg.alt = "Sender Profile";
+           senderImg.classList.add('w-10', 'h-10', 'rounded-full');
+          // Add user's profile picture for outgoing messages
+           const userImg = document.createElement('img');
+           userImg.src = userData.profilePic; // Your profile picture
+           userImg.alt = "Your Profile";
+           userImg.classList.add('w-12', 'h-12', 'rounded-full');
+           messageElement.appendChild(userImg);
+        }
+ messageElement.appendChild(messageContent);
+
+         if (message.sender === 'you') {
+           // Add user's profile picture for outgoing messages
+           const userImg = document.createElement('img');
+           userImg.src = userData.profilePic; // Your profile picture
+           userImg.alt = "Your Profile";
+           userImg.classList.add('w-10', 'h-10', 'rounded-full');
+           messageElement.appendChild(userImg);
+        }
+        chatMessagesElement.appendChild(messageElement);
+      });
+    }
+  </script>
 </body>
 </html>

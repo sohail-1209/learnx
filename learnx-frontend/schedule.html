@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Schedule - LearnX</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <link href="https://unpkg.com/aos@next/dist/aos.css" rel="stylesheet">
   <style>
     html {
       scroll-behavior: smooth;
@@ -33,14 +33,14 @@
     <div class="flex-1 ml-64 p-8">
       <h2 class="text-3xl md:text-4xl font-semibold mb-6" data-aos="fade-up">Your Schedule</h2>
 
-      <!-- Calendar/Schedule Area -->
-      <div class="bg-[#1f1f1f] rounded-lg p-6 shadow-lg" data-aos="fade-up">
+      <!-- Schedule Content -->
+      <div class="bg-[#1f1f1f] rounded-lg p-8 shadow-lg" data-aos="fade-up">
         <h3 class="text-xl font-semibold mb-4">Upcoming Sessions</h3>
 
         <!-- Calendar Display Area (Placeholder for now, future integration here) -->
         <div id="calendar" class="h-96 bg-[#2d2d2d] rounded-lg mb-6">
           <!-- This is where a calendar widget or view will be integrated -->
-          <p>Calendar integration area. Upcoming sessions will be displayed here.</p>
+          <p class="p-4 text-center text-gray-400">Calendar integration area. Upcoming sessions will be displayed here.</p>
         </div>
 
         <!-- List View of Upcoming Sessions -->
@@ -48,20 +48,35 @@
           <h4 class="text-lg font-semibold mb-3">Upcoming Sessions List</h4>
           <ul id="session-list" class="space-y-3">
             <!-- Session items will be populated here -->
-            <li class="bg-[#2d2d2d] p-4 rounded-lg flex justify-between items-center">
+            <li class="bg-[#2d2d2d] p-4 rounded-lg flex justify-between items-center hover:bg-[#3a3a3a] transition duration-300 ease-in-out">
               <div>
                 <p class="text-lg font-medium">JavaScript Fundamentals</p>
                 <p class="text-sm text-gray-400">with John Doe</p>
               </div>
-              <span class="text-[#00bfa6]">Tomorrow, 10:00 AM</span>
+              <span class="text-[#00bfa6] text-sm">Tomorrow, 10:00 AM</span>
             </li>
-            <li class="bg-[#2d2d2d] p-4 rounded-lg flex justify-between items-center">
+            <li class="bg-[#2d2d2d] p-4 rounded-lg flex justify-between items-center hover:bg-[#3a3a3a] transition duration-300 ease-in-out">
               <div>
                 <p class="text-lg font-medium">UI/UX Design Review</p>
                 <p class="text-sm text-gray-400">with Jane Smith</p>
               </div>
-              <span class="text-[#00bfa6]">Wednesday, 2:00 PM</span>
+              <span class="text-[#00bfa6] text-sm">Wednesday, 2:00 PM</span>
             </li>
+          </ul>
+        </div>
+
+        <!-- Availability Section (Placeholder) -->
+        <div id="availability" class="mt-6">
+          <h4 class="text-lg font-semibold mb-3">Your Availability</h4>
+          <p class="text-gray-400">Availability information will be displayed here.</p>
+          <!-- More detailed availability display can be added here -->
+        </div>
+
+        <!-- Scheduling History Section (Placeholder) -->
+        <div id="scheduling-history" class="mt-6">
+          <h4 class="text-lg font-semibold mb-3">Scheduling History</h4>
+          <ul id="history-list" class="space-y-3">
+            <!-- History items will be populated here -->
           </ul>
         </div>
 
@@ -75,12 +90,84 @@
   </footer>
 
   <!-- AOS Animation Init -->
-  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
   <script>
     AOS.init({
       duration: 800,
       easing: 'ease-in-out',
       once: true
+    });
+  </script>
+
+  <script>
+    // Placeholder function to simulate fetching user scheduling data
+    async function fetchScheduleData(userId) {
+      // TODO: Replace with actual API call to your backend
+      console.log(`Fetching schedule data for user: ${userId}`);
+
+      // Simulate fetching data
+      const response = await new Promise(resolve => setTimeout(() => resolve({
+        upcomingSessions: [
+          { id: 1, title: 'React Basics', instructor: 'Alice', time: 'Today, 3:00 PM' },
+          { id: 2, title: 'Node.js Fundamentals', instructor: 'Bob', time: 'Friday, 11:00 AM' }
+        ],
+        availability: 'Weekdays, 9 AM - 5 PM',
+        history: [
+          { id: 3, title: 'HTML/CSS Workshop', instructor: 'Charlie', time: 'Last Monday' }
+        ]
+      }), 1000));
+
+      return response;
+    }
+
+    // Function to display user scheduling data
+    function displayScheduleData(userData) {
+      // TODO: Populate the HTML elements with the fetched data
+      console.log('Displaying schedule data:', userData);
+
+      // Example: Populate upcoming sessions (replace with actual logic to clear and add sessions)
+      const sessionList = document.getElementById('session-list');
+      // Clear existing placeholder sessions if any
+      sessionList.innerHTML = '';
+      userData.upcomingSessions.forEach(session => {
+        const listItem = document.createElement('li');
+        listItem.classList.add('bg-[#2d2d2d]', 'p-4', 'rounded-lg', 'flex', 'justify-between', 'items-center');
+        listItem.innerHTML = ` 
+            <div>
+              <p class="text-lg font-medium">${session.title}</p>
+              <p class="text-sm text-gray-400">with ${session.instructor}</p>
+            </div>
+            <span class="text-[#00bfa6]">${session.time}</span>
+          `;
+        sessionList.appendChild(listItem);
+      });
+
+      // Example: Display availability
+      document.getElementById('availability').querySelector('p').textContent = `Your availability: ${userData.availability}`;
+
+      // Example: Populate scheduling history (replace with actual logic)
+      const historyList = document.getElementById('history-list');
+      userData.history.forEach(item => {
+        const listItem = document.createElement('li');
+        listItem.classList.add('bg-[#2d2d2d]', 'p-4', 'rounded-lg', 'flex', 'justify-between', 'items-center');
+        listItem.innerHTML = ` 
+            <div>
+              <p class="text-lg font-medium">${item.title}</p>
+              <p class="text-sm text-gray-400">with ${item.instructor}</p>
+            </div>
+            <span class="text-sm text-gray-400">${item.time}</span>
+          `;
+        historyList.appendChild(listItem);
+      });
+    }
+
+    // Call the fetch function when the page loads
+    document.addEventListener('DOMContentLoaded', () => {
+      // TODO: Get the actual user ID (e.g., from localStorage or a cookie)
+      const placeholderUserId = 'user123';
+      fetchScheduleData(placeholderUserId)
+        .then(displayScheduleData)
+        .catch(error => console.error('Error fetching schedule data:', error));
     });
   </script>
 </body>

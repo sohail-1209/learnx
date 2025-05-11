@@ -24,7 +24,7 @@
           <li><a href=learn.html class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Learn</a></li>
           <li><a href=profile.html class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Profile</a></li>
           <li><a href=chat.html class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Chat</a></li>
-          <li><a href=settigs.html class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Settings</a></li>
+ <li><a href=settings.html class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Settings</a></li>
         </ul>
       </div>
     </div>
@@ -33,19 +33,21 @@
     <div class="flex-1 ml-64 p-8">
       <h2 class="text-3xl md:text-4xl font-semibold mb-6" data-aos="fade-up">Welcome to Your Dashboard</h2>
 
-      <!-- Notifications -->
+ <!-- Notifications -->
       <div class="bg-[#1f1f1f] rounded-lg p-6 mb-8 shadow-lg" data-aos="fade-up">
         <h3 class="text-xl font-semibold mb-4">Latest Notifications</h3>
-        <ul>
+        <ul id="notifications">
+          <!-- Notifications will be populated here by JavaScript -->
           <li class="mb-2">New learning opportunity: Python Bootcamp starting soon! <span class="text-[#00bfa6]">Join now</span></li>
           <li class="mb-2">You have a new message from a potential mentor.</li>
           <li>Reminder: Your next mentoring session is scheduled for tomorrow at 10:00 AM.</li>
         </ul>
       </div>
 
-      <!-- Progress Tracking -->
-      <div class="bg-[#1f1f1f] rounded-lg p-6 mb-8 shadow-lg" data-aos="fade-up">
+ <!-- Progress Tracking -->
+      <div id="course-progress" class="bg-[#1f1f1f] rounded-lg p-6 mb-8 shadow-lg" data-aos="fade-up">
         <h3 class="text-xl font-semibold mb-4">Your Progress</h3>
+        <!-- Course progress will be populated here by JavaScript -->
         <div class="flex items-center justify-between mb-2">
           <p class="text-lg">JavaScript Fundamentals</p>
           <div class="w-1/2 bg-[#2d2d2d] rounded-full h-4">
@@ -62,26 +64,28 @@
         </div>
       </div>
 
-      <!-- User Stats -->
+ <!-- User Stats -->
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-        <div class="bg-[#1f1f1f] p-6 rounded-lg shadow-lg" data-aos="fade-up">
+        <div id="user-skills" class="bg-[#1f1f1f] p-6 rounded-lg shadow-lg" data-aos="fade-up">
           <h3 class="text-xl font-semibold mb-4">Your Skills</h3>
-          <ul>
+          <ul id="skills-list">
+            <!-- Skills will be populated here by JavaScript -->
             <li>Python Programming</li>
             <li>Web Development</li>
             <li>Data Science</li>
           </ul>
         </div>
-        <div class="bg-[#1f1f1f] p-6 rounded-lg shadow-lg" data-aos="fade-up">
+        <div id="ongoing-sessions" class="bg-[#1f1f1f] p-6 rounded-lg shadow-lg" data-aos="fade-up">
           <h3 class="text-xl font-semibold mb-4">Ongoing Sessions</h3>
-          <ul>
-            <li>Mentoring session with Jane (Web Development) - 3:00 PM</li>
+ <ul id="sessions-list">
+            <!-- Ongoing sessions will be populated here by JavaScript -->
+ <li>Mentoring session with Jane (Web Development) - 3:00 PM</li>
             <li>Learning session on Python - 5:00 PM</li>
           </ul>
         </div>
       </div>
 
-      <!-- Quick Actions -->
+ <!-- Quick Actions -->
       <div class="bg-[#1f1f1f] p-6 rounded-lg shadow-lg mb-8" data-aos="fade-up">
         <h3 class="text-xl font-semibold mb-4">Quick Actions</h3>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -90,10 +94,12 @@
           <a href="schedule.html" class="bg-[#00bfa6] text-white text-center py-3 px-4 rounded-lg hover:bg-[#009e8d] transition-colors">View Schedule</a>
           <a href="chat.html" class="bg-[#00bfa6] text-white text-center py-3 px-4 rounded-lg hover:bg-[#009e8d] transition-colors">Messages</a>
         </div>
-      <!-- Upcoming Opportunities -->
-      <div class="bg-[#1f1f1f] p-6 rounded-lg shadow-lg" data-aos="fade-up">
+      </div>
+ <!-- Upcoming Opportunities -->
+      <div id="upcoming-opportunities" class="bg-[#1f1f1f] p-6 rounded-lg rounded-lg shadow-lg mt-8" data-aos="fade-up">
         <h3 class="text-xl font-semibold mb-4">Upcoming Opportunities</h3>
-        <ul>
+        <ul id="opportunities-list">
+          <!-- Upcoming opportunities will be populated here by JavaScript -->
           <li>Join a group study for "Introduction to Machine Learning" - 15th May</li>
           <li>Becoming a mentor for beginner web developers - Apply by 18th May</li>
         </ul>
@@ -115,6 +121,45 @@
       once: true
     });
   </script>
-  <script src="dashboard.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      // Placeholder user ID - replace with actual user ID retrieval logic
+      const userId = 'placeholder-user-id'; 
+
+      // Function to fetch user dashboard data from the backend
+      async function fetchDashboardData(userId) {
+        // TODO: Replace with actual API call to your Express.js backend
+        // Example: 
+        // const response = await fetch(`/api/dashboard/${userId}`);
+        // const data = await response.json();
+        // return data;
+
+        // Simulating data for demonstration
+        return {
+          recentActivity: [{ text: 'Completed "Introduction to HTML"', time: '2 hours ago' }],
+          courseProgress: [{ title: 'CSS Basics', progress: 60 }],
+          notifications: ['Your session with Alex is confirmed.']
+        };
+      }
+
+      // Function to display dashboard data
+      function displayDashboardData(userData) {
+        // TODO: Implement logic to populate HTML elements with user data
+        // Example:
+        // document.getElementById('recent-activity').innerHTML = userData.recentActivity.map(activity => `<p>${activity.text} - ${activity.time}</p>`).join('');
+        // document.getElementById('course-progress').innerHTML = userData.courseProgress.map(course => `<p>${course.title}: ${course.progress}%</p>`).join('');
+        // document.getElementById('notifications').innerHTML = userData.notifications.map(notification => `<li>${notification}</li>`).join('');
+      }
+
+      // Fetch and display data when the page loads
+      fetchDashboardData(userId)
+        .then(data => {
+          displayDashboardData(data);
+        })
+        .catch(error => {
+          console.error('Error fetching dashboard data:', error);
+        });
+    });
+  </script>
 </body>
 </html>

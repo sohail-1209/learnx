@@ -23,8 +23,8 @@
           <li><a href=teach.html class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Teach</a></li>
           <li><a href=learn.html class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Learn</a></li>
           <li><a href=profile.html class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Profile</a></li>
-          <li><a href=chat.html class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Chat</a></li>
-          <li><a href=settigs.html class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Settings</a></li>
+          <li><a href=chat.html class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Chat</a></li>li>
+ <li><a href=settings.html class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Settings</a></li>
         </ul>
       </div>
     </div>
@@ -33,61 +33,58 @@
     <div class="flex-1 ml-64 p-8">
       <h2 class="text-3xl md:text-4xl font-semibold mb-6" data-aos="fade-up">Become a Mentor</h2>
 
-      <!-- Categories -->
-      <div class="grid grid-cols-2 md:grid-cols-3 gap-6 mb-8" data-aos="fade-up">
-        <div class="bg-[#1f1f1f] p-6 rounded-lg shadow-lg text-center hover:bg-[#00bfa6] transition-colors">
-          <h3 class="text-xl font-semibold">Coding</h3>
-          <p class="mt-2 text-lg">Teach coding languages like Python, JavaScript, etc.</p>
-          <a href="#create-listing" class="text-[#00bfa6] mt-4 inline-block hover:underline">Start Teaching</a>
-        </div>
-        <div class="bg-[#1f1f1f] p-6 rounded-lg shadow-lg text-center hover:bg-[#00bfa6] transition-colors">
-          <h3 class="text-xl font-semibold">Design</h3>
-          <p class="mt-2 text-lg">Teach graphic design, UI/UX, etc.</p>
-          <a href="#create-listing" class="text-[#00bfa6] mt-4 inline-block hover:underline">Start Teaching</a>
-        </div>
-        <div class="bg-[#1f1f1f] p-6 rounded-lg shadow-lg text-center hover:bg-[#00bfa6] transition-colors">
-          <h3 class="text-xl font-semibold">Music</h3>
-          <p class="mt-2 text-lg">Share your knowledge of music and instruments.</p>
-          <a href="#create-listing" class="text-[#00bfa6] mt-4 inline-block hover:underline">Start Teaching</a>
-        </div>
-        <div class="bg-[#1f1f1f] p-6 rounded-lg shadow-lg text-center hover:bg-[#00bfa6] transition-colors">
-          <h3 class="text-xl font-semibold">Fitness</h3>
-          <p class="mt-2 text-lg">Guide others through fitness routines and wellness tips.</p>
-          <a href="#create-listing" class="text-[#00bfa6] mt-4 inline-block hover:underline">Start Teaching</a>
-        </div>
-        <div class="bg-[#1f1f1f] p-6 rounded-lg shadow-lg text-center hover:bg-[#00bfa6] transition-colors">
-          <h3 class="text-xl font-semibold">Business</h3>
-          <p class="mt-2 text-lg">Share your business insights and strategies.</p>
-          <a href="#create-listing" class="text-[#00bfa6] mt-4 inline-block hover:underline">Start Teaching</a>
-        </div>
-        <div class="bg-[#1f1f1f] p-6 rounded-lg shadow-lg text-center hover:bg-[#00bfa6] transition-colors">
-          <h3 class="text-xl font-semibold">Language</h3>
-          <p class="mt-2 text-lg">Teach new languages to learners.</p>
-          <a href="#create-listing" class="text-[#00bfa6] mt-4 inline-block hover:underline">Start Teaching</a>
-        </div>
+ <!-- User-specific Teaching Data Sections -->
+      <div id="teaching-profile" class="bg-[#2d2d2d] p-6 rounded-lg shadow-lg mb-8" data-aos="fade-up">
+        <h3 class="text-xl font-semibold mb-4">Your Teaching Profile</h3>
+ <!-- Teaching profile details will be loaded here -->
       </div>
 
-      <!-- Teaching Listings -->
-      <h2 class="text-3xl md:text-4xl font-semibold mb-6" data-aos="fade-up">Your Teaching Listings</h2>
-      <div class="bg-[#1f1f1f] p-6 rounded-lg shadow-lg" data-aos="fade-up">
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          <!-- Example Teaching Listing -->
-          <div class="bg-[#2d2d2d] p-6 rounded-lg hover:bg-[#00bfa6] transition-colors">
-            <h4 class="text-xl font-semibold">JavaScript for Beginners</h4>
-            <p class="mt-2 text-lg">Learn the fundamentals of JavaScript with hands-on exercises and real-world examples.</p>
-            <a href="#edit-listing" class="text-[#00bfa6] mt-4 inline-block hover:underline">Edit</a>
-          </div>
-          <div class="bg-[#2d2d2d] p-6 rounded-lg hover:bg-[#00bfa6] transition-colors">
-            <h4 class="text-xl font-semibold">UI/UX Design</h4>
-            <p class="mt-2 text-lg">Master the principles of User Interface and User Experience design.</p>
-            <a href="#edit-listing" class="text-[#00bfa6] mt-4 inline-block hover:underline">Edit</a>
-          </div>
-        </div>
+      <h2 class="text-3xl md:text-4xl font-semibold mb-6" data-aos="fade-up">Your Courses</h2>
+      <div id="my-courses" class="bg-[#2d2d2d] p-6 rounded-lg shadow-lg mb-8" data-aos="fade-up">
+ <!-- Categories -->
+ <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8" data-aos="fade-up">
+ <div class="bg-[#1f1f1f] p-6 rounded-lg shadow-lg text-center hover:bg-[#00bfa6] transition-all duration-300 transform hover:scale-105">
+ <h3 class="text-xl font-semibold">Coding</h3>
+ <p class="mt-2 text-lg text-gray-300">Teach coding languages like Python, JavaScript, etc.</p>
+ <a href="#create-listing" class="text-[#00bfa6] mt-4 inline-block hover:underline">Start Teaching</a>
+ </div>
+ <div class="bg-[#1f1f1f] p-6 rounded-lg shadow-lg text-center hover:bg-[#00bfa6] transition-all duration-300 transform hover:scale-105">
+ <h3 class="text-xl font-semibold">Design</h3>
+ <p class="mt-2 text-lg text-gray-300">Teach graphic design, UI/UX, etc.</p>
+ <a href="#create-listing" class="text-[#00bfa6] mt-4 inline-block hover:underline">Start Teaching</a>
+ </div>
+ <div class="bg-[#1f1f1f] p-6 rounded-lg shadow-lg text-center hover:bg-[#00bfa6] transition-all duration-300 transform hover:scale-105">
+ <h3 class="text-xl font-semibold">Music</h3>
+ <p class="mt-2 text-lg text-gray-300">Share your knowledge of music and instruments.</p>
+ <a href="#create-listing" class="text-[#00bfa6] mt-4 inline-block hover:underline">Start Teaching</a>
+ </div>
+ <div class="bg-[#1f1f1f] p-6 rounded-lg shadow-lg text-center hover:bg-[#00bfa6] transition-all duration-300 transform hover:scale-105">
+ <h3 class="text-xl font-semibold">Fitness</h3>
+ <p class="mt-2 text-lg text-gray-300">Guide others through fitness routines and wellness tips.</p>
+ <a href="#create-listing" class="text-[#00bfa6] mt-4 inline-block hover:underline">Start Teaching</a>
+ </div>
+ <div class="bg-[#1f1f1f] p-6 rounded-lg shadow-lg text-center hover:bg-[#00bfa6] transition-all duration-300 transform hover:scale-105">
+ <h3 class="text-xl font-semibold">Business</h3>
+ <p class="mt-2 text-lg text-gray-300">Share your business insights and strategies.</p>
+ <a href="#create-listing" class="text-[#00bfa6] mt-4 inline-block hover:underline">Start Teaching</a>
+ </div>
+ <div class="bg-[#1f1f1f] p-6 rounded-lg shadow-lg text-center hover:bg-[#00bfa6] transition-all duration-300 transform hover:scale-105">
+ <h3 class="text-xl font-semibold">Language</h3>
+ <p class="mt-2 text-lg text-gray-300">Teach new languages to learners.</p>
+ <a href="#create-listing" class="text-[#00bfa6] mt-4 inline-block hover:underline">Start Teaching</a>
+ </div>
       </div>
 
-      <!-- Add New Listing -->
-      <div class="mt-8">
-        <a href="#create-listing" class="bg-[#00bfa6] text-white py-3 px-6 rounded-lg hover:bg-[#009e8d] transition-colors">Create New Listing</a>
+      </div>
+
+      <h2 class="text-3xl md:text-4xl font-semibold mb-6" data-aos="fade-up">Student Feedback</h2>
+      <div id="student-feedback" class="bg-[#2d2d2d] p-6 rounded-lg shadow-lg mb-8" data-aos="fade-up">
+ <!-- Student feedback will be loaded here -->
+      </div>
+
+      <h2 class="text-3xl md:text-4xl font-semibold mb-6" data-aos="fade-up">Earnings</h2>
+      <div id="earnings" class="bg-[#2d2d2d] p-6 rounded-lg shadow-lg mb-8" data-aos="fade-up">
+ <!-- Earnings details will be loaded here -->
       </div>
     </div>
   </div>
@@ -106,5 +103,43 @@
       once: true
     });
   </script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      // Get the user_id from localStorage or wherever it's stored
+      const userId = localStorage.getItem('user_id'); // Replace with your actual method
+
+      if (userId) {
+        fetchTeachData(userId);
+      } else {
+        // Handle case where user is not logged in or user_id is not available
+        console.log("User not logged in.");
+        // Optionally redirect to login page
+        // window.location.href = 'login.html';
+      }
+    });
+
+    // Placeholder function to fetch user teaching data
+    async function fetchTeachData(userId) {
+      // Replace with your actual API call to the backend
+      console.log(`Fetching teaching data for user: ${userId}`);
+      const response = await fetch(`/api/teach/${userId}`); // Example API endpoint
+      const userData = await response.json();
+      displayTeachData(userData);
+    }
+
+    // Placeholder function to display user teaching data
+    function displayTeachData(userData) {
+      // Populate the HTML elements with the fetched user data
+      console.log("Displaying teaching data:", userData);
+      // Example:
+      // document.getElementById('teaching-profile').innerHTML = `... display profile data ...`;
+      // document.getElementById('my-courses').innerHTML = `... display courses ...`;
+      // document.getElementById('student-feedback').innerHTML = `... display feedback ...`;
+      // document.getElementById('earnings').innerHTML = `... display earnings ...`;
+
+    }
+
+  </script>
+
 </body>
 </html>
