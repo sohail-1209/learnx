@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile - LearnX</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+  </style>
+</head>
+<body class="bg-[#121212] text-white font-sans">
+
+  <!-- Sidebar Navigation -->
+  <div class="flex">
+    <div class="w-64 bg-[#1f1f1f] p-6 h-screen fixed top-0 left-0">
+      <div class="flex flex-col space-y-6">
+        <a href="#" class="text-2xl font-semibold text-[#00bfa6] hover:text-[#009e8d] transition-colors">LearnX</a>
+        <ul class="flex flex-col space-y-4">
+          <li><a href="teach.html" class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Teach</a></li>
+          <li><a href="learn.html" class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Learn</a></li>
+          <li><a href="profile.html" class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Profile</a></li>
+          <li><a href="chat.html" class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Chat</a></li>
+          <li><a href="settings.html" class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Settings</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="flex-1 ml-64 p-8">
+      <h2 class="text-3xl md:text-4xl font-semibold mb-6" data-aos="fade-up">Your Profile</h2>
+
+      <!-- Profile Information -->
+      <div class="bg-[#2d2d2d] p-6 rounded-lg shadow-lg" data-aos="fade-up">
+        <div class="flex items-center space-x-6 mb-6">
+          <img src="https://via.placeholder.com/150" alt="User" class="w-24 h-24 md:w-32 md:h-32 rounded-full border-4 border-[#00bfa6]" id="profile-img">
+          <div>
+            <h3 class="text-3xl font-semibold" id="username">John Doe</h3>
+            <p class="text-lg text-gray-400" id="bio">Web Developer | JavaScript Expert</p>
+            <div class="flex space-x-4 mt-2">
+              <a href="#" class="text-[#00bfa6] hover:underline">View Public Profile</a>
+            </div>
+            <button class="mt-4 bg-[#00bfa6] text-white py-2 px-6 rounded-lg hover:bg-[#009e8d] transition-colors">Edit Profile</button>
+          </div>
+        </div>
+
+        <!-- Bio and Skills -->
+        <div class="space-y-6">
+          <div>
+            <h4 class="text-xl font-semibold">Bio</h4>
+            <p class="text-sm text-gray-400" id="bio-text">A passionate developer specializing in web technologies. I love to build applications and solve real-world problems.</p>
+          </div>
+
+          <div>
+            <h4 class="text-xl font-semibold">Skills</h4>
+            <ul class="flex flex-wrap gap-4" id="skills">
+              <!-- Skills will be populated here -->
+            </ul>
+          </div>
+        </div>
+      </div>
+ 
+      <!-- Ratings -->
+      <div class="bg-[#2d2d2d] p-6 rounded-lg shadow-lg mt-8" data-aos="fade-up">
+        <h3 class="text-xl font-semibold mb-4">Ratings</h3>
+        <div class="flex items-center mb-4">
+          <span class="text-yellow-500 text-2xl mr-2" id="rating-stars">★★★★☆</span>
+          <p class="text-lg text-gray-400" id="rating-text">4.5 out of 5 based on 15 reviews</p>
+        </div>
+      </div>
+
+      <!-- Portfolio -->
+      <div class="bg-[#2d2d2d] p-6 rounded-lg shadow-lg mt-8" data-aos="fade-up">
+        <h3 class="text-xl font-semibold mb-4">Portfolio</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="portfolio">
+          <!-- Portfolio items will be populated here -->
+        </div>
+      </div>
+
+      <!-- User Activity -->
+      <div class="bg-[#2d2d2d] p-6 rounded-lg shadow-lg mt-8" data-aos="fade-up">
+        <h3 class="text-xl font-semibold mb-4">Recent Activity</h3>
+        <ul class="space-y-4" id="activity">
+          <!-- User activity will be populated here -->
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-[#1f1f1f] py-6 text-center text-white mt-8">
+    <p>&copy; 2025 LearnX - All Rights Reserved</p>
+  </footer>
+
+  <!-- AOS Animation Init -->
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      duration: 800,
+      easing: 'ease-in-out',
+      once: true
+    });
+
+    // Function to fetch user data (replace with your backend API call)
+    async function fetchUserData(userId) {
+      // TODO: Replace this with your actual backend API endpoint and fetch logic
+      // Example using a placeholder data structure:
+      const placeholderUserData = {
+        username: "Jane Smith",
+        bio: "Full Stack Developer | React & Node.js Enthusiast",
+        ratings: { average: 4.8, count: 25 },
+        skills: ["React", "Node.js", "PostgreSQL", "Tailwind CSS"],
+        portfolio: [
+          { title: "Project Alpha", description: "A web application.", image: "https://via.placeholder.com/300x200" },
+          { title: "Project Beta", description: "Mobile app development.", image: "https://via.placeholder.com/300x200" }
+        ],
+        activity: [
+          { text: "Completed a session on Node.js", time: "2 hours ago" },
+          { text: "Rated a teacher 5 stars", time: "1 day ago" }
+        ]
+      };
+      return placeholderUserData; // Simulate returning data
+
+      // Example of a real fetch call (uncomment and modify when backend is ready)
+      /*
+      try {
+        const response = await fetch(`/api/profile/${userId}`); // Replace with your API endpoint
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        return data;
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+        return null; // Or handle error appropriately
+      }
+      */
+    }
+      
+    // Function to display user data
+    function displayUserData(userData) {
+      if (userData) {
+        // Populate the profile details
+        document.getElementById('username').textContent = userData.username;
+        document.getElementById('bio-text').textContent = userData.bio; // Assuming bio-text is the correct ID for the longer bio
+        // document.getElementById('profile-img').src = userData.profileImageUrl; // Uncomment and set image source
+
+        // Populate ratings
+        document.getElementById('rating-stars').textContent = "★".repeat(Math.round(userData.ratings.average));
+        document.getElementById('rating-text').textContent = `${userData.ratings.average} out of 5 based on ${userData.ratings.count} reviews`;
+
+        // Populate skills
+        const skillsList = document.getElementById('skills');
+        skillsList.innerHTML = ''; // Clear existing skills
+        userData.skills.forEach(skill => {
+          const skillElement = document.createElement('li');
+          skillElement.classList.add('bg-[#00bfa6]', 'text-white', 'py-2', 'px-6', 'rounded-lg');
+          skillElement.textContent = skill;
+          skillsList.appendChild(skillElement);
+        });
+
+        // Populate portfolio
+        const portfolioSection = document.getElementById('portfolio');
+        portfolioSection.innerHTML = ''; // Clear existing portfolio items
+        userData.portfolio.forEach(project => {
+          const portfolioItem = document.createElement('div');
+          portfolioItem.classList.add('bg-[#1f1f1f]', 'rounded-lg', 'overflow-hidden', 'shadow-lg');
+          portfolioItem.innerHTML = `
+            <img src="${project.image}" alt="${project.title}" class="w-full h-40 object-cover">
+            <div class="p-4">
+              <h4 class="text-lg font-semibold mb-2">${project.title}</h4>
+              <p class="text-sm text-gray-400">${project.description}</p>
+            </div>
+          `;
+          portfolioSection.appendChild(portfolioItem);
+        });
+
+        // Populate recent activity
+        const activitySection = document.getElementById('activity');
+        activitySection.innerHTML = ''; // Clear existing activity
+        userData.activity.forEach(activity => {
+          const activityItem = document.createElement('li');
+          activityItem.classList.add('flex', 'justify-between');
+          activityItem.innerHTML = `
+            <span class="text-gray-400">${activity.text}</span>
+            <span class="text-sm text-[#00bfa6]">${activity.time}</span>
+          `;
+          activitySection.appendChild(activityItem);
+        });
+
+      } else {
+        console.error('User data not available');
+        // Handle case where user data is not found (e.g., redirect to login)
+        // window.location.href = 'login.html';
+      }
+    }
+
+    // Call fetchUserData and displayUserData when the page loads
+    document.addEventListener("DOMContentLoaded", async function() {
+      const userId = 'placeholderUserId'; // TODO: Get the actual user ID (e.g., from localStorage or a cookie)
+      const userData = await fetchUserData(userId);
+      displayUserData(userData);
+    });
+  </script>
+</body>
+</html>

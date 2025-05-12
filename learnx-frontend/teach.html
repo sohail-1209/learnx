@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teach - LearnX</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+  </style>
+</head>
+<body class="bg-[#121212] text-white font-sans">
+
+  <!-- Sidebar Navigation -->
+  <div class="flex">
+    <div class="w-64 bg-[#1f1f1f] p-6 h-screen fixed top-0 left-0">
+      <div class="flex flex-col space-y-6">
+        <a href="#" class="text-2xl font-semibold text-[#00bfa6] hover:text-[#009e8d] transition-colors">LearnX</a>
+        <ul class="flex flex-col space-y-4">
+          <li><a href=teach.html class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Teach</a></li>
+          <li><a href=learn.html class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Learn</a></li>
+          <li><a href=profile.html class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Profile</a></li>
+          <li><a href=chat.html class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Chat</a></li>li>
+ <li><a href=settings.html class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Settings</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="flex-1 ml-64 p-8">
+      <h2 class="text-3xl md:text-4xl font-semibold mb-6" data-aos="fade-up">Become a Mentor</h2>
+
+ <!-- User-specific Teaching Data Sections -->
+      <div id="teaching-profile" class="bg-[#2d2d2d] p-6 rounded-lg shadow-lg mb-8" data-aos="fade-up">
+        <h3 class="text-xl font-semibold mb-4">Your Teaching Profile</h3>
+ <!-- Teaching profile details will be loaded here -->
+      </div>
+
+      <h2 class="text-3xl md:text-4xl font-semibold mb-6" data-aos="fade-up">Your Courses</h2>
+      <div id="my-courses" class="bg-[#2d2d2d] p-6 rounded-lg shadow-lg mb-8" data-aos="fade-up">
+ <!-- Categories -->
+ <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8" data-aos="fade-up">
+ <div class="bg-[#1f1f1f] p-6 rounded-lg shadow-lg text-center hover:bg-[#00bfa6] transition-all duration-300 transform hover:scale-105">
+ <h3 class="text-xl font-semibold">Coding</h3>
+ <p class="mt-2 text-lg text-gray-300">Teach coding languages like Python, JavaScript, etc.</p>
+ <a href="#create-listing" class="text-[#00bfa6] mt-4 inline-block hover:underline">Start Teaching</a>
+ </div>
+ <div class="bg-[#1f1f1f] p-6 rounded-lg shadow-lg text-center hover:bg-[#00bfa6] transition-all duration-300 transform hover:scale-105">
+ <h3 class="text-xl font-semibold">Design</h3>
+ <p class="mt-2 text-lg text-gray-300">Teach graphic design, UI/UX, etc.</p>
+ <a href="#create-listing" class="text-[#00bfa6] mt-4 inline-block hover:underline">Start Teaching</a>
+ </div>
+ <div class="bg-[#1f1f1f] p-6 rounded-lg shadow-lg text-center hover:bg-[#00bfa6] transition-all duration-300 transform hover:scale-105">
+ <h3 class="text-xl font-semibold">Music</h3>
+ <p class="mt-2 text-lg text-gray-300">Share your knowledge of music and instruments.</p>
+ <a href="#create-listing" class="text-[#00bfa6] mt-4 inline-block hover:underline">Start Teaching</a>
+ </div>
+ <div class="bg-[#1f1f1f] p-6 rounded-lg shadow-lg text-center hover:bg-[#00bfa6] transition-all duration-300 transform hover:scale-105">
+ <h3 class="text-xl font-semibold">Fitness</h3>
+ <p class="mt-2 text-lg text-gray-300">Guide others through fitness routines and wellness tips.</p>
+ <a href="#create-listing" class="text-[#00bfa6] mt-4 inline-block hover:underline">Start Teaching</a>
+ </div>
+ <div class="bg-[#1f1f1f] p-6 rounded-lg shadow-lg text-center hover:bg-[#00bfa6] transition-all duration-300 transform hover:scale-105">
+ <h3 class="text-xl font-semibold">Business</h3>
+ <p class="mt-2 text-lg text-gray-300">Share your business insights and strategies.</p>
+ <a href="#create-listing" class="text-[#00bfa6] mt-4 inline-block hover:underline">Start Teaching</a>
+ </div>
+ <div class="bg-[#1f1f1f] p-6 rounded-lg shadow-lg text-center hover:bg-[#00bfa6] transition-all duration-300 transform hover:scale-105">
+ <h3 class="text-xl font-semibold">Language</h3>
+ <p class="mt-2 text-lg text-gray-300">Teach new languages to learners.</p>
+ <a href="#create-listing" class="text-[#00bfa6] mt-4 inline-block hover:underline">Start Teaching</a>
+ </div>
+      </div>
+
+      </div>
+
+      <h2 class="text-3xl md:text-4xl font-semibold mb-6" data-aos="fade-up">Student Feedback</h2>
+      <div id="student-feedback" class="bg-[#2d2d2d] p-6 rounded-lg shadow-lg mb-8" data-aos="fade-up">
+ <!-- Student feedback will be loaded here -->
+      </div>
+
+      <h2 class="text-3xl md:text-4xl font-semibold mb-6" data-aos="fade-up">Earnings</h2>
+      <div id="earnings" class="bg-[#2d2d2d] p-6 rounded-lg shadow-lg mb-8" data-aos="fade-up">
+ <!-- Earnings details will be loaded here -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-[#1f1f1f] py-6 text-center text-white mt-8">
+    <p>&copy; 2025 LearnX - All Rights Reserved</p>
+  </footer>
+
+  <!-- AOS Animation Init -->
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      duration: 800,
+      easing: 'ease-in-out',
+      once: true
+    });
+  </script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      // Get the user_id from localStorage or wherever it's stored
+      const userId = localStorage.getItem('user_id'); // Replace with your actual method
+
+      if (userId) {
+        fetchTeachData(userId);
+      } else {
+        // Handle case where user is not logged in or user_id is not available
+        console.log("User not logged in.");
+        // Optionally redirect to login page
+        // window.location.href = 'login.html';
+      }
+    });
+
+    // Placeholder function to fetch user teaching data
+    async function fetchTeachData(userId) {
+      // Replace with your actual API call to the backend
+      console.log(`Fetching teaching data for user: ${userId}`);
+      const response = await fetch(`/api/teach/${userId}`); // Example API endpoint
+      const userData = await response.json();
+      displayTeachData(userData);
+    }
+
+    // Placeholder function to display user teaching data
+    function displayTeachData(userData) {
+      // Populate the HTML elements with the fetched user data
+      console.log("Displaying teaching data:", userData);
+      // Example:
+      // document.getElementById('teaching-profile').innerHTML = `... display profile data ...`;
+      // document.getElementById('my-courses').innerHTML = `... display courses ...`;
+      // document.getElementById('student-feedback').innerHTML = `... display feedback ...`;
+      // document.getElementById('earnings').innerHTML = `... display earnings ...`;
+
+    }
+
+  </script>
+
+</body>
+</html>
