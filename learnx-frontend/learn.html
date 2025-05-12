@@ -25,23 +25,22 @@
     .session-card:hover {
       transform: translateY(-5px);
     }
+    
+    /* Toast Notification Styles */
+    .toast-notification {
+      transform: translateX(100%);
+      opacity: 0;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+      max-width: 350px;
+    }
   </style>
 </head>
 <body class="bg-[#121212] text-white font-sans">
  
-  <!-- Sidebar Navigation -->
+  <!-- Flex container for sidebar and content -->
   <div class="flex">
-    <div class="w-64 bg-[#1f1f1f] p-6 h-screen fixed top-0 left-0">
-      <div class="flex flex-col space-y-6">
-        <a href="#" class="text-2xl font-semibold text-[#00bfa6] hover:text-[#009e8d] transition-colors">LearnX</a>
-        <ul class="flex flex-col space-y-4">
-          <li><a href="#teach" class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Teach</a></li>
-          <li><a href="#learn" class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Learn</a></li>
-          <li><a href="#profile" class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Profile</a></li>
-          <li><a href="#settings" class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Settings</a></li>
-        </ul>
-      </div>
-    </div>
+    <!-- Sidebar Placeholder - will be replaced by sidebar-loader.js -->
+    <div class="sidebar-placeholder"></div>
 
     <!-- Main Content -->
     <div class="flex-1 ml-64 p-8">
@@ -83,27 +82,9 @@
  
       <!-- Available Sessions -->
       <h2 class="text-3xl md:text-4xl font-semibold mb-6" data-aos="fade-up">Available Sessions</h2>
-      <div class="bg-[#1f1f1f] p-6 rounded-lg shadow-lg" data-aos="fade-up">
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          <!-- Example Session -->
-          <div class="bg-[#2d2d2d] p-6 rounded-lg session-card hover:bg-[#00bfa6] transition-colors">
-            <h4 class="text-xl font-semibold">JavaScript for Beginners</h4>
-            <p class="mt-2 text-lg">A beginner-level course to understand the fundamentals of JavaScript.</p>
-            <div class="flex justify-between mt-4">
-              <span class="text-[#00bfa6]">Mentor: John Doe</span>
-              <span class="text-[#00bfa6]">$25/hr</span>
-            </div>
-            <a href="#book-session" class="mt-4 inline-block bg-[#00bfa6] text-white py-3 px-6 rounded-lg hover:bg-[#009e8d] transition-colors">Book Session</a>
-          </div>
-          <div class="bg-[#2d2d2d] p-6 rounded-lg session-card hover:bg-[#00bfa6] transition-colors">
-            <h4 class="text-xl font-semibold">UI/UX Design Basics</h4>
-            <p class="mt-2 text-lg">Learn the principles of user interface and user experience design.</p>
-            <div class="flex justify-between mt-4">
-              <span class="text-[#00bfa6]">Mentor: Jane Smith</span>
-              <span class="text-[#00bfa6]">$30/hr</span>
-            </div>
-            <a href="#book-session" class="mt-4 inline-block bg-[#00bfa6] text-white py-3 px-6 rounded-lg hover:bg-[#009e8d] transition-colors">Book Session</a>
-          </div>
+      <div id="available-sessions-container" class="bg-[#1f1f1f] p-6 rounded-lg shadow-lg" data-aos="fade-up">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="available-sessions-grid">
+          <!-- Sessions will be populated by JavaScript -->
         </div>
  </div>
 
@@ -139,6 +120,7 @@
 
   <!-- AOS Animation Init -->
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script src="js/sidebar-loader.js"></script>
   <script>
     AOS.init({
       duration: 800,
@@ -148,72 +130,400 @@
   </script>
   <script>
     document.addEventListener("DOMContentLoaded", function() {
-      // Get the user_id from localStorage (assuming you store it there after login)
-      const userId = localStorage.getItem('user_id');
-
-      if (userId) {
-        fetchLearnData(userId);
-      } else {
-        // Handle case where user is not logged in, maybe redirect to login page
-        console.log("User not logged in. Cannot fetch learning data.");
-        // window.location.href = 'login.html'; // Example redirect
+      // Get the token from localStorage
+      const token = localStorage.getItem('token');
+      
+      if (!token) {
+        console.log("User not logged in.");
+        window.location.href = 'login.html'; // Redirect to login page
+        return;
       }
+      
+      // Parse the token to get userId
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      const userId = payload.userId;
+      
+      // Show loading state
+      document.getElementById('enrolled-courses').innerHTML = '<h3 class="text-xl font-semibold mb-4">Enrolled Courses</h3><p>Loading your courses...</p>';
+      document.getElementById('course-progress-learn').innerHTML = '<h3 class="text-xl font-semibold mb-4">Course Progress</h3><p>Loading your progress...</p>';
+      document.getElementById('recommended-courses').innerHTML = '<h3 class="text-xl font-semibold mb-4">Recommended Courses</h3><p>Loading recommendations...</p>';
+      
+      fetchLearnData(userId);
     });
 
-    // Placeholder function to simulate fetching user learning data
+    // Function to fetch user learning data
     async function fetchLearnData(userId) {
+      try {
       console.log(`Fetching learning data for user: ${userId}`);
-      // Replace this with your actual API call to the backend
-      // const response = await fetch(`/api/user/${userId}/learning`);
-      // const data = await response.json();
-      const data = { // Simulated data structure
-        enrolledCourses: [{ id: 1, title: 'Example Course 1' }, { id: 2, title: 'Example Course 2' }],
-        courseProgress: [{ courseId: 1, progress: 75 }, { courseId: 2, progress: 50 }],
-        recommendedCourses: [{ id: 3, title: 'Recommended Course 1' }, { id: 4, title: 'Recommended Course 2' }]
-      };
-      displayLearnData(data);
+        console.log('API URL:', `http://127.0.0.1:5001/api/learn/${userId}`);
+        
+        const response = await fetch(`http://127.0.0.1:5001/api/learn/${userId}`, {
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          }
+        });
+        
+        if (!response.ok) {
+          const errorText = await response.text();
+          console.error(`API Error (${response.status}):`, errorText);
+          
+          // Show error state on the page
+          document.getElementById('enrolled-courses').innerHTML = '<h3 class="text-xl font-semibold mb-4">Enrolled Courses</h3><p class="text-red-400">Error loading courses. Please try again later.</p>';
+          document.getElementById('course-progress-learn').innerHTML = '<h3 class="text-xl font-semibold mb-4">Course Progress</h3><p class="text-red-400">Error loading progress. Please try again later.</p>';
+          document.getElementById('recommended-courses').innerHTML = '<h3 class="text-xl font-semibold mb-4">Recommended Courses</h3><p class="text-red-400">Error loading recommendations. Please try again later.</p>';
+          
+          throw new Error(`Failed to fetch learning data: ${response.status} - ${errorText}`);
+        }
+        
+        const userData = await response.json();
+        console.log("Learning data received:", userData);
+        
+        // Check if userData has expected properties
+        if (!userData || typeof userData !== 'object') {
+          throw new Error('Invalid response format from API');
+        }
+        
+        // Check for availableSessions and teachers
+        if (!userData.availableSessions) {
+          console.warn('No availableSessions in response data');
+          userData.availableSessions = [];
+        }
+        
+        if (!userData.teachers) {
+          console.warn('No teachers in response data');
+          userData.teachers = [];
+        }
+        
+        console.log(`Available sessions: ${userData.availableSessions.length}`);
+        console.log(`Teachers: ${userData.teachers.length}`);
+        
+        displayLearnData(userData);
+        
+        // Also populate available sessions
+        displayAvailableSessions(userData.availableSessions, userData.teachers);
+      } catch (error) {
+        console.error("Error fetching learning data:", error);
+        // Show error state on the page if not already shown
+        if (!document.getElementById('enrolled-courses').innerHTML.includes('text-red-400')) {
+          document.getElementById('enrolled-courses').innerHTML = '<h3 class="text-xl font-semibold mb-4">Enrolled Courses</h3><p class="text-red-400">Error loading courses: ' + error.message + '</p>';
+          document.getElementById('course-progress-learn').innerHTML = '<h3 class="text-xl font-semibold mb-4">Course Progress</h3><p class="text-red-400">Error loading progress: ' + error.message + '</p>';
+          document.getElementById('recommended-courses').innerHTML = '<h3 class="text-xl font-semibold mb-4">Recommended Courses</h3><p class="text-red-400">Error loading recommendations: ' + error.message + '</p>';
+        }
+        
+        // Show empty state for available sessions
+        const availableSessionsContainer = document.getElementById('available-sessions-container');
+        if (availableSessionsContainer) {
+          const availableSessionsGrid = availableSessionsContainer.querySelector('.grid');
+          if (availableSessionsGrid) {
+            availableSessionsGrid.innerHTML = `
+              <div class="col-span-full text-center py-10">
+                <p class="text-red-400 text-lg mt-4">Error loading available sessions: ${error.message}</p>
+                <p class="mt-2 text-gray-500">Please try refreshing the page.</p>
+              </div>
+            `;
+          }
+        }
+      }
     }
 
-    // Placeholder function to display user learning data
+    // Function to display user learning data
     function displayLearnData(userData) {
-      console.log("Displaying learning data:", userData);
       // Populate enrolled courses
       const enrolledCoursesDiv = document.getElementById('enrolled-courses');
-      if (enrolledCoursesDiv && userData.enrolledCourses) {
-        enrolledCoursesDiv.innerHTML = '<h3>Enrolled Courses</h3>'; // Clear existing content
-        userData.enrolledCourses.forEach(course => {
-          const courseElement = document.createElement('p');
-          courseElement.textContent = course.title;
-          enrolledCoursesDiv.appendChild(courseElement);
+      if (userData.enrolledSessions && userData.enrolledSessions.length > 0) {
+        let html = '<h3 class="text-xl font-semibold mb-4">Enrolled Courses</h3><div class="grid grid-cols-1 md:grid-cols-2 gap-4">';
+        
+        userData.enrolledSessions.forEach(session => {
+          html += `
+            <div class="bg-[#1f1f1f] p-4 rounded-lg">
+              <h4 class="text-lg font-semibold">${session.title}</h4>
+              <p class="text-gray-400 mt-2">${session.description}</p>
+              <div class="flex justify-between mt-4">
+                <span>Category: ${session.category}</span>
+                <span>$${session.price}/hr</span>
+              </div>
+              <a href="live-session.html?id=${session.id}" class="mt-4 inline-block bg-[#00bfa6] text-white py-2 px-4 rounded-lg hover:bg-[#009e8d] transition-colors">
+                Join Session
+              </a>
+            </div>
+          `;
         });
+        
+        html += '</div>';
+        enrolledCoursesDiv.innerHTML = html;
+      } else {
+        enrolledCoursesDiv.innerHTML = `
+          <h3 class="text-xl font-semibold mb-4">Enrolled Courses</h3>
+          <p class="text-gray-400">You are not enrolled in any courses yet.</p>
+          <p class="mt-2">Explore available sessions below to find a course that interests you.</p>
+        `;
       }
 
       // Populate course progress
       const courseProgressDiv = document.getElementById('course-progress-learn');
-      if (courseProgressDiv && userData.courseProgress) {
-        courseProgressDiv.innerHTML = '<h3>Course Progress</h3>'; // Clear existing content
-        userData.courseProgress.forEach(progress => {
-          const progressElement = document.createElement('p');
-          progressElement.textContent = `Course ID: ${progress.courseId}, Progress: ${progress.progress}%`;
-          courseProgressDiv.appendChild(progressElement);
+      if (userData.courseProgress && userData.courseProgress.length > 0) {
+        let html = '<h3 class="text-xl font-semibold mb-4">Course Progress</h3><div class="space-y-4">';
+        
+        userData.courseProgress.forEach(course => {
+          html += `
+            <div class="bg-[#1f1f1f] p-4 rounded-lg">
+              <div class="flex justify-between mb-2">
+                <h4 class="font-semibold">${course.course_name}</h4>
+                <span>${course.progress}%</span>
+              </div>
+              <div class="w-full bg-[#121212] rounded-full h-2.5">
+                <div class="bg-[#00bfa6] h-2.5 rounded-full" style="width: ${course.progress}%"></div>
+              </div>
+            </div>
+          `;
         });
+        
+        html += '</div>';
+        courseProgressDiv.innerHTML = html;
+      } else {
+        courseProgressDiv.innerHTML = `
+          <h3 class="text-xl font-semibold mb-4">Course Progress</h3>
+          <p class="text-gray-400">No course progress to display.</p>
+        `;
       }
 
       // Populate recommended courses
       const recommendedCoursesDiv = document.getElementById('recommended-courses');
-      if (recommendedCoursesDiv && userData.recommendedCourses) {
-        recommendedCoursesDiv.innerHTML = '<h3>Recommended Courses</h3>'; // Clear existing content
-        userData.recommendedCourses.forEach(course => {
-          const courseElement = document.createElement('p');
-          courseElement.textContent = course.title;
-          recommendedCoursesDiv.appendChild(courseElement);
+      if (userData.availableSessions && userData.availableSessions.length > 0) {
+        // Just show the first 3 available sessions as "recommended"
+        const recommendedSessions = userData.availableSessions.slice(0, 3);
+        
+        let html = '<h3 class="text-xl font-semibold mb-4">Recommended For You</h3><div class="grid grid-cols-1 md:grid-cols-3 gap-4">';
+        
+        recommendedSessions.forEach(session => {
+          // Find the teacher for this session
+          const teacher = userData.teachers.find(t => t.user_id === session.teacher_id) || { username: 'Unknown Teacher', rating: 0 };
+          
+          html += `
+            <div class="bg-[#1f1f1f] p-4 rounded-lg">
+              <h4 class="text-lg font-semibold">${session.title}</h4>
+              <p class="text-sm text-gray-400 mt-2">${session.description}</p>
+              <div class="flex justify-between mt-4">
+                <span>Mentor: ${teacher.username}</span>
+                <span>$${session.price}/hr</span>
+              </div>
+              <button onclick="enrollInSession(${session.id})" class="mt-4 w-full bg-[#00bfa6] text-white py-2 px-4 rounded-lg hover:bg-[#009e8d] transition-colors">
+                Enroll
+              </button>
+            </div>
+          `;
+        });
+        
+        html += '</div>';
+        recommendedCoursesDiv.innerHTML = html;
+      } else {
+        recommendedCoursesDiv.innerHTML = `
+          <h3 class="text-xl font-semibold mb-4">Recommended For You</h3>
+          <p class="text-gray-400">No recommendations available yet.</p>
+        `;
+      }
+    }
+
+    // Function to display available sessions
+    function displayAvailableSessions(sessions, teachers) {
+      // Target the grid container of available sessions
+      console.log('displayAvailableSessions called with:', {
+        sessionsCount: sessions ? sessions.length : 0,
+        teachersCount: teachers ? teachers.length : 0
+      });
+      
+      if (sessions) {
+        sessions.forEach(session => {
+          console.log(`Session ${session.id}: ${session.title}, Teacher: ${session.teacher_id}`);
         });
       }
+      
+      if (teachers) {
+        teachers.forEach(teacher => {
+          console.log(`Teacher ${teacher.user_id}: ${teacher.username}`);
+        });
+      }
+      
+      const availableSessionsGrid = document.getElementById('available-sessions-grid');
+      console.log('Found grid by ID:', availableSessionsGrid);
+      
+      if (!availableSessionsGrid) {
+        console.error("Could not find available sessions grid with ID 'available-sessions-grid'");
+        return;
+      }
+      
+      console.log(`Displaying ${sessions ? sessions.length : 0} available sessions`);
+      
+      if (sessions && sessions.length > 0) {
+        let html = '';
+        
+        sessions.forEach(session => {
+          // Find the teacher for this session
+          const teacher = teachers.find(t => t.user_id === session.teacher_id) || { username: 'Unknown Teacher', rating: 0, user_id: 0 };
+          
+          // Format date
+          const sessionDate = new Date(session.schedule);
+          const dateString = sessionDate.toLocaleDateString();
+          
+          html += `
+            <div class="bg-[#2d2d2d] p-6 rounded-lg session-card hover:bg-[#3d3d3d] transition-colors">
+              <h4 class="text-xl font-semibold">${session.title}</h4>
+              <p class="mt-2 text-lg">${session.description}</p>
+              <div class="flex justify-between mt-4">
+                <a href="teacher-profile.html?id=${teacher.user_id}" class="text-[#00bfa6] hover:underline">
+                  Mentor: ${teacher.username}
+                  <span class="text-yellow-400">${'★'.repeat(Math.round(teacher.rating))}</span>
+                </a>
+                <span class="text-[#00bfa6]">$${session.price}/hr</span>
+              </div>
+              <div class="mt-2 text-sm text-gray-400">
+                <span>Date: ${dateString}</span> • <span>Duration: ${session.duration} min</span>
+              </div>
+              <button onclick="enrollInSession(${session.id})" class="mt-4 w-full bg-[#00bfa6] text-white py-3 px-6 rounded-lg hover:bg-[#009e8d] transition-colors">Book Session</button>
+            </div>
+          `;
+        });
+        
+        console.log('Generated HTML for sessions:', html.substring(0, 100) + '...');
+        availableSessionsGrid.innerHTML = html;
+        console.log("Available sessions displayed successfully");
+      } else {
+        // Display a message when no sessions are available
+        console.log('No sessions available, showing empty state');
+        availableSessionsGrid.innerHTML = `
+          <div class="col-span-full text-center py-10">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-gray-500 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <p class="text-gray-400 text-lg mt-4">No available sessions found.</p>
+            <p class="mt-2 text-gray-500">Check back later for new session offerings or become a teacher yourself!</p>
+            <a href="teach.html" class="mt-4 inline-block bg-[#00bfa6] text-white py-2 px-4 rounded-lg hover:bg-[#009e8d] transition-colors">
+              Become a Teacher
+            </a>
+          </div>
+        `;
+        console.log("No available sessions to display");
+      }
+    }
 
-      // Add logic to display data in the added sections
-      // Example: document.getElementById('enrolled-courses').textContent = `Enrolled: ${userData.enrolledCourses.length}`;
-      // Example: document.getElementById('course-progress-learn').textContent = `Progress in Course X: ${userData.courseProgress.courseX}%`;
-      // Example: document.getElementById('recommended-courses').textContent = `Recommended: ${userData.recommendedCourses.length}`;
+    // Function to enroll in a session
+    async function enrollInSession(sessionId) {
+      try {
+        const token = localStorage.getItem('token');
+        
+        if (!token) {
+          showToast("You must be logged in to enroll in a session.", "error");
+          setTimeout(() => {
+            window.location.href = 'login.html';
+          }, 2000);
+          return;
+        }
+        
+        // Parse the token to get userId
+        const payload = JSON.parse(atob(token.split('.')[1]));
+        const userId = payload.userId;
+        
+        console.log(`Enrolling user ${userId} in session ${sessionId}`);
+        
+        // Disable all enroll buttons to prevent double-clicks
+        const enrollButtons = document.querySelectorAll('button[onclick^="enrollInSession"]');
+        enrollButtons.forEach(button => {
+          button.disabled = true;
+          button.innerHTML = 'Processing...';
+        });
+        
+        const response = await fetch('http://127.0.0.1:5001/api/learn/enroll', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify({ userId, sessionId })
+        });
+        
+        // Re-enable buttons
+        enrollButtons.forEach(button => {
+          button.disabled = false;
+          button.innerHTML = 'Book Session';
+        });
+        
+        if (!response.ok) {
+          let errorMessage = `Failed to enroll in session: ${response.status}`;
+          try {
+            const errorData = await response.json();
+            errorMessage = errorData.error || errorMessage;
+          } catch (e) {
+            // If the response is not valid JSON, just use the status code message
+          }
+          throw new Error(errorMessage);
+        }
+        
+        const result = await response.json();
+        
+        // Show success message
+        showToast("Enrolled successfully! Refreshing page...", "success");
+        
+        // Refresh the page after 2 seconds to show updated enrolled courses
+        setTimeout(() => {
+          location.reload();
+        }, 2000);
+      } catch (error) {
+        console.error("Error enrolling in session:", error);
+        
+        // Show error message
+        showToast(error.message, "error");
+      }
+    }
+
+    // Function to show toast notifications
+    function showToast(message, type = "info") {
+      // Remove any existing toasts
+      const existingToasts = document.querySelectorAll('.toast-notification');
+      existingToasts.forEach(toast => toast.remove());
+
+      // Create toast element
+      const toast = document.createElement('div');
+      toast.className = `toast-notification fixed top-4 right-4 p-4 rounded-lg shadow-lg z-50 ${
+        type === 'success' ? 'bg-green-500' : 
+        type === 'error' ? 'bg-red-500' : 
+        type === 'warning' ? 'bg-yellow-500' : 
+        'bg-blue-500'
+      } text-white`;
+      
+      // Add icon based on type
+      let icon = '';
+      if (type === 'success') {
+        icon = '<span class="mr-2">✓</span>';
+      } else if (type === 'error') {
+        icon = '<span class="mr-2">⚠️</span>';
+      } else if (type === 'warning') {
+        icon = '<span class="mr-2">⚠</span>';
+      } else {
+        icon = '<span class="mr-2">ℹ️</span>';
+      }
+      
+      toast.innerHTML = `
+        <div class="flex items-center">
+          ${icon}
+          <span>${message}</span>
+        </div>
+      `;
+      
+      // Add to document
+      document.body.appendChild(toast);
+      
+      // Animate in
+      setTimeout(() => {
+        toast.style.transform = 'translateX(0)';
+        toast.style.opacity = '1';
+      }, 100);
+      
+      // Remove after 5 seconds
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        setTimeout(() => toast.remove(), 300);
+      }, 5000);
     }
   </script>
 </body>

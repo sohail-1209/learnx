@@ -6,21 +6,45 @@
   <title>Live Session - LearnX</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <!-- Add Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+  <!-- Add Jitsi Meet API -->
+  <script src='https://meet.jit.si/external_api.js'></script>
   <style>
     html {
       scroll-behavior: smooth;
     }
 
     /* Custom Styles for Live Session Page */
-    .video-placeholder {
-      min-height: 300px; /* Ensure a minimum height for the video area */
+    .video-container {
+      min-height: 400px;
+      position: relative;
+      overflow: hidden;
+      border-radius: 0.5rem;
+      background-color: #1f1f1f;
+    }
+
+    #jitsi-container {
+      width: 100%;
+      height: 100%;
+      min-height: 400px;
+    }
+    
+    /* Fix for Jitsi iframe visibility */
+    #jitsi-container iframe {
+      height: 100% !important;
+      width: 100% !important;
+      min-height: 400px !important;
+      display: block !important;
+      border: none !important;
+      background-color: #1f1f1f;
     }
 
     .note-taking-area textarea {
-        resize: vertical; /* Allow vertical resizing of the textarea */
+      resize: vertical;
     }
 
-    /* Animations (using Tailwind and AOS classes primarily, but adding a custom one) */
+    /* Animations */
     @keyframes pulse-green {
         0%, 100% {
             box-shadow: 0 0 0 0 rgba(0, 191, 166, 0.7);
@@ -37,99 +61,233 @@
     /* Enhance focus styles */
     textarea:focus, select:focus, button:focus {
         outline: none;
-        box-shadow: 0 0 0 2px rgba(0, 191, 166, 0.5); /* Example focus ring */
+      box-shadow: 0 0 0 2px rgba(0, 191, 166, 0.5);
     }
 
-     /* Improved hover effect for sidebar links */
-    .sidebar-link:hover {
-        color: #00bfa6;
-        transform: scale(1.05);
-        transition: color 0.3s ease-in-out, transform 0.3s ease-in-out;
+    /* Participant list styling */
+    .participant-list {
+      max-height: 300px;
+      overflow-y: auto;
+      scrollbar-width: thin;
     }
 
-    /* Subtle animation for section titles */
-    .section-title {
-        position: relative;
+    .participant-list::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .participant-list::-webkit-scrollbar-track {
+      background: #2d2d2d;
+    }
+
+    .participant-list::-webkit-scrollbar-thumb {
+      background-color: #4d4d4d;
+      border-radius: 3px;
+    }
+
+    /* Video controls */
+    .video-controls {
+      position: absolute;
+      bottom: 1rem;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      z-index: 30;
+    }
+
+    .control-button {
+      width: 3rem;
+      height: 3rem;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: rgba(45, 45, 45, 0.8);
+      transition: all 0.2s ease;
+    }
+
+    .control-button:hover {
+      background-color: rgba(0, 191, 166, 0.8);
+      transform: scale(1.1);
+    }
+
+    .control-button.end-call {
+      background-color: rgba(220, 38, 38, 0.8);
+    }
+
+    .control-button.end-call:hover {
+      background-color: rgba(220, 38, 38, 1);
+    }
+
+    /* Loading spinner */
+    .spinner {
+      border: 4px solid rgba(0, 0, 0, 0.1);
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border-left-color: #00bfa6;
+      animation: spin 1s linear infinite;
+      margin: 0 auto;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
   </style>
-  <script>
-    // Placeholder for timer functionality - will need server-side implementation for accuracy
-  </script>
 </head>
 <body class="bg-[#121212] text-white font-sans">
 
-  <!-- Sidebar Navigation -->
+  <!-- Flex container for sidebar and content -->
   <div class="flex">
-    <div class="w-64 bg-[#1f1f1f] p-6 h-screen fixed top-0 left-0">
-      <div class="flex flex-col space-y-6">
-        <a href="#" class="text-2xl font-semibold text-[#00bfa6] hover:text-[#009e8d] transition-colors">LearnX</a>
-        <ul class="flex flex-col space-y-4 text-gray-300">\
-          <li><a href="teach.html" class="sidebar-link">Teach</a></li>
-          <li><a href="learn.html" class="sidebar-link">Learn</a></li>
-          <li><a href="profile.html" class="sidebar-link">Profile</a></li>
-          <li><a href=chat.html class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Chat</a></li>
-          <li><a href="settings.html" class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Settings</a></li>
-        </ul>
-      </div>
-    </div>
+    <!-- Sidebar Placeholder - will be replaced by sidebar-loader.js -->
+    <div class="sidebar-placeholder"></div>
 
     <!-- Main Content -->
     <div class="flex-1 ml-64 p-8">
-      <h2 class="text-3xl md:text-4xl font-semibold mb-8 section-title" data-aos="fade-up">Live Session: [Session Title]</h2>
-
-      <!-- Video Placeholder and Timer -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
-        <div class="md:col-span-2 bg-[#1f1f1f] rounded-lg shadow-lg p-6" data-aos="fade-right">
-          <h3 class="text-xl font-semibold mb-4">Session Video</h3>
-          <div class="aspect-video bg-[#2d2d2d] rounded-lg flex items-center justify-center text-gray-400 text-lg video-placeholder">
-            [Video Embedded Here - e.g., Zoom, Jitsi]
+      <h2 class="text-3xl md:text-4xl font-semibold mb-6" data-aos="fade-up" id="session-title">Live Session</h2>
+      
+      <!-- Session Info -->
+      <div class="bg-[#1f1f1f] rounded-lg shadow-lg p-6 mb-6" data-aos="fade-up">
+        <div class="flex flex-wrap items-center justify-between gap-4">
+          <div>
+            <span class="inline-block px-3 py-1 bg-[#00bfa6] text-white rounded-full text-sm mb-2" id="session-category">Loading...</span>
+            <h3 class="text-xl font-semibold" id="session-description">Loading session details...</h3>
+          </div>
+          <div>
+            <div class="text-right font-semibold text-lg text-[#00bfa6]" id="session-timer">00:00:00</div>
+            <p class="text-gray-400 text-sm">Session Time</p>
           </div>
         </div>
-        <div class="bg-[#1f1f1f] rounded-lg shadow-lg p-6 flex flex-col justify-between" data-aos="fade-left">
-          <div>
-            <h3 class="text-xl font-semibold mb-4">Timer</h3>
-            <div class="text-center text-5xl font-bold text-[#00bfa6] animate-pulse-green" id="session-timer">00:00:00</div>
+        <div class="mt-4 flex items-center" id="share-link-container" style="display: none;">
+          <div class="flex-1 bg-[#2d2d2d] rounded-l-lg p-3 overflow-hidden whitespace-nowrap overflow-ellipsis" id="meeting-link">
+            Meeting link will appear here
           </div>
-          <button class="mt-4 bg-[#00bfa6] text-white py-3 px-6 rounded-lg hover:bg-[#009e8d] transition-colors">End Session</button>
+          <button id="copy-link-btn" class="bg-[#00bfa6] text-white py-3 px-4 rounded-r-lg hover:bg-[#009e8d] transition-colors flex items-center">
+            <i class="fas fa-copy"></i>
+            <span class="ml-2 hidden sm:inline">Copy</span>
+          </button>
+          <button id="share-btn" class="ml-2 bg-[#00bfa6] text-white py-3 px-4 rounded-lg hover:bg-[#009e8d] transition-colors flex items-center">
+            <i class="fas fa-share-alt"></i>
+            <span class="ml-2 hidden sm:inline">Share</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Video and Participants Section -->
+      <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 mb-6">
+        <!-- Video Container (Takes 3/4 of the row on large screens) -->
+        <div class="lg:col-span-3" data-aos="fade-right">
+          <div class="video-container" id="video-container" style="height: 70vh;">
+            <!-- Jitsi meeting will be embedded here -->
+            <div class="absolute inset-0 flex flex-col items-center justify-center p-4" id="joining-overlay">
+              <img src="https://placehold.co/120x120/00bfa6/ffffff?text=LearnX" alt="LearnX" class="mb-4">
+              <h3 class="text-xl font-semibold mb-4 text-center">Ready to join the session?</h3>
+              <button id="join-button" class="bg-[#00bfa6] text-white py-3 px-8 rounded-lg hover:bg-[#009e8d] transition-colors flex items-center gap-2 animate-pulse-green">
+                <i class="fas fa-video"></i>
+                Join Meeting
+              </button>
+              <p class="mt-4 text-gray-400 text-sm text-center">Click to join the video call with your teacher and peers</p>
+            </div>
+            <div id="jitsi-container" class="w-full h-full absolute inset-0 hidden"></div>
+          </div>
+        </div>
+
+        <!-- Participants (Takes 1/4 of the row on large screens) -->
+        <div class="bg-[#1f1f1f] rounded-lg shadow-lg p-4" data-aos="fade-left">
+          <h3 class="text-lg font-semibold mb-4 flex items-center gap-2">
+            <i class="fas fa-users text-[#00bfa6]"></i>
+            Participants
+          </h3>
+          <div class="participant-list" id="participant-list">
+            <div class="p-4 text-center text-gray-400">
+              <div class="spinner mb-3"></div>
+              Loading participants...
+            </div>
+          </div>
         </div>
       </div>
 
       <!-- Note Taking Area -->
-      <div class="bg-[#1f1f1f] rounded-lg shadow-lg p-6 mb-10 note-taking-area" data-aos="fade-up">
-        <h3 class="text-xl font-semibold mb-4">Notes</h3>
-        <textarea class="w-full h-40 bg-[#2d2d2d] text-white p-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00bfa6]" placeholder="Take notes here..."></textarea>
+      <div class="bg-[#1f1f1f] rounded-lg shadow-lg p-6 mb-6 note-taking-area" data-aos="fade-up">
+        <h3 class="text-xl font-semibold mb-4 flex items-center gap-2">
+          <i class="fas fa-edit text-[#00bfa6]"></i>
+          Notes
+        </h3>
+        <textarea id="session-notes" class="w-full h-40 bg-[#2d2d2d] text-white p-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00bfa6]" 
+          placeholder="Take notes here during the session..."></textarea>
+        <div class="flex justify-end mt-3">
+          <button id="save-notes" class="bg-[#00bfa6] text-white py-2 px-4 rounded-lg hover:bg-[#009e8d] transition-colors flex items-center gap-2">
+            <i class="fas fa-save"></i>
+            Save Notes
+          </button>
+        </div>
+      </div>
+
+      <!-- Resources Section -->
+      <div class="bg-[#1f1f1f] rounded-lg shadow-lg p-6 mb-6" data-aos="fade-up">
+        <h3 class="text-xl font-semibold mb-4 flex items-center gap-2">
+          <i class="fas fa-book text-[#00bfa6]"></i>
+          Session Resources
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="resources-container">
+          <!-- Resources will be added here -->
+          <div class="bg-[#2d2d2d] p-4 rounded-lg flex items-center gap-3">
+            <div class="bg-[#00bfa6] p-2 rounded-lg">
+              <i class="fas fa-file-pdf text-white"></i>
+            </div>
+            <div class="flex-1">
+              <h4 class="font-semibold">Session Slides</h4>
+              <p class="text-sm text-gray-400">PDF Document (1.2 MB)</p>
+            </div>
+            <button class="text-[#00bfa6] hover:text-white transition-colors">
+              <i class="fas fa-download"></i>
+            </button>
+          </div>
+          <div class="bg-[#2d2d2d] p-4 rounded-lg flex items-center gap-3">
+            <div class="bg-[#00bfa6] p-2 rounded-lg">
+              <i class="fas fa-link text-white"></i>
+            </div>
+            <div class="flex-1">
+              <h4 class="font-semibold">Additional Reading</h4>
+              <p class="text-sm text-gray-400">External Resource</p>
+            </div>
+            <a href="#" target="_blank" class="text-[#00bfa6] hover:text-white transition-colors">
+              <i class="fas fa-external-link-alt"></i>
+            </a>
+          </div>
+        </div>
       </div>
 
       <!-- Post-Session Feedback -->
       <div class="bg-[#1f1f1f] rounded-lg shadow-lg p-6" data-aos="fade-up">
-        <h3 class="text-xl font-semibold mb-6">Post-Session Feedback</h3>
-        <form action="#" method="POST" class="space-y-6">
+        <h3 class="text-xl font-semibold mb-4 flex items-center gap-2">
+          <i class="fas fa-star text-[#00bfa6]"></i>
+          Post-Session Feedback
+        </h3>
+        <form id="feedback-form" class="space-y-6">
           <div>
             <label for="rating" class="block text-lg font-semibold mb-2">Rate the session:</label>
-            <select id="rating" name="rating" class="w-full bg-[#2d2d2d] text-white p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00bfa6]">
-              <option value="5">5 Stars</option>
-              <option value="4">4 Stars</option>
-              <option value="3">3 Stars</option>
-              <option value="2">2 Stars</option>
-              <option value="1">1 Star</option>
-            </select>
+            <div class="flex gap-2">
+              <button type="button" class="rating-star text-gray-400 text-2xl hover:text-yellow-400 transition-colors" data-value="1">★</button>
+              <button type="button" class="rating-star text-gray-400 text-2xl hover:text-yellow-400 transition-colors" data-value="2">★</button>
+              <button type="button" class="rating-star text-gray-400 text-2xl hover:text-yellow-400 transition-colors" data-value="3">★</button>
+              <button type="button" class="rating-star text-gray-400 text-2xl hover:text-yellow-400 transition-colors" data-value="4">★</button>
+              <button type="button" class="rating-star text-gray-400 text-2xl hover:text-yellow-400 transition-colors" data-value="5">★</button>
+            </div>
+            <input type="hidden" id="rating-value" name="rating" value="">
           </div>
           <div>
             <label for="feedback" class="block text-lg font-semibold mb-2">Your Feedback:</label>
-            <textarea id="feedback" name="feedback" rows="4" class="w-full bg-[#2d2d2d] text-white p-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00bfa6]" placeholder="Share your thoughts on the session..."></textarea>
+            <textarea id="feedback" name="feedback" rows="4" class="w-full bg-[#2d2d2d] text-white p-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00bfa6]" placeholder="Share your thoughts on this session..."></textarea>
           </div>
-          <button type="submit" class="bg-[#00bfa6] text-white py-3 px-8 rounded-lg hover:bg-[#009e8d] transition-colors font-semibold">Submit Feedback</button>
+          <button type="submit" class="bg-[#00bfa6] text-white py-3 px-8 rounded-lg hover:bg-[#009e8d] transition-colors font-semibold flex items-center gap-2">
+            <i class="fas fa-paper-plane"></i>
+            Submit Feedback
+          </button>
         </form>
       </div>
-    </div>
-
-    <!-- Placeholder for user live session data -->
-    <div class="flex-1 ml-64 p-8" data-aos="fade-up">
-      <h3 class="text-xl font-semibold mb-4">Your Live Session Details</h3>
-      <div id="registered-sessions" class="bg-[#2d2d2d] p-4 rounded-lg mb-4">
-        <!-- Registered sessions will be populated here -->
-      </div>
-      <p class="text-lg text-gray-400">Your role in this session: <span id="session-role">Loading...</span></p>
     </div>
   </div>
 
@@ -140,6 +298,7 @@
 
   <!-- AOS Animation Init -->
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script src="js/sidebar-loader.js"></script>
   <script>
     AOS.init({
       duration: 800,
@@ -147,8 +306,38 @@
       once: true
     });
 
-    // Basic client-side timer (for demonstration - needs server logic for robust use)
+    document.addEventListener("DOMContentLoaded", function() {
+      // Get the session ID from the URL
+      const urlParams = new URLSearchParams(window.location.search);
+      const sessionId = urlParams.get('id');
+      
+      if (!sessionId) {
+        console.error('No session ID provided');
+        alert('No session ID provided. Redirecting to Learn page.');
+        window.location.href = 'learn.html';
+        return;
+      }
+      
+      // Get the token from localStorage
+      const token = localStorage.getItem('token');
+      
+      if (!token) {
+        console.log("User not logged in.");
+        window.location.href = 'login.html'; // Redirect to login page
+        return;
+      }
+      
+      // Parse the token to get userId
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      const userId = payload.userId;
+      
+      fetchSessionData(sessionId, userId);
+      setupStarRating();
+      setupNoteSaving();
+      setupFeedbackForm();
+    });
 
+    // Timer functionality
     const timerElement = document.getElementById('session-timer');
     let seconds = 0;
     let timerInterval;
@@ -163,47 +352,292 @@
       timerElement.textContent = formattedTime;
     }
 
+    function startTimer() {
     timerInterval = setInterval(updateTimer, 1000);
-    // You would likely stop the timer and handle session end server-side
-    // For demonstration, you could add an event listener to the "End Session" button
-    // document.querySelector('button').addEventListener('click', () => clearInterval(timerInterval));
-
- </script>
-
-  <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      // Get the user_id from localStorage or wherever you store it
-      const userId = localStorage.getItem('user_id'); // Replace with your actual user ID retrieval
-
-      if (userId) {
-        fetchLiveSessionData(userId);
-      } else {
-        // Handle case where user is not logged in or user_id is not available
-        console.log('User not logged in or user_id not found for live session data.');
-        // Optionally redirect to login page: window.location.href = 'login.html';
-      }
-    });
-
-    function fetchLiveSessionData(userId) {
-      // Placeholder for fetching user-specific live session data from the backend
-      console.log(`Fetching live session data for user ID: ${userId}`);
-
-      // ** Integrate your backend API call here **
-      // Example:
-      // fetch(`/api/user/${userId}/livesessions`)
-      //   .then(response => response.json())
-      //   .then(data => displayLiveSessionData(data))
-      //   .catch(error => console.error('Error fetching live session data:', error));
     }
 
-    function displayLiveSessionData(userData) {
-      // Placeholder for displaying the fetched live session data
-      console.log('Displaying live session data:', userData);
+    function stopTimer() {
+      clearInterval(timerInterval);
+    }
 
-      // ** Integrate logic to populate the HTML elements with fetched data **
-      // Example:
-      // document.getElementById('registered-sessions').innerHTML = userData.registeredSessions.map(session => `<p>${session.title} on ${session.date}</p>`).join('');
-      // document.getElementById('session-role').textContent = userData.role;
+    // Star rating functionality
+    function setupStarRating() {
+      const stars = document.querySelectorAll('.rating-star');
+      const ratingInput = document.getElementById('rating-value');
+      
+      stars.forEach(star => {
+        star.addEventListener('click', () => {
+          const value = star.getAttribute('data-value');
+          ratingInput.value = value;
+          
+          // Update UI to reflect selected rating
+          stars.forEach(s => {
+            const sValue = s.getAttribute('data-value');
+            if (sValue <= value) {
+              s.classList.remove('text-gray-400');
+              s.classList.add('text-yellow-400');
+      } else {
+              s.classList.remove('text-yellow-400');
+              s.classList.add('text-gray-400');
+            }
+          });
+        });
+      });
+    }
+
+    // Save notes functionality
+    function setupNoteSaving() {
+      const saveButton = document.getElementById('save-notes');
+      const notesTextarea = document.getElementById('session-notes');
+      
+      saveButton.addEventListener('click', () => {
+        const notes = notesTextarea.value;
+        if (notes.trim()) {
+          localStorage.setItem('session_notes', notes);
+          // Show saved notification
+          const originalText = saveButton.innerHTML;
+          saveButton.innerHTML = '<i class="fas fa-check"></i> Saved!';
+          setTimeout(() => {
+            saveButton.innerHTML = originalText;
+          }, 2000);
+        }
+      });
+      
+      // Load saved notes if they exist
+      const savedNotes = localStorage.getItem('session_notes');
+      if (savedNotes) {
+        notesTextarea.value = savedNotes;
+      }
+    }
+
+    // Feedback form submission
+    function setupFeedbackForm() {
+      const form = document.getElementById('feedback-form');
+      
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const rating = document.getElementById('rating-value').value;
+        const feedback = document.getElementById('feedback').value;
+        
+        if (!rating) {
+          alert('Please provide a rating before submitting feedback.');
+          return;
+        }
+        
+        // Here you would normally send this data to your server
+        console.log('Submitting feedback:', { rating, feedback });
+        
+        // Show success message
+        form.innerHTML = `
+          <div class="text-center p-6">
+            <i class="fas fa-check-circle text-[#00bfa6] text-5xl mb-4"></i>
+            <h3 class="text-xl font-semibold mb-2">Thank You for Your Feedback!</h3>
+            <p class="text-gray-400">Your input helps improve our platform.</p>
+          </div>
+        `;
+      });
+    }
+    
+    async function fetchSessionData(sessionId, userId) {
+      try {
+        console.log(`Fetching live session data for session ID: ${sessionId}`);
+        const response = await fetch(`http://127.0.0.1:5000/api/live-session/${sessionId}`, {
+          headers: {
+            'Accept': 'application/json'
+          }
+        });
+        
+        if (!response.ok) {
+          throw new Error(`Failed to fetch session data: ${response.status}`);
+        }
+        
+        const sessionData = await response.json();
+        console.log("Session data received:", sessionData);
+        displaySessionData(sessionData, userId);
+        setupJitsiMeeting(sessionData, userId);
+      } catch (error) {
+        console.error("Error fetching session data:", error);
+        alert(`Error: ${error.message}`);
+      }
+    }
+    
+    function displaySessionData(data, userId) {
+      // Update page title and session info
+      document.getElementById('session-title').textContent = `Live Session: ${data.session.title}`;
+      document.getElementById('session-description').textContent = data.session.description;
+      document.getElementById('session-category').textContent = data.session.category;
+      
+      // Display participants
+      const participantList = document.getElementById('participant-list');
+      let participantsHTML = '';
+      
+      // Add teacher
+      participantsHTML += `
+        <div class="flex items-center p-2 border-b border-[#3d3d3d]">
+          <img src="${data.teacher.profile_picture_url}" alt="${data.teacher.username}" 
+            class="w-10 h-10 rounded-full mr-3 object-cover">
+          <div>
+            <p class="font-semibold">${data.teacher.username}</p>
+            <p class="text-[#00bfa6] text-xs">Teacher</p>
+          </div>
+        </div>
+      `;
+      
+      // Add students
+      data.students.forEach(student => {
+        participantsHTML += `
+          <div class="flex items-center p-2 border-b border-[#3d3d3d]">
+            <img src="${student.profile_picture_url}" alt="${student.username}" 
+              class="w-10 h-10 rounded-full mr-3 object-cover">
+            <div>
+              <p class="font-semibold">${student.username}</p>
+              <p class="text-gray-400 text-xs">Student</p>
+            </div>
+          </div>
+        `;
+      });
+      
+      participantList.innerHTML = participantsHTML;
+      
+      // Determine if current user is teacher or student
+      const isTeacher = data.teacher.id === userId;
+      const isStudent = data.students.some(student => student.id === userId);
+      const userRole = isTeacher ? 'Teacher' : (isStudent ? 'Student' : 'Observer');
+      
+      // Store role in a data attribute for later use
+      document.body.setAttribute('data-user-role', userRole);
+    }
+    
+    function setupJitsiMeeting(data, userId) {
+      const joinButton = document.getElementById('join-button');
+      
+      joinButton.addEventListener('click', function() {
+        // Show loading state
+        joinButton.disabled = true;
+        joinButton.innerHTML = '<div class="spinner mr-2"></div> Connecting...';
+        
+        try {
+          // Generate a simple room name
+          const simpleRoomName = `learnx-${data.session.id}-${Date.now()}`;
+          
+          // Hide the join overlay
+          document.getElementById('joining-overlay').style.display = 'none';
+          
+          // Get the container
+          const jitsiContainer = document.getElementById('jitsi-container');
+          jitsiContainer.innerHTML = '';
+          jitsiContainer.classList.remove('hidden');
+          
+          console.log(`Creating direct Jitsi iframe for room: ${simpleRoomName}`);
+          
+          // Get user display name
+          const displayName = data.teacher.id === userId 
+            ? `${data.teacher.username} (Teacher)`
+            : data.students.find(s => s.id === userId)?.username || `User ${userId}`;
+          
+          // Create the meeting URL
+          const meetingUrl = `https://meet.jit.si/${simpleRoomName}`;
+          
+          // Show and populate the share link container
+          const shareLinkContainer = document.getElementById('share-link-container');
+          shareLinkContainer.style.display = 'flex';
+          const meetingLinkElement = document.getElementById('meeting-link');
+          meetingLinkElement.textContent = meetingUrl;
+          meetingLinkElement.title = meetingUrl;
+          
+          // Set up copy link button
+          const copyLinkBtn = document.getElementById('copy-link-btn');
+          copyLinkBtn.addEventListener('click', function() {
+            navigator.clipboard.writeText(meetingUrl).then(() => {
+              const originalText = copyLinkBtn.innerHTML;
+              copyLinkBtn.innerHTML = '<i class="fas fa-check"></i><span class="ml-2 hidden sm:inline">Copied!</span>';
+              setTimeout(() => {
+                copyLinkBtn.innerHTML = originalText;
+              }, 2000);
+            });
+          });
+          
+          // Set up share button (for mobile)
+          const shareBtn = document.getElementById('share-btn');
+          shareBtn.addEventListener('click', function() {
+            if (navigator.share) {
+              navigator.share({
+                title: `LearnX Session: ${data.session.title}`,
+                text: `Join me in a LearnX learning session: ${data.session.title}`,
+                url: meetingUrl
+              }).catch(err => {
+                console.error('Share failed:', err);
+              });
+            } else {
+              // Fallback for browsers that don't support Web Share API
+              navigator.clipboard.writeText(meetingUrl).then(() => {
+                const originalText = shareBtn.innerHTML;
+                shareBtn.innerHTML = '<i class="fas fa-check"></i><span class="ml-2 hidden sm:inline">Copied!</span>';
+                setTimeout(() => {
+                  shareBtn.innerHTML = originalText;
+                }, 2000);
+              });
+            }
+          });
+          
+          // Instead of using the API, create a direct iframe to the Jitsi service
+          // This is more reliable and works in more environments
+          const iframeHtml = `
+            <iframe 
+              src="${meetingUrl}#userInfo.displayName=${encodeURIComponent(displayName)}&config.prejoinPageEnabled=false&config.startWithVideoMuted=false&config.startWithAudioMuted=false"
+              allow="camera; microphone; fullscreen; display-capture; autoplay"
+              style="width: 100%; height: 100%; min-height: 400px; border: none;"
+              id="jitsi-iframe">
+            </iframe>
+          `;
+          
+          jitsiContainer.innerHTML = iframeHtml;
+          
+          // Start timer
+          startTimer();
+          
+          // Create a message handler for when the iframe is closed
+          window.addEventListener('message', function(e) {
+            if (e.data && e.data.type === 'videoConferenceLeft') {
+              leaveSession();
+            }
+          });
+          
+          // Add a leave button that sits on top of the iframe
+          const leaveButton = document.createElement('button');
+          leaveButton.className = 'absolute bottom-4 right-4 bg-red-600 text-white px-4 py-2 rounded-full hover:bg-red-700 transition-colors z-50';
+          leaveButton.innerHTML = '<i class="fas fa-phone-slash mr-2"></i> Leave';
+          leaveButton.onclick = leaveSession;
+          jitsiContainer.appendChild(leaveButton);
+          
+        } catch (error) {
+          console.error('Error setting up meeting:', error);
+          alert('Failed to join the meeting. Please try again.');
+          joinButton.disabled = false;
+          joinButton.innerHTML = '<i class="fas fa-video"></i> Join Meeting';
+        }
+      });
+    }
+    
+    function leaveSession() {
+      // Stop the timer
+      stopTimer();
+      
+      // Clear the Jitsi container and show the join screen again
+      const jitsiContainer = document.getElementById('jitsi-container');
+      jitsiContainer.innerHTML = '';
+      jitsiContainer.classList.add('hidden');
+      
+      // Show the join overlay
+      document.getElementById('joining-overlay').style.display = 'flex';
+      
+      // Hide the share link container
+      document.getElementById('share-link-container').style.display = 'none';
+      
+      // Reset the join button
+      const joinButton = document.getElementById('join-button');
+      joinButton.disabled = false;
+      joinButton.innerHTML = '<i class="fas fa-video"></i> Join Meeting';
     }
   </script>
 </body>

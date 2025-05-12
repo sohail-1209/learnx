@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teacher Profile - LearnX</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+    .star-rating {
+      color: #FFD700;
+    }
+  </style>
+</head>
+<body class="bg-[#121212] text-white font-sans">
+ 
+  <!-- Flex container for sidebar and content -->
+  <div class="flex">
+    <!-- Sidebar Placeholder - will be replaced by sidebar-loader.js -->
+    <div class="sidebar-placeholder"></div>
+
+    <!-- Main Content -->
+    <div class="flex-1 ml-64 p-8">
+      <div id="loading" class="text-center py-20">
+        <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#00bfa6] mx-auto"></div>
+        <p class="mt-4 text-lg">Loading teacher profile...</p>
+      </div>
+      
+      <div id="profile-content" class="hidden">
+        <!-- Teacher Profile Header -->
+        <div class="flex flex-col md:flex-row items-start md:items-center space-y-4 md:space-y-0 md:space-x-6 mb-8" data-aos="fade-up">
+          <div class="w-24 h-24 rounded-full bg-[#2d2d2d] overflow-hidden">
+            <img id="teacher-image" src="https://placehold.co/150x150" alt="Teacher" class="w-full h-full object-cover">
+          </div>
+          <div>
+            <h2 id="teacher-name" class="text-3xl md:text-4xl font-semibold"></h2>
+            <div class="flex items-center mt-2">
+              <span id="teacher-rating" class="star-rating text-xl mr-2"></span>
+              <span id="review-count" class="text-gray-400"></span>
+            </div>
+            <p id="teacher-title" class="text-[#00bfa6] text-xl mt-1"></p>
+          </div>
+        </div>
+
+        <!-- Teacher Details -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+          <!-- About -->
+          <div class="col-span-2 bg-[#1f1f1f] p-6 rounded-lg shadow-lg" data-aos="fade-up" data-aos-delay="100">
+            <h3 class="text-2xl font-semibold mb-4">About</h3>
+            <p id="teacher-description" class="text-gray-300"></p>
+            
+            <div class="mt-4 grid grid-cols-2 gap-4">
+              <div>
+                <h4 class="text-lg font-semibold">Experience</h4>
+                <p id="teacher-experience" class="text-gray-300"></p>
+              </div>
+              <div>
+                <h4 class="text-lg font-semibold">Hourly Rate</h4>
+                <p id="teacher-rate" class="text-gray-300"></p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Stats -->
+          <div class="bg-[#1f1f1f] p-6 rounded-lg shadow-lg" data-aos="fade-up" data-aos-delay="200">
+            <h3 class="text-2xl font-semibold mb-4">Stats</h3>
+            <div class="space-y-4">
+              <div>
+                <h4 class="text-lg font-semibold">Sessions Completed</h4>
+                <p id="sessions-completed" class="text-gray-300">0</p>
+              </div>
+              <div>
+                <h4 class="text-lg font-semibold">Students Taught</h4>
+                <p id="students-taught" class="text-gray-300">0</p>
+              </div>
+              <div>
+                <h4 class="text-lg font-semibold">Response Rate</h4>
+                <p class="text-gray-300">95%</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Available Sessions -->
+        <div id="available-sessions-container" class="mb-8 hidden">
+          <h3 class="text-2xl font-semibold mb-4" data-aos="fade-up">Available Sessions</h3>
+          <div id="available-sessions" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" data-aos="fade-up" data-aos-delay="100">
+            <!-- Sessions will be populated here by JavaScript -->
+          </div>
+        </div>
+
+        <!-- Reviews -->
+        <div id="reviews-container">
+          <h3 class="text-2xl font-semibold mb-4" data-aos="fade-up">Reviews</h3>
+          <div id="reviews-loading" class="text-center py-8">
+            <div class="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-[#00bfa6] mx-auto"></div>
+            <p class="mt-2">Loading reviews...</p>
+          </div>
+          <div id="reviews-list" class="space-y-4 hidden" data-aos="fade-up" data-aos-delay="100">
+            <!-- Reviews will be populated here by JavaScript -->
+          </div>
+          <div id="no-reviews" class="bg-[#1f1f1f] p-6 rounded-lg text-center hidden" data-aos="fade-up" data-aos-delay="100">
+            <p class="text-gray-400">No reviews yet.</p>
+            <p class="mt-2">Be the first to leave a review after taking a session!</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Error Message -->
+      <div id="error-container" class="hidden bg-red-500 text-white p-6 rounded-lg">
+        <p id="error-message">An error occurred while loading the teacher profile.</p>
+        <button onclick="window.location.href='learn.html'" class="mt-4 bg-white text-red-500 py-2 px-4 rounded-lg">
+          Return to Learn Page
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-[#1f1f1f] py-6 text-center text-white mt-8">
+    <p>&copy; 2025 LearnX - All Rights Reserved</p>
+  </footer>
+
+  <!-- AOS Animation Init -->
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script src="js/sidebar-loader.js"></script>
+  <script>
+    AOS.init({
+      duration: 800,
+      easing: 'ease-in-out',
+      once: true
+    });
+  </script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      // Get teacher ID from URL parameters
+      const urlParams = new URLSearchParams(window.location.search);
+      const teacherId = urlParams.get('id');
+      
+      if (!teacherId) {
+        showError("No teacher specified. Please go back and try again.");
+        return;
+      }
+      
+      // Fetch teacher profile and reviews
+      fetchTeacherProfile(teacherId);
+      fetchTeacherReviews(teacherId);
+    });
+    
+    async function fetchTeacherProfile(teacherId) {
+      try {
+        const response = await fetch(`http://127.0.0.1:5001/api/teach/${teacherId}`);
+        
+        if (!response.ok) {
+          throw new Error(`Failed to fetch teacher profile: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        console.log("Teacher profile data:", data);
+        
+        // Populate profile data
+        document.getElementById('teacher-name').textContent = data.username;
+        document.getElementById('teacher-title').textContent = data.profile.title;
+        document.getElementById('teacher-description').textContent = data.profile.description;
+        document.getElementById('teacher-experience').textContent = `${data.profile.experience_years} years`;
+        document.getElementById('teacher-rate').textContent = `$${data.profile.hourly_rate}/hr`;
+        document.getElementById('sessions-completed').textContent = data.profile.sessions_completed;
+        document.getElementById('students-taught').textContent = data.profile.reviews ? data.profile.reviews.length : 0;
+        
+        // Display rating with stars
+        const rating = data.profile.rating;
+        document.getElementById('teacher-rating').textContent = '★'.repeat(Math.round(rating));
+        document.getElementById('review-count').textContent = `(${data.profile.reviews ? data.profile.reviews.length : 0} reviews)`;
+        
+        // Set profile image
+        if (data.profile_picture_url) {
+          document.getElementById('teacher-image').src = data.profile_picture_url;
+        }
+        
+        // Check if teacher has sessions
+        if (data.sessions && data.sessions.length > 0) {
+          document.getElementById('available-sessions-container').classList.remove('hidden');
+          displaySessions(data.sessions, teacherId);
+        }
+        
+        // Show profile content
+        document.getElementById('loading').classList.add('hidden');
+        document.getElementById('profile-content').classList.remove('hidden');
+        
+      } catch (error) {
+        console.error("Error fetching teacher profile:", error);
+        showError(error.message);
+      }
+    }
+    
+    async function fetchTeacherReviews(teacherId) {
+      try {
+        // Get teacher reviews
+        const response = await fetch(`http://127.0.0.1:5001/api/reviews/teacher/${teacherId}`);
+        
+        if (!response.ok) {
+          throw new Error(`Failed to fetch teacher reviews: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        console.log("Teacher reviews data:", data);
+        
+        // Hide loading indicator
+        document.getElementById('reviews-loading').classList.add('hidden');
+        
+        // Display reviews
+        if (data.reviews && data.reviews.length > 0) {
+          displayReviews(data.reviews);
+          document.getElementById('reviews-list').classList.remove('hidden');
+        } else {
+          document.getElementById('no-reviews').classList.remove('hidden');
+        }
+        
+      } catch (error) {
+        console.error("Error fetching teacher reviews:", error);
+        document.getElementById('reviews-loading').classList.add('hidden');
+        document.getElementById('no-reviews').classList.remove('hidden');
+      }
+    }
+    
+    function displaySessions(sessions, teacherId) {
+      const container = document.getElementById('available-sessions');
+      let html = '';
+      
+      sessions.forEach(session => {
+        // Format date
+        const sessionDate = new Date(session.schedule);
+        const dateString = sessionDate.toLocaleDateString();
+        
+        html += `
+          <div class="bg-[#1f1f1f] p-6 rounded-lg shadow-lg">
+            <h4 class="text-xl font-semibold">${session.title}</h4>
+            <p class="text-gray-400 mt-2">${session.description}</p>
+            <div class="mt-4 flex justify-between">
+              <span>Category: ${session.category}</span>
+              <span>$${session.price}/hr</span>
+            </div>
+            <div class="mt-2 text-sm text-gray-400">
+              <span>Date: ${dateString}</span>
+            </div>
+            <div class="mt-4">
+              <button onclick="enrollInSession(${session.id})" class="w-full bg-[#00bfa6] text-white py-2 px-4 rounded-lg hover:bg-[#009e8d] transition-colors">
+                Book Session
+              </button>
+            </div>
+          </div>
+        `;
+      });
+      
+      container.innerHTML = html;
+    }
+    
+    function displayReviews(reviews) {
+      const container = document.getElementById('reviews-list');
+      let html = '';
+      
+      reviews.forEach(review => {
+        // Format date
+        const reviewDate = new Date(review.date);
+        const dateString = reviewDate.toLocaleDateString();
+        
+        html += `
+          <div class="bg-[#1f1f1f] p-6 rounded-lg shadow-lg">
+            <div class="flex justify-between items-start">
+              <div>
+                <p class="font-semibold">${review.studentName}</p>
+                <div class="text-[#00bfa6]">
+                  ${'★'.repeat(review.rating)}
+                </div>
+              </div>
+              <div class="text-sm text-gray-400">
+                ${dateString}
+              </div>
+            </div>
+            <p class="mt-3 text-gray-300">${review.comment || 'No comment provided.'}</p>
+            <p class="mt-2 text-sm text-gray-400">Session: ${review.sessionTitle}</p>
+          </div>
+        `;
+      });
+      
+      container.innerHTML = html;
+    }
+    
+    async function enrollInSession(sessionId) {
+      try {
+        const token = localStorage.getItem('token');
+        
+        if (!token) {
+          alert("You must be logged in to enroll in a session.");
+          window.location.href = 'login.html';
+          return;
+        }
+        
+        // Parse the token to get userId
+        const payload = JSON.parse(atob(token.split('.')[1]));
+        const userId = payload.userId;
+        
+        // Disable all enroll buttons to prevent double-clicks
+        const enrollButtons = document.querySelectorAll('button[onclick^="enrollInSession"]');
+        enrollButtons.forEach(button => {
+          button.disabled = true;
+          button.innerHTML = 'Processing...';
+        });
+        
+        const response = await fetch('http://127.0.0.1:5001/api/learn/enroll', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify({ userId, sessionId })
+        });
+        
+        // Re-enable buttons
+        enrollButtons.forEach(button => {
+          button.disabled = false;
+          button.innerHTML = 'Book Session';
+        });
+        
+        if (!response.ok) {
+          let errorMessage = `Failed to enroll in session: ${response.status}`;
+          try {
+            const errorData = await response.json();
+            errorMessage = errorData.error || errorMessage;
+          } catch (e) {
+            // If the response is not valid JSON, just use the status code message
+          }
+          throw new Error(errorMessage);
+        }
+        
+        const result = await response.json();
+        
+        // Show success message
+        alert('Enrolled successfully! You can now view this session in your enrolled courses.');
+        
+        // Redirect to learn page
+        window.location.href = 'learn.html';
+        
+      } catch (error) {
+        console.error("Error enrolling in session:", error);
+        alert(error.message);
+      }
+    }
+    
+    function showError(message) {
+      document.getElementById('loading').classList.add('hidden');
+      document.getElementById('profile-content').classList.add('hidden');
+      document.getElementById('error-message').textContent = message;
+      document.getElementById('error-container').classList.remove('hidden');
+    }
+  </script>
+</body>
+</html> 

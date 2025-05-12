@@ -5,81 +5,220 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Schedule - LearnX</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://unpkg.com/aos@next/dist/aos.css" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
   <style>
     html {
       scroll-behavior: smooth;
     }
+    
+    /* Animations and transitions */
+    .animate-fade-out {
+      transition: opacity 0.5s ease-out;
+      opacity: 0;
+    }
+    
+    .hidden {
+      display: none;
+    }
+    
+    /* Button hover effects */
+    .btn-hover {
+      transition: all 0.3s ease;
+    }
+    
+    .btn-hover:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 6px rgba(0, 191, 166, 0.2);
+    }
+    
+    /* Card hover effects */
+    .card-hover {
+      transition: all 0.3s ease;
+    }
+    
+    .card-hover:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Session animations */
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(0, 191, 166, 0.4); }
+      70% { box-shadow: 0 0 0 10px rgba(0, 191, 166, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(0, 191, 166, 0); }
+    }
+    
+    .pulse {
+      animation: pulse 2s infinite;
+    }
   </style>
 </head>
 <body class="bg-[#121212] text-white font-sans">
-
-  <!-- Sidebar Navigation -->
+  <!-- Flex container for sidebar and content -->
   <div class="flex">
-    <div class="w-64 bg-[#1f1f1f] p-6 h-screen fixed top-0 left-0">
-      <div class="flex flex-col space-y-6">
-        <a href="#" class="text-2xl font-semibold text-[#00bfa6] hover:text-[#009e8d] transition-colors">LearnX</a>
-        <ul class="flex flex-col space-y-4">
-          <li><a href="teach.html" class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Teach</a></li>
-          <li><a href="learn.html" class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Learn</a></li>
-          <li><a href="profile.html" class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Profile</a></li>
-          <li><a href="chat.html" class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Chat</a></li>
-          <li><a href="settings.html" class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Settings</a></li>
-        </ul>
-      </div>
-    </div>
+    <!-- Sidebar Placeholder - will be replaced by sidebar-loader.js -->
+    <div class="sidebar-placeholder"></div>
 
     <!-- Main Content -->
     <div class="flex-1 ml-64 p-8">
       <h2 class="text-3xl md:text-4xl font-semibold mb-6" data-aos="fade-up">Your Schedule</h2>
 
       <!-- Schedule Content -->
-      <div class="bg-[#1f1f1f] rounded-lg p-8 shadow-lg" data-aos="fade-up">
-        <h3 class="text-xl font-semibold mb-4">Upcoming Sessions</h3>
+      <div class="bg-[#1f1f1f] rounded-lg p-6 shadow-lg" data-aos="fade-up">
+        <div class="flex justify-between items-center mb-6">
+          <h3 class="text-xl font-semibold">Upcoming Sessions</h3>
+          <div class="flex space-x-2">
+            <button id="btn-today" class="bg-[#2d2d2d] hover:bg-[#00bfa6] px-3 py-1 rounded-lg text-sm transition-colors btn-hover">Today</button>
+            <button id="btn-week" class="bg-[#2d2d2d] hover:bg-[#00bfa6] px-3 py-1 rounded-lg text-sm transition-colors btn-hover">This Week</button>
+            <button id="btn-month" class="bg-[#2d2d2d] hover:bg-[#00bfa6] px-3 py-1 rounded-lg text-sm transition-colors btn-hover">This Month</button>
+            <button id="btn-test-user" class="bg-red-600 hover:bg-red-700 px-3 py-1 rounded-lg text-sm transition-colors btn-hover">Test (User 1)</button>
+          </div>
+        </div>
 
-        <!-- Calendar Display Area (Placeholder for now, future integration here) -->
-        <div id="calendar" class="h-96 bg-[#2d2d2d] rounded-lg mb-6">
-          <!-- This is where a calendar widget or view will be integrated -->
-          <p class="p-4 text-center text-gray-400">Calendar integration area. Upcoming sessions will be displayed here.</p>
+        <!-- Calendar View -->
+        <div id="calendar-view" class="mb-8 overflow-x-auto">
+          <div class="grid grid-cols-7 gap-1 min-w-[700px]">
+            <!-- Days of week headers -->
+            <div class="text-center p-2 bg-[#2d2d2d] rounded-t-lg font-medium">Sun</div>
+            <div class="text-center p-2 bg-[#2d2d2d] rounded-t-lg font-medium">Mon</div>
+            <div class="text-center p-2 bg-[#2d2d2d] rounded-t-lg font-medium">Tue</div>
+            <div class="text-center p-2 bg-[#2d2d2d] rounded-t-lg font-medium">Wed</div>
+            <div class="text-center p-2 bg-[#2d2d2d] rounded-t-lg font-medium">Thu</div>
+            <div class="text-center p-2 bg-[#2d2d2d] rounded-t-lg font-medium">Fri</div>
+            <div class="text-center p-2 bg-[#2d2d2d] rounded-t-lg font-medium">Sat</div>
+            
+            <!-- Calendar cells will be populated by JavaScript -->
+          </div>
         </div>
 
         <!-- List View of Upcoming Sessions -->
-        <div>
-          <h4 class="text-lg font-semibold mb-3">Upcoming Sessions List</h4>
-          <ul id="session-list" class="space-y-3">
-            <!-- Session items will be populated here -->
-            <li class="bg-[#2d2d2d] p-4 rounded-lg flex justify-between items-center hover:bg-[#3a3a3a] transition duration-300 ease-in-out">
+        <div class="mb-8" data-aos="fade-up">
+          <h4 class="text-lg font-semibold mb-4 flex items-center">
+            <i class="fas fa-calendar-check text-[#00bfa6] mr-2"></i>
+            Upcoming Sessions
+          </h4>
+          <div id="session-list" class="space-y-3">
+            <!-- Session items will be dynamically populated here -->
+            <div class="bg-[#2d2d2d] p-4 rounded-lg flex justify-between items-center animate-pulse">
               <div>
-                <p class="text-lg font-medium">JavaScript Fundamentals</p>
-                <p class="text-sm text-gray-400">with John Doe</p>
+                <p class="text-gray-400">Loading sessions...</p>
               </div>
-              <span class="text-[#00bfa6] text-sm">Tomorrow, 10:00 AM</span>
-            </li>
-            <li class="bg-[#2d2d2d] p-4 rounded-lg flex justify-between items-center hover:bg-[#3a3a3a] transition duration-300 ease-in-out">
-              <div>
-                <p class="text-lg font-medium">UI/UX Design Review</p>
-                <p class="text-sm text-gray-400">with Jane Smith</p>
-              </div>
-              <span class="text-[#00bfa6] text-sm">Wednesday, 2:00 PM</span>
-            </li>
-          </ul>
+            </div>
+          </div>
         </div>
 
-        <!-- Availability Section (Placeholder) -->
-        <div id="availability" class="mt-6">
-          <h4 class="text-lg font-semibold mb-3">Your Availability</h4>
-          <p class="text-gray-400">Availability information will be displayed here.</p>
-          <!-- More detailed availability display can be added here -->
+        <!-- Set Availability Section -->
+        <div id="availability-section" class="mb-8 bg-[#2d2d2d] p-6 rounded-lg" data-aos="fade-up">
+          <h4 class="text-lg font-semibold mb-4 flex items-center">
+            <i class="fas fa-clock text-[#00bfa6] mr-2"></i>
+            Set Your Availability
+          </h4>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <div class="mb-4">
+                <label class="block text-sm font-medium mb-2">Days Available</label>
+                <div class="flex flex-wrap gap-2">
+                  <label class="inline-flex items-center mr-3">
+                    <input type="checkbox" class="form-checkbox h-5 w-5 text-[#00bfa6]" name="day" value="monday"> 
+                    <span class="ml-2">Mon</span>
+                  </label>
+                  <label class="inline-flex items-center mr-3">
+                    <input type="checkbox" class="form-checkbox h-5 w-5 text-[#00bfa6]" name="day" value="tuesday">
+                    <span class="ml-2">Tue</span>
+                  </label>
+                  <label class="inline-flex items-center mr-3">
+                    <input type="checkbox" class="form-checkbox h-5 w-5 text-[#00bfa6]" name="day" value="wednesday">
+                    <span class="ml-2">Wed</span>
+                  </label>
+                  <label class="inline-flex items-center mr-3">
+                    <input type="checkbox" class="form-checkbox h-5 w-5 text-[#00bfa6]" name="day" value="thursday">
+                    <span class="ml-2">Thu</span>
+                  </label>
+                  <label class="inline-flex items-center mr-3">
+                    <input type="checkbox" class="form-checkbox h-5 w-5 text-[#00bfa6]" name="day" value="friday">
+                    <span class="ml-2">Fri</span>
+                  </label>
+                  <label class="inline-flex items-center mr-3">
+                    <input type="checkbox" class="form-checkbox h-5 w-5 text-[#00bfa6]" name="day" value="saturday">
+                    <span class="ml-2">Sat</span>
+                  </label>
+                  <label class="inline-flex items-center">
+                    <input type="checkbox" class="form-checkbox h-5 w-5 text-[#00bfa6]" name="day" value="sunday">
+                    <span class="ml-2">Sun</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+            
+            <div>
+              <div class="mb-4">
+                <label class="block text-sm font-medium mb-2">Time Range</label>
+                <div class="flex items-center space-x-4">
+                  <div>
+                    <label class="block text-xs mb-1">From</label>
+                    <select id="time-from" class="bg-[#3d3d3d] text-white rounded p-2 w-full">
+                      <option value="8">8:00 AM</option>
+                      <option value="9">9:00 AM</option>
+                      <option value="10">10:00 AM</option>
+                      <option value="11">11:00 AM</option>
+                      <option value="12">12:00 PM</option>
+                      <option value="13">1:00 PM</option>
+                      <option value="14">2:00 PM</option>
+                      <option value="15">3:00 PM</option>
+                      <option value="16">4:00 PM</option>
+                      <option value="17">5:00 PM</option>
+                      <option value="18">6:00 PM</option>
+                      <option value="19">7:00 PM</option>
+                      <option value="20">8:00 PM</option>
+                    </select>
+                  </div>
+              <div>
+                    <label class="block text-xs mb-1">To</label>
+                    <select id="time-to" class="bg-[#3d3d3d] text-white rounded p-2 w-full">
+                      <option value="9">9:00 AM</option>
+                      <option value="10">10:00 AM</option>
+                      <option value="11">11:00 AM</option>
+                      <option value="12">12:00 PM</option>
+                      <option value="13">1:00 PM</option>
+                      <option value="14">2:00 PM</option>
+                      <option value="15">3:00 PM</option>
+                      <option value="16">4:00 PM</option>
+                      <option value="17">5:00 PM</option>
+                      <option value="18">6:00 PM</option>
+                      <option value="19">7:00 PM</option>
+                      <option value="20">8:00 PM</option>
+                      <option value="21">9:00 PM</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
         </div>
 
-        <!-- Scheduling History Section (Placeholder) -->
-        <div id="scheduling-history" class="mt-6">
-          <h4 class="text-lg font-semibold mb-3">Scheduling History</h4>
-          <ul id="history-list" class="space-y-3">
+          <div class="mt-4">
+            <button id="save-availability" class="bg-[#00bfa6] hover:bg-[#009e8d] text-white py-2 px-6 rounded-lg transition-colors flex items-center btn-hover">
+              <i class="fas fa-save mr-2"></i>
+              Save Availability
+            </button>
+          </div>
+        </div>
+
+        <!-- Scheduling History Section -->
+        <div id="history-section" class="mb-4" data-aos="fade-up">
+          <h4 class="text-lg font-semibold mb-4 flex items-center">
+            <i class="fas fa-history text-[#00bfa6] mr-2"></i>
+            Session History
+          </h4>
+          <div id="history-list" class="space-y-3">
             <!-- History items will be populated here -->
-          </ul>
+            <div class="bg-[#2d2d2d] p-4 rounded-lg flex justify-between items-center animate-pulse">
+              <div>
+                <p class="text-gray-400">Loading history...</p>
+              </div>
+            </div>
+          </div>
         </div>
-
       </div>
     </div>
   </div>
@@ -90,85 +229,497 @@
   </footer>
 
   <!-- AOS Animation Init -->
-  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script src="js/sidebar-loader.js"></script>
   <script>
     AOS.init({
       duration: 800,
       easing: 'ease-in-out',
       once: true
     });
-  </script>
 
-  <script>
-    // Placeholder function to simulate fetching user scheduling data
+    document.addEventListener('DOMContentLoaded', function() {
+      // Get user ID from token
+      const token = localStorage.getItem('token');
+      
+      console.log("Token found in localStorage:", token ? "Yes" : "No");
+      
+      let userId = 1; // Default to user ID 1 for testing
+      
+      if (token) {
+        try {
+          const tokenParts = token.split('.');
+          console.log("Token has parts:", tokenParts.length);
+          
+          if (tokenParts.length < 2) {
+            throw new Error("Token does not have the expected format");
+          }
+          
+          // Base64 decode and parse payload
+          const payloadBase64 = tokenParts[1].replace(/-/g, '+').replace(/_/g, '/');
+          const payload = JSON.parse(atob(payloadBase64));
+          console.log("Token payload:", JSON.stringify(payload, null, 2));
+          
+          if (payload.userId) {
+            userId = payload.userId;
+          }
+          
+          console.log("Using User ID from token:", userId);
+        } catch (error) {
+          console.error("Error decoding token:", error);
+          console.log("Using default user ID 1 for testing");
+        }
+      } else {
+        console.warn("No token found, using user ID 1 for testing");
+      }
+
+      // Initialize calendar
+      renderCalendar();
+      
+      // Always test with user ID 1 first to show the enrolled sessions
+      console.log("First loading schedule for test user ID 1");
+      fetchScheduleData(1);
+      
+      // Set up event listeners
+      document.getElementById('btn-today').addEventListener('click', () => filterSessions('today'));
+      document.getElementById('btn-week').addEventListener('click', () => filterSessions('week'));
+      document.getElementById('btn-month').addEventListener('click', () => filterSessions('month'));
+      document.getElementById('btn-test-user').addEventListener('click', () => fetchScheduleData(1));
+      document.getElementById('save-availability').addEventListener('click', saveAvailability);
+      
+      // After 2 seconds, if desired, load the real user's data
+      setTimeout(() => {
+        if (userId !== 1) {
+          console.log("Now loading actual user data for ID:", userId);
+          fetchScheduleData(userId);
+        }
+      }, 2000);
+    });
+
+    // Function to render calendar
+    function renderCalendar() {
+      const calendarView = document.getElementById('calendar-view');
+      const daysContainer = calendarView.querySelector('.grid');
+      
+      // Clear existing calendar cells
+      const headerCells = daysContainer.querySelectorAll('div');
+      const numHeaderCells = 7; // Keep the day headers
+      for (let i = numHeaderCells; i < headerCells.length; i++) {
+        headerCells[i].remove();
+      }
+      
+      const currentDate = new Date();
+      const currentMonth = currentDate.getMonth();
+      const currentYear = currentDate.getFullYear();
+      
+      // Get first day of month
+      const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+      
+      // Get number of days in month
+      const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+      
+      // Add empty cells for days before the first day of month
+      for (let i = 0; i < firstDay; i++) {
+        const emptyCell = document.createElement('div');
+        emptyCell.className = 'bg-[#2d2d2d] h-24 p-2 text-gray-600 rounded-lg';
+        daysContainer.appendChild(emptyCell);
+      }
+      
+      // Add cells for each day of the month
+      for (let day = 1; day <= daysInMonth; day++) {
+        const dateCell = document.createElement('div');
+        dateCell.className = 'bg-[#2d2d2d] h-24 p-2 rounded-lg flex flex-col';
+        
+        // Highlight current day
+        if (day === currentDate.getDate()) {
+          dateCell.classList.add('ring-2', 'ring-[#00bfa6]');
+        }
+        
+        // Add day number
+        const dayNumber = document.createElement('div');
+        dayNumber.className = 'font-bold text-right';
+        dayNumber.textContent = day;
+        dateCell.appendChild(dayNumber);
+        
+        // Add placeholder for events
+        const eventsContainer = document.createElement('div');
+        eventsContainer.className = 'mt-1 text-xs space-y-1 overflow-hidden';
+        eventsContainer.setAttribute('data-date', `${currentYear}-${currentMonth+1}-${day}`);
+        dateCell.appendChild(eventsContainer);
+        
+        daysContainer.appendChild(dateCell);
+      }
+    }
+
+    // Function to fetch user schedule data
     async function fetchScheduleData(userId) {
-      // TODO: Replace with actual API call to your backend
-      console.log(`Fetching schedule data for user: ${userId}`);
-
-      // Simulate fetching data
-      const response = await new Promise(resolve => setTimeout(() => resolve({
-        upcomingSessions: [
-          { id: 1, title: 'React Basics', instructor: 'Alice', time: 'Today, 3:00 PM' },
-          { id: 2, title: 'Node.js Fundamentals', instructor: 'Bob', time: 'Friday, 11:00 AM' }
-        ],
-        availability: 'Weekdays, 9 AM - 5 PM',
-        history: [
-          { id: 3, title: 'HTML/CSS Workshop', instructor: 'Charlie', time: 'Last Monday' }
-        ]
-      }), 1000));
-
-      return response;
+      try {
+        console.log(`Fetching schedule data for user ID: ${userId}`);
+        
+        // Call your API endpoint - using test server on port 5001 instead of 5000
+        const response = await fetch(`http://127.0.0.1:5001/api/schedule/${userId}`, {
+          headers: {
+            'Accept': 'application/json'
+          }
+        });
+        
+        if (!response.ok) {
+          throw new Error(`Server returned ${response.status}: ${response.statusText}`);
+        }
+        
+        const data = await response.json();
+        console.log("Schedule data received:", JSON.stringify(data, null, 2));
+        console.log(`Upcoming sessions count: ${data.upcomingSessions ? data.upcomingSessions.length : 0}`);
+        
+        // Empty the session list to ensure we're not displaying stale data
+        document.getElementById('session-list').innerHTML = '';
+        
+        // Update the page with fetched data
+        displayScheduleData(data);
+        return data;
+      } catch (error) {
+        console.error('Error fetching schedule data:', error);
+        
+        // Don't use mock data anymore, show empty state instead
+        console.warn('Error loading schedule data for user ID ' + userId);
+        const emptyData = {
+          upcomingSessions: [],
+          history: [],
+          availability: {
+            days: ['monday', 'wednesday', 'friday'],
+            timeFrom: 9,
+            timeTo: 17
+          }
+        };
+        
+        displayScheduleData(emptyData);
+        return emptyData;
+      }
     }
 
     // Function to display user scheduling data
-    function displayScheduleData(userData) {
-      // TODO: Populate the HTML elements with the fetched data
-      console.log('Displaying schedule data:', userData);
+    function displayScheduleData(data) {
+      console.log("Displaying schedule data:", JSON.stringify(data, null, 2));
+      
+      // Display upcoming sessions
+      displayUpcomingSessions(data.upcomingSessions);
+      
+      // Display session history
+      displaySessionHistory(data.history);
+      
+      // Add sessions to calendar
+      addSessionsToCalendar(data.upcomingSessions);
+      
+      // Set availability form values
+      setAvailabilityFormValues(data.availability);
+    }
+    
+    // Helper function to format date and time
+    function formatDateTime(dateTimeStr) {
+      const date = new Date(dateTimeStr);
+      const formattedDate = date.toLocaleDateString('en-US', { 
+        weekday: 'short', 
+        month: 'short', 
+        day: 'numeric' 
+      });
+      const formattedTime = date.toLocaleTimeString('en-US', { 
+        hour: 'numeric', 
+        minute: '2-digit',
+        hour12: true 
+      });
+      return `${formattedDate}, ${formattedTime}`;
+    }
 
-      // Example: Populate upcoming sessions (replace with actual logic to clear and add sessions)
+    // Function to display upcoming sessions
+    function displayUpcomingSessions(sessions) {
       const sessionList = document.getElementById('session-list');
-      // Clear existing placeholder sessions if any
       sessionList.innerHTML = '';
-      userData.upcomingSessions.forEach(session => {
-        const listItem = document.createElement('li');
-        listItem.classList.add('bg-[#2d2d2d]', 'p-4', 'rounded-lg', 'flex', 'justify-between', 'items-center');
-        listItem.innerHTML = ` 
+      
+      console.log(`Displaying ${sessions ? sessions.length : 0} upcoming sessions`);
+      
+      if (!sessions || sessions.length === 0) {
+        sessionList.innerHTML = `
+          <div class="bg-[#2d2d2d] p-4 rounded-lg">
+            <p class="text-gray-400">You haven't booked any sessions yet. Browse available sessions on the Learn page to book your first session.</p>
+            <a href="learn.html" class="text-[#00bfa6] hover:underline inline-block mt-2">Browse Sessions</a>
+          </div>
+        `;
+        return;
+      }
+      
+      console.log("Sessions to display:", JSON.stringify(sessions, null, 2));
+      
+      sessions.forEach(session => {
+        const formattedDateTime = formatDateTime(session.datetime);
+        console.log(`Creating session element for: ${session.title}, datetime: ${session.datetime}, formatted: ${formattedDateTime}`);
+        
+        const sessionItem = document.createElement('div');
+        sessionItem.className = 'bg-[#2d2d2d] p-4 rounded-lg flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 hover:bg-[#3a3a3a] transition duration-300 ease-in-out card-hover';
+        sessionItem.innerHTML = `
             <div>
               <p class="text-lg font-medium">${session.title}</p>
               <p class="text-sm text-gray-400">with ${session.instructor}</p>
             </div>
-            <span class="text-[#00bfa6]">${session.time}</span>
-          `;
-        sessionList.appendChild(listItem);
-      });
-
-      // Example: Display availability
-      document.getElementById('availability').querySelector('p').textContent = `Your availability: ${userData.availability}`;
-
-      // Example: Populate scheduling history (replace with actual logic)
-      const historyList = document.getElementById('history-list');
-      userData.history.forEach(item => {
-        const listItem = document.createElement('li');
-        listItem.classList.add('bg-[#2d2d2d]', 'p-4', 'rounded-lg', 'flex', 'justify-between', 'items-center');
-        listItem.innerHTML = ` 
-            <div>
-              <p class="text-lg font-medium">${item.title}</p>
-              <p class="text-sm text-gray-400">with ${item.instructor}</p>
+          <div class="flex flex-col sm:items-end">
+            <span class="text-[#00bfa6] text-sm">${formattedDateTime}</span>
+            <div class="mt-2 flex gap-2">
+              <a href="live-session.html?id=${session.id}" class="bg-[#00bfa6] text-white px-3 py-1 rounded-lg text-sm hover:bg-[#009e8d] transition-colors btn-hover">
+                Join
+              </a>
+              <button class="bg-red-600 text-white px-3 py-1 rounded-lg text-sm hover:bg-red-700 transition-colors btn-hover" 
+                      onclick="cancelSession(${session.id})">
+                Cancel
+              </button>
             </div>
-            <span class="text-sm text-gray-400">${item.time}</span>
-          `;
-        historyList.appendChild(listItem);
+          </div>
+        `;
+        sessionList.appendChild(sessionItem);
+        console.log("Session element added to DOM");
       });
     }
 
-    // Call the fetch function when the page loads
-    document.addEventListener('DOMContentLoaded', () => {
-      // TODO: Get the actual user ID (e.g., from localStorage or a cookie)
-      const placeholderUserId = 'user123';
-      fetchScheduleData(placeholderUserId)
-        .then(displayScheduleData)
-        .catch(error => console.error('Error fetching schedule data:', error));
-    });
+    // Function to display session history
+    function displaySessionHistory(history) {
+      const historyList = document.getElementById('history-list');
+      historyList.innerHTML = '';
+      
+      if (!history || history.length === 0) {
+        historyList.innerHTML = `
+          <div class="bg-[#2d2d2d] p-4 rounded-lg">
+            <p class="text-gray-400">You haven't completed any sessions yet. Your session history will appear here after you complete a session.</p>
+          </div>
+        `;
+        return;
+      }
+      
+      history.forEach(session => {
+        const formattedDateTime = formatDateTime(session.datetime);
+        
+        const historyItem = document.createElement('div');
+        historyItem.className = 'bg-[#2d2d2d] p-4 rounded-lg flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 card-hover';
+        historyItem.innerHTML = `
+            <div>
+            <p class="text-lg font-medium">${session.title}</p>
+            <p class="text-sm text-gray-400">with ${session.instructor}</p>
+          </div>
+          <div class="flex flex-col sm:items-end">
+            <span class="text-gray-400 text-sm">${formattedDateTime}</span>
+            <button class="mt-2 text-[#00bfa6] hover:text-[#009e8d] text-sm transition-colors btn-hover">
+              Leave Review
+            </button>
+            </div>
+        `;
+        historyList.appendChild(historyItem);
+      });
+    }
+
+    // Function to add sessions to calendar
+    function addSessionsToCalendar(sessions) {
+      if (!sessions || sessions.length === 0) return;
+      
+      sessions.forEach(session => {
+        const sessionDate = new Date(session.datetime);
+        const year = sessionDate.getFullYear();
+        const month = sessionDate.getMonth() + 1;
+        const day = sessionDate.getDate();
+        const dateKey = `${year}-${month}-${day}`;
+        
+        const dateCell = document.querySelector(`[data-date="${dateKey}"]`);
+        if (!dateCell) return;
+        
+        const sessionTime = sessionDate.toLocaleTimeString('en-US', { 
+          hour: 'numeric', 
+          minute: '2-digit', 
+          hour12: true 
+        });
+        
+        const sessionElement = document.createElement('div');
+        sessionElement.className = 'bg-[#00bfa6] bg-opacity-20 text-[#00bfa6] p-1 rounded truncate';
+        sessionElement.textContent = `${sessionTime} - ${session.title}`;
+        
+        dateCell.appendChild(sessionElement);
+      });
+    }
+
+    // Function to set availability form values
+    function setAvailabilityFormValues(availability) {
+      if (!availability) return;
+      
+      // Set day checkboxes
+      const dayCheckboxes = document.querySelectorAll('input[name="day"]');
+      dayCheckboxes.forEach(checkbox => {
+        checkbox.checked = availability.days.includes(checkbox.value);
+      });
+      
+      // Set time selectors
+      if (availability.timeFrom) {
+        document.getElementById('time-from').value = availability.timeFrom;
+      }
+      
+      if (availability.timeTo) {
+        document.getElementById('time-to').value = availability.timeTo;
+      }
+    }
+
+    // Function to filter sessions by time period
+    function filterSessions(period) {
+      // Highlight the active button
+      document.querySelectorAll('#btn-today, #btn-week, #btn-month').forEach(btn => {
+        btn.classList.remove('bg-[#00bfa6]');
+        btn.classList.add('bg-[#2d2d2d]');
+      });
+      
+      document.getElementById(`btn-${period}`).classList.remove('bg-[#2d2d2d]');
+      document.getElementById(`btn-${period}`).classList.add('bg-[#00bfa6]');
+      
+      // Get the currently displayed sessions
+      const sessionList = document.getElementById('session-list');
+      const currentDate = new Date();
+      
+      // Get all session items
+      const sessionItems = document.querySelectorAll('#session-list > div');
+      
+      // Hide all sessions first
+      sessionItems.forEach(item => {
+        item.classList.add('hidden');
+      });
+      
+      // Show sessions based on filter
+      sessionItems.forEach(item => {
+        // Get the date from the session item
+        const dateText = item.querySelector('.text-[#00bfa6]').textContent;
+        const sessionDate = new Date(dateText);
+        
+        if (period === 'today') {
+          // Show only today's sessions
+          if (sessionDate.toDateString() === currentDate.toDateString()) {
+            item.classList.remove('hidden');
+          }
+        } else if (period === 'week') {
+          // Show sessions in the next 7 days
+          const weekLater = new Date();
+          weekLater.setDate(currentDate.getDate() + 7);
+          if (sessionDate >= currentDate && sessionDate <= weekLater) {
+            item.classList.remove('hidden');
+          }
+        } else if (period === 'month') {
+          // Show sessions in the next 30 days
+          const monthLater = new Date();
+          monthLater.setDate(currentDate.getDate() + 30);
+          if (sessionDate >= currentDate && sessionDate <= monthLater) {
+            item.classList.remove('hidden');
+          }
+        }
+      });
+      
+      // If no sessions are visible after filtering, show a message
+      let visibleSessions = 0;
+      sessionItems.forEach(item => {
+        if (!item.classList.contains('hidden')) {
+          visibleSessions++;
+        }
+      });
+      
+      if (visibleSessions === 0) {
+        sessionList.innerHTML += `
+          <div class="bg-[#2d2d2d] p-4 rounded-lg">
+            <p class="text-gray-400">No sessions found for this time period. Try another filter or browse available sessions on the Learn page.</p>
+            <a href="learn.html" class="text-[#00bfa6] hover:underline inline-block mt-2">Find sessions</a>
+          </div>
+        `;
+      }
+      
+      console.log(`Filtered sessions by: ${period}, showing ${visibleSessions} sessions`);
+    }
+
+    // Function to save availability
+    function saveAvailability() {
+      // Get selected days
+      const dayCheckboxes = document.querySelectorAll('input[name="day"]:checked');
+      const selectedDays = Array.from(dayCheckboxes).map(cb => cb.value);
+      
+      // Get time range
+      const timeFrom = document.getElementById('time-from').value;
+      const timeTo = document.getElementById('time-to').value;
+      
+      // Validate time range
+      if (parseInt(timeFrom) >= parseInt(timeTo)) {
+        alert('Start time must be earlier than end time.');
+        return;
+      }
+      
+      // Validate at least one day is selected
+      if (selectedDays.length === 0) {
+        alert('Please select at least one day of availability.');
+        return;
+      }
+      
+      const availability = {
+        days: selectedDays,
+        timeFrom: parseInt(timeFrom),
+        timeTo: parseInt(timeTo)
+      };
+      
+      console.log('Saving availability:', availability);
+      
+      // Show saving animation
+      const saveButton = document.getElementById('save-availability');
+      const originalText = saveButton.innerHTML;
+      saveButton.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Saving...';
+      saveButton.disabled = true;
+      
+      // Simulate API call with setTimeout
+      setTimeout(() => {
+        saveButton.innerHTML = '<i class="fas fa-check mr-2"></i> Saved!';
+        
+        // Reset button after a short delay
+        setTimeout(() => {
+          saveButton.innerHTML = originalText;
+          saveButton.disabled = false;
+        }, 1500);
+      }, 1000);
+    }
+
+    // Function to cancel a session
+    function cancelSession(sessionId) {
+      if (!confirm('Are you sure you want to cancel this session?')) {
+        return;
+      }
+      
+      console.log(`Cancelling session with ID: ${sessionId}`);
+      
+      // Find the session element and add a cancelling animation
+      const sessionElements = document.querySelectorAll(`#session-list > div`);
+      sessionElements.forEach(el => {
+        if (el.innerHTML.includes(`id=${sessionId}`)) {
+          el.classList.add('opacity-50');
+          
+          // Add a cancelling message
+          const actionDiv = el.querySelector('.mt-2.flex.gap-2');
+          if (actionDiv) {
+            actionDiv.innerHTML = '<span class="text-red-600">Cancelling...</span>';
+          }
+          
+          // Simulate API call with setTimeout
+          setTimeout(() => {
+            el.classList.add('animate-fade-out');
+            setTimeout(() => {
+              el.remove();
+              
+              // Check if there are any sessions left
+              if (document.querySelectorAll('#session-list > div').length === 0) {
+                document.getElementById('session-list').innerHTML = `
+                  <div class="bg-[#2d2d2d] p-4 rounded-lg">
+                    <p class="text-gray-400">No upcoming sessions. Browse available sessions on the Learn page.</p>
+                    <a href="learn.html" class="text-[#00bfa6] hover:underline inline-block mt-2">Find sessions</a>
+                  </div>
+                `;
+              }
+            }, 500);
+          }, 1000);
+        }
+      });
+    }
   </script>
 </body>
 </html>

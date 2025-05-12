@@ -46,32 +46,32 @@
  <div class="bg-[#1f1f1f] p-6 rounded-lg shadow-lg text-center hover:bg-[#00bfa6] transition-all duration-300 transform hover:scale-105">
  <h3 class="text-xl font-semibold">Coding</h3>
  <p class="mt-2 text-lg text-gray-300">Teach coding languages like Python, JavaScript, etc.</p>
- <a href="#create-listing" class="text-[#00bfa6] mt-4 inline-block hover:underline">Start Teaching</a>
+ <a href="create-listing.html?category=Coding" class="text-[#00bfa6] mt-4 inline-block hover:underline">Start Teaching</a>
  </div>
  <div class="bg-[#1f1f1f] p-6 rounded-lg shadow-lg text-center hover:bg-[#00bfa6] transition-all duration-300 transform hover:scale-105">
  <h3 class="text-xl font-semibold">Design</h3>
  <p class="mt-2 text-lg text-gray-300">Teach graphic design, UI/UX, etc.</p>
- <a href="#create-listing" class="text-[#00bfa6] mt-4 inline-block hover:underline">Start Teaching</a>
+ <a href="create-listing.html?category=Design" class="text-[#00bfa6] mt-4 inline-block hover:underline">Start Teaching</a>
  </div>
  <div class="bg-[#1f1f1f] p-6 rounded-lg shadow-lg text-center hover:bg-[#00bfa6] transition-all duration-300 transform hover:scale-105">
  <h3 class="text-xl font-semibold">Music</h3>
  <p class="mt-2 text-lg text-gray-300">Share your knowledge of music and instruments.</p>
- <a href="#create-listing" class="text-[#00bfa6] mt-4 inline-block hover:underline">Start Teaching</a>
+ <a href="create-listing.html?category=Music" class="text-[#00bfa6] mt-4 inline-block hover:underline">Start Teaching</a>
  </div>
  <div class="bg-[#1f1f1f] p-6 rounded-lg shadow-lg text-center hover:bg-[#00bfa6] transition-all duration-300 transform hover:scale-105">
  <h3 class="text-xl font-semibold">Fitness</h3>
  <p class="mt-2 text-lg text-gray-300">Guide others through fitness routines and wellness tips.</p>
- <a href="#create-listing" class="text-[#00bfa6] mt-4 inline-block hover:underline">Start Teaching</a>
+ <a href="create-listing.html?category=Fitness" class="text-[#00bfa6] mt-4 inline-block hover:underline">Start Teaching</a>
  </div>
  <div class="bg-[#1f1f1f] p-6 rounded-lg shadow-lg text-center hover:bg-[#00bfa6] transition-all duration-300 transform hover:scale-105">
  <h3 class="text-xl font-semibold">Business</h3>
  <p class="mt-2 text-lg text-gray-300">Share your business insights and strategies.</p>
- <a href="#create-listing" class="text-[#00bfa6] mt-4 inline-block hover:underline">Start Teaching</a>
+ <a href="create-listing.html?category=Business" class="text-[#00bfa6] mt-4 inline-block hover:underline">Start Teaching</a>
  </div>
  <div class="bg-[#1f1f1f] p-6 rounded-lg shadow-lg text-center hover:bg-[#00bfa6] transition-all duration-300 transform hover:scale-105">
  <h3 class="text-xl font-semibold">Language</h3>
  <p class="mt-2 text-lg text-gray-300">Teach new languages to learners.</p>
- <a href="#create-listing" class="text-[#00bfa6] mt-4 inline-block hover:underline">Start Teaching</a>
+ <a href="create-listing.html?category=Language" class="text-[#00bfa6] mt-4 inline-block hover:underline">Start Teaching</a>
  </div>
       </div>
 
@@ -105,40 +105,191 @@
   </script>
   <script>
     document.addEventListener("DOMContentLoaded", function() {
-      // Get the user_id from localStorage or wherever it's stored
-      const userId = localStorage.getItem('user_id'); // Replace with your actual method
+      // Get the token from localStorage
+      const token = localStorage.getItem('token');
 
-      if (userId) {
-        fetchTeachData(userId);
-      } else {
-        // Handle case where user is not logged in or user_id is not available
+      if (!token) {
         console.log("User not logged in.");
-        // Optionally redirect to login page
-        // window.location.href = 'login.html';
+        window.location.href = 'login.html'; // Redirect to login page
+        return;
       }
+      
+      // Parse the token to get userId
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      const userId = payload.userId;
+      
+      fetchTeachData(userId);
     });
 
-    // Placeholder function to fetch user teaching data
+    // Function to fetch user teaching data
     async function fetchTeachData(userId) {
-      // Replace with your actual API call to the backend
+      try {
       console.log(`Fetching teaching data for user: ${userId}`);
-      const response = await fetch(`/api/teach/${userId}`); // Example API endpoint
+        const response = await fetch(`http://127.0.0.1:5001/api/teach/${userId}`, {
+          headers: {
+            'Accept': 'application/json'
+          }
+        });
+        
+        if (!response.ok) {
+          throw new Error(`Failed to fetch teaching data: ${response.status}`);
+        }
+        
       const userData = await response.json();
+        console.log("Teaching data received:", userData);
       displayTeachData(userData);
+      } catch (error) {
+        console.error("Error fetching teaching data:", error);
+      }
     }
 
-    // Placeholder function to display user teaching data
+    // Function to display user teaching data
     function displayTeachData(userData) {
-      // Populate the HTML elements with the fetched user data
-      console.log("Displaying teaching data:", userData);
-      // Example:
-      // document.getElementById('teaching-profile').innerHTML = `... display profile data ...`;
-      // document.getElementById('my-courses').innerHTML = `... display courses ...`;
-      // document.getElementById('student-feedback').innerHTML = `... display feedback ...`;
-      // document.getElementById('earnings').innerHTML = `... display earnings ...`;
+      // Populate the teaching profile section
+      const teachingProfile = document.getElementById('teaching-profile');
+      teachingProfile.innerHTML = `
+        <h3 class="text-xl font-semibold mb-4">Your Teaching Profile</h3>
+        <div class="flex items-center mb-6">
+          <img src="${userData.profile_picture_url}" alt="Teacher" class="w-24 h-24 rounded-full border-4 border-[#00bfa6]">
+          <div class="ml-4">
+            <h4 class="text-2xl font-semibold">${userData.username}</h4>
+            <p class="text-lg text-gray-400">${userData.profile.title}</p>
+            <p class="text-lg">Rating: ${userData.profile.rating} ★</p>
+            <p class="text-lg">Hourly Rate: $${userData.profile.hourly_rate}</p>
+          </div>
+        </div>
+        <div class="mb-4">
+          <h4 class="text-lg font-semibold mb-2">About Me</h4>
+          <p>${userData.profile.description}</p>
+        </div>
+        <div class="mb-4">
+          <h4 class="text-lg font-semibold mb-2">Experience</h4>
+          <p>${userData.profile.experience_years} years of teaching experience</p>
+        </div>
+        <button class="bg-[#00bfa6] text-white py-2 px-6 rounded-lg hover:bg-[#009e8d] transition-colors">
+          Edit Profile
+        </button>
+      `;
 
+      // Populate my courses section
+      const myCourses = document.getElementById('my-courses');
+      
+      // Keep the existing categories
+      const categoriesSection = myCourses.querySelector('.grid');
+      
+      // Add the sessions taught by this user
+      if (userData.sessions && userData.sessions.length > 0) {
+        const sessionsHTML = `
+          <div class="mt-8">
+            <div class="flex justify-between items-center mb-4">
+              <h3 class="text-xl font-semibold">Your Sessions</h3>
+              <a href="create-listing.html" class="bg-[#00bfa6] text-white py-2 px-4 rounded-lg hover:bg-[#009e8d] transition-colors">
+                Add New Session
+              </a>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              ${userData.sessions.map(session => `
+                <div class="bg-[#1f1f1f] p-6 rounded-lg shadow-lg">
+                  <h4 class="text-xl font-semibold">${session.title}</h4>
+                  <p class="text-gray-400 mt-2">${session.description}</p>
+                  <div class="mt-4 flex justify-between">
+                    <span>$${session.price}/hr</span>
+                    <span>${session.category}</span>
+                  </div>
+                  <div class="mt-4 flex justify-between">
+                    <span>Duration: ${session.duration} mins</span>
+                    <span>Students: ${session.enrolled_students.length}</span>
+                  </div>
+                  <div class="mt-4">
+                    <button class="bg-[#00bfa6] text-white py-2 px-4 rounded-lg hover:bg-[#009e8d] transition-colors">
+                      Edit
+                    </button>
+                    <button class="bg-[#4a5568] text-white py-2 px-4 rounded-lg hover:bg-[#2d3748] transition-colors ml-2">
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        `;
+        
+        // Add the sessions HTML after the categories
+        myCourses.innerHTML = categoriesSection.outerHTML + sessionsHTML;
+      } else {
+        // If no sessions, show a message encouraging the user to create one
+        const noSessionsHTML = `
+          <div class="mt-8">
+            <div class="flex justify-between items-center mb-4">
+              <h3 class="text-xl font-semibold">Your Sessions</h3>
+              <a href="create-listing.html" class="bg-[#00bfa6] text-white py-2 px-4 rounded-lg hover:bg-[#009e8d] transition-colors">
+                Add New Session
+              </a>
+            </div>
+            <div class="bg-[#1f1f1f] p-6 rounded-lg text-center">
+              <p class="text-gray-400 mb-4">You haven't created any teaching sessions yet.</p>
+              <p class="mb-4">Select a category above to create your first teaching session and start sharing your knowledge!</p>
+            </div>
+          </div>
+        `;
+
+        myCourses.innerHTML = categoriesSection.outerHTML + noSessionsHTML;
+      }
+
+      // Populate the student feedback section
+      const studentFeedback = document.getElementById('student-feedback');
+      if (userData.profile.reviews && userData.profile.reviews.length > 0) {
+        studentFeedback.innerHTML = `
+          <h3 class="text-xl font-semibold mb-4">Student Feedback</h3>
+          <div class="space-y-4">
+            ${userData.profile.reviews.map(review => `
+              <div class="bg-[#1f1f1f] p-4 rounded-lg">
+                <div class="flex justify-between items-center mb-2">
+                  <div class="flex items-center">
+                    <img src="https://placehold.co/40x40" alt="Student" class="w-10 h-10 rounded-full">
+                    <span class="ml-2">Student ${review.student_id}</span>
+                  </div>
+                  <div class="text-yellow-500">${'★'.repeat(review.rating)}${'☆'.repeat(5 - review.rating)}</div>
+                </div>
+                <p>${review.comment}</p>
+                <p class="text-gray-400 text-sm mt-2">${new Date(review.date).toLocaleDateString()}</p>
+              </div>
+            `).join('')}
+          </div>
+        `;
+      } else {
+        studentFeedback.innerHTML = `
+          <h3 class="text-xl font-semibold mb-4">Student Feedback</h3>
+          <p class="text-gray-400">No feedback yet. As you teach more sessions, student reviews will appear here.</p>
+        `;
+      }
+
+      // Populate the earnings section
+      const earnings = document.getElementById('earnings');
+      earnings.innerHTML = `
+        <h3 class="text-xl font-semibold mb-4">Earnings</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="bg-[#1f1f1f] p-4 rounded-lg text-center">
+            <h4 class="text-lg font-semibold mb-2">Total Earnings</h4>
+            <p class="text-3xl text-[#00bfa6]">$${userData.profile.earnings}</p>
+          </div>
+          <div class="bg-[#1f1f1f] p-4 rounded-lg text-center">
+            <h4 class="text-lg font-semibold mb-2">Sessions Completed</h4>
+            <p class="text-3xl text-[#00bfa6]">${userData.profile.sessions_completed}</p>
+          </div>
+          <div class="bg-[#1f1f1f] p-4 rounded-lg text-center">
+            <h4 class="text-lg font-semibold mb-2">Average Rating</h4>
+            <p class="text-3xl text-[#00bfa6]">${userData.profile.rating} ★</p>
+          </div>
+        </div>
+        <div class="mt-6">
+          <h4 class="text-lg font-semibold mb-2">Payment Methods</h4>
+          <button class="bg-[#00bfa6] text-white py-2 px-6 rounded-lg hover:bg-[#009e8d] transition-colors">
+            Add Payment Method
+          </button>
+        </div>
+      `;
     }
-
   </script>
 
 </body>

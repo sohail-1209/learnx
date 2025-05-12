@@ -39,7 +39,7 @@
   <section class="py-24 px-6 text-center" id="register">
     <h2 class="text-3xl md:text-4xl font-semibold mb-8">Create Your LearnX Account</h2>
     <div class="max-w-lg mx-auto bg-[#1f1f1f] p-8 rounded-lg shadow-lg" data-aos="fade-up">
-      <form id="registrationForm" action="http://127.0.0.1:5000/signup" method="POST">
+      <form id="registrationForm" action="#" method="POST">
 
         <!-- Role Selection -->
         <div class="mb-4">
@@ -120,47 +120,92 @@
       easing: 'ease-in-out',
       once: true
     });
-  </script>
-  <!-- Add an HTML element with an ID to display registration messages (e.g., `<p id="registration-message"></p>`). Add a script tag at the end of the body. Inside the script, add a basic structure to handle form submission and display messages based on the registration attempt. Add comments explaining where to integrate the backend API for the registration process. -->
 
-  <script src="register.js"></script>
-  <script>
-    document.getElementById('registrationForm').addEventListener('submit', function(event) {
-      event.preventDefault(); // Prevent the default form submission
+    document.getElementById('registrationForm').addEventListener('submit', async function(event) {
+      event.preventDefault();
 
-      const form = event.target;
-      const formData = new FormData(form);
-      const jsonData = {};
-
-      // Convert form data to JSON
-      formData.forEach((value, key) => {
-        jsonData[key] = value;
-      });
-
-      // Send data to your Flask backend's signup endpoint
-      fetch(form.action, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(jsonData)
-      })
-      .then(response => {
-        if (response.ok) {
-          // Registration successful - redirect to login page
-          window.location.href = 'login.html';
-        } else {
-          // Registration failed - handle errors (e.g., display error message)
-          response.json().then(data => {
-            alert('Registration failed: ' + (data.error || response.statusText));
+      const formData = new FormData(this);
+      const profilePhotoInput = document.getElementById('profile_photo');
+      const skillsInput = document.getElementById('skills').value;
+      
+      // Handle profile photo
+      let profilePhotoUrl = 'https://placehold.co/150x150'; // Default
+      
+      if (profilePhotoInput.files.length > 0) {
+        // In a real app, we would upload to a server and get a permanent URL
+        // For this demo, we'll convert the image to a Data URL (base64)
+        // This is NOT recommended for production as it can be very large
+        const file = profilePhotoInput.files[0];
+        const reader = new FileReader();
+        
+        try {
+          // Convert to data URL (base64)
+          await new Promise((resolve, reject) => {
+            reader.onload = () => {
+              profilePhotoUrl = reader.result;
+              console.log('Profile photo converted to base64');
+              resolve();
+            };
+            reader.onerror = reject;
+            reader.readAsDataURL(file);
           });
+        } catch (error) {
+          console.error('Error processing profile photo:', error);
+          // Fall back to default
+          profilePhotoUrl = 'https://placehold.co/150x150';
         }
-      })
-      .catch(error => {
-        console.error('Error:', error);
-        alert('An error occurred during registration.');
+      }
+      
+      // Process skills - handle empty input
+      let skills = [];
+      if (skillsInput && skillsInput.trim() !== '') {
+        skills = skillsInput.split(',').map(skill => skill.trim()).filter(skill => skill !== '');
+      } else {
+        skills = ['HTML', 'CSS', 'JavaScript']; // Default skills
+      }
+      
+      const data = {
+        username: formData.get('username'),
+        email: formData.get('email'),
+        password: formData.get('password'),
+        role: formData.get('role'),
+        bio: formData.get('bio'),
+        skills: skills,
+        profile_photo: profilePhotoUrl
+      };
+      
+      console.log('Sending registration data:', {
+        ...data,
+        password: '********' // Don't log the actual password
       });
+
+      const messageElement = document.getElementById('registration-message');
+      messageElement.textContent = '';
+
+      try {
+        const response = await fetch('http://127.0.0.1:5000/api/auth/signup', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+          messageElement.textContent = 'Registration successful! Redirecting to login...';
+          setTimeout(() => {
+            window.location.href = 'login.html';
+          }, 2000);
+        } else {
+          messageElement.textContent = result.error || 'Registration failed';
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        messageElement.textContent = 'An error occurred during registration';
+      }
     });
   </script>
-</body>
+  </body>
 </html>
