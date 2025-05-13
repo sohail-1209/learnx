@@ -6,70 +6,54 @@
   <title>To-Do List - LearnX</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css">
   <style>
-    html {
-      scroll-behavior: smooth;
- height: 100%;
- overflow-y: auto;
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
- body {
- min-height: 100vh;
- display: flex;
- flex-direction: column;
-    }
- .content-area {
- flex: 1;
- padding-bottom: 4rem; /* Add padding to the bottom */
+    .content-area {
+      flex: 1;
+      padding-bottom: 4rem; /* Add padding to the bottom */
     }
   </style>
 </head> 
-<body class="bg-[#121212] text-white font-sans">
+<body class="gradient-bg text-white font-sans">
 
-  <!-- Sidebar Navigation -->
+  <!-- Flex container for sidebar and content -->
   <div class="flex">
-    <div class="w-64 bg-[#1f1f1f] p-6 h-screen fixed top-0 left-0">
-      <div class="flex flex-col space-y-6">
-        <a href="#" class="text-2xl font-semibold text-[#00bfa6] hover:text-[#009e8d] transition-colors">LearnX</a>
-        <ul class="flex flex-col space-y-4">
-          <li><a href="teach.html" class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Teach</a></li>
-          <li><a href="learn.html" class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Learn</a></li>
-          <li><a href="profile.html" class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Profile</a></li>
-          <li><a href="chat.html" class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Chat</a></li>
-          <li><a href="settings.html" class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Settings</a></li>
-          <li><a href="schedule.html" class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Schedule</a></li>
-          <li><a href="wallet.html" class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Wallet</a></li>
-          <li><a href="about-faq-support.html" class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Support</a></li>
-          <li><a href="todo.html" class="hover:text-[#00bfa6] hover:scale-105 transition-transform">To-Do</a></li>
-        </ul>
-      </div>
-    </div>
+    <!-- Sidebar Placeholder - will be replaced by sidebar-loader.js -->
+    <div class="sidebar-placeholder"></div>
 
     <!-- Main Content Area -->
- <div class="flex-1 ml-64 p-8 content-area">
+    <div class="flex-1 ml-64 p-8 content-area">
       <h2 class="text-3xl md:text-4xl font-semibold mb-6" data-aos="fade-up">Your Task Planner</h2>
 
       <!-- Add New Task Form -->
-      <div class="bg-[#1f1f1f] p-6 rounded-lg shadow-lg mb-8" data-aos="fade-up">
+      <div class="card bg-surface-1 p-6 rounded-xl shadow-lg mb-8" data-aos="fade-up">
         <h3 class="text-2xl font-semibold mb-4">Add New Task</h3>
         <form id="addTaskForm" class="space-y-4">
           <div>
             <label for="taskTitle" class="block text-lg mb-2">Task Title</label>
-            <input type="text" id="taskTitle" class="w-full bg-[#2d2d2d] text-white p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00bfa6]" placeholder="e.g., Complete Python tutorial module 3" required>
+            <input type="text" id="taskTitle" class="input-field w-full p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary" placeholder="e.g., Complete Python tutorial module 3" required>
           </div>
           <div>
             <label for="taskType" class="block text-lg mb-2">Task Type</label>
-            <select id="taskType" class="w-full bg-[#2d2d2d] text-white p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00bfa6]" required>
+            <select id="taskType" class="input-field w-full p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary" required>
               <option value="learning">Learning Task</option>
               <option value="teaching">Teaching Commitment</option>
             </select>
           </div>
           <div>
             <label for="taskDueDate" class="block text-lg mb-2">Due Date (Optional)</label>
-            <input type="date" id="taskDueDate" class="w-full bg-[#2d2d2d] text-white p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00bfa6]">
+            <input type="date" id="taskDueDate" class="input-field w-full p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
           </div>
           <div>
             <label for="taskPriority" class="block text-lg mb-2">Priority</label>
-            <select id="taskPriority" class="w-full bg-[#2d2d2d] text-white p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00bfa6]" required>
+            <select id="taskPriority" class="input-field w-full p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary" required>
               <option value="low">Low</option>
               <option value="medium">Medium</option>
               <option value="high">High</option>
@@ -77,43 +61,43 @@
           </div>
           <div>
             <label for="taskSessionLink" class="block text-lg mb-2">Link to Session (Optional)</label>
-            <input type="text" id="taskSessionLink" class="w-full bg-[#2d2d2d] text-white p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00bfa6]" placeholder="Paste session link here">
+            <input type="text" id="taskSessionLink" class="input-field w-full p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary" placeholder="Paste session link here">
           </div>
-          <button type="submit" class="bg-[#00bfa6] text-white py-3 px-6 rounded-lg hover:bg-[#009e8d] transition-colors">Add Task</button>
+          <button type="submit" class="btn btn-primary py-3 px-6 rounded-lg">Add Task</button>
         </form>
       </div>
  
       <!-- Task List -->
-      <div class="bg-[#1f1f1f] p-6 rounded-lg shadow-lg" data-aos="fade-up">
+      <div class="card bg-surface-1 p-6 rounded-xl shadow-lg" data-aos="fade-up">
         <h3 class="text-2xl font-semibold mb-4">Your Tasks</h3>
         <ul id="todo-list" class="space-y-4">
           <!-- Task items will be added here by JavaScript -->
-          <li class="bg-[#2d2d2d] p-4 rounded-lg flex flex-col md:flex-row justify-between items-start md:items-center transition-transform transform hover:scale-[1.01]">
+          <li class="bg-surface-2 p-4 rounded-lg flex flex-col md:flex-row justify-between items-start md:items-center transition-transform transform hover:scale-[1.01]">
             <div>
-              <h4 class="text-xl font-semibold">Example Learning Task <span class="text-xs text-gray-500 ml-2">Progress: 50%</span></h4>
-              <p class="text-gray-400 text-sm">Type: Learning | Priority: Medium | Due: 2023-12-31</p>
-              <p class="text-sm text-[#00bfa6] mt-1">Session: <a href="#" class="hover:underline">Link to Session</a></p>
-              <div class="w-full bg-gray-600 rounded-full h-2.5 mt-2"><div class="bg-[#00bfa6] h-2.5 rounded-full" style="width: 50%"></div></div>
+              <h4 class="text-xl font-semibold">Example Learning Task <span class="text-xs text-secondary ml-2">Progress: 50%</span></h4>
+              <p class="text-secondary text-sm">Type: Learning | Priority: Medium | Due: 2023-12-31</p>
+              <p class="text-sm text-primary mt-1">Session: <a href="#" class="hover:underline">Link to Session</a></p>
+              <div class="progress-bar w-full h-2.5 mt-2"><div class="progress-bar-fill" style="width: 50%"></div></div>
             </div>
- <div class="flex space-x-2 mt-4 md:mt-0">
- <button class="text-[#00bfa6] hover:underline transition-colors">Update Progress</button>
- <button class="text-red-500 hover:underline transition-colors">Delete</button>
+            <div class="flex space-x-2 mt-4 md:mt-0">
+              <button class="text-primary hover:underline transition-colors">Update Progress</button>
+              <button class="text-error hover:underline transition-colors">Delete</button>
             </div>
           </li>
  
-          <li class="bg-[#2d2d2d] p-4 rounded-lg flex flex-col md:flex-row justify-between items-start md:items-center transition-transform transform hover:scale-[1.01]">
+          <li class="bg-surface-2 p-4 rounded-lg flex flex-col md:flex-row justify-between items-start md:items-center transition-transform transform hover:scale-[1.01]">
             <div>
               <h4 class="text-xl font-semibold">Example Teaching Commitment</h4>
-              <p class="text-gray-400 text-sm">Type: Teaching | Priority: High | Due: 2024-01-15</p>
-              <p class="text-sm text-[#00bfa6] mt-2">Progress: 80%</p>
- <div class="w-full bg-gray-600 rounded-full h-2.5 mt-2">
- <div class="bg-[#00bfa6] h-2.5 rounded-full" style="width: 80%;"></div>
- </div>
+              <p class="text-secondary text-sm">Type: Teaching | Priority: High | Due: 2024-01-15</p>
+              <p class="text-sm text-primary mt-2">Progress: 80%</p>
+              <div class="progress-bar w-full h-2.5 mt-2">
+                <div class="progress-bar-fill" style="width: 80%;"></div>
+              </div>
             </div>
             <div class="flex space-x-2">
-              <button class="text-[#00bfa6] hover:underline">Mark Complete</button>
-              <button class="text-red-500 hover:underline">Archive</button>
- <button class="text-red-500 hover:underline transition-colors">Delete</button>
+              <button class="text-primary hover:underline">Mark Complete</button>
+              <button class="text-error hover:underline">Archive</button>
+              <button class="text-error hover:underline transition-colors">Delete</button>
             </div>
           </li>
         </ul>
@@ -121,13 +105,20 @@
     </div>
   </div>
 
-  <!-- Footer -->
-  <footer class="bg-[#1f1f1f] py-6 text-center text-white mt-8">
-    <p>&copy; 2025 LearnX - All Rights Reserved</p>
-  </footer>
+  <!-- Toast Notification -->
+  <div id="toast" class="toast-notification">
+    <div class="flex items-center">
+      <i class="fas fa-info-circle text-primary text-xl mr-3"></i>
+      <div>
+        <h4 class="font-medium">Information</h4>
+        <p class="text-sm text-secondary" id="toast-message">This is a notification.</p>
+      </div>
+    </div>
+  </div>
 
   <!-- AOS Animation Init -->
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script src="js/sidebar-loader.js"></script>
   <script>
     AOS.init({
       duration: 800,
@@ -147,19 +138,19 @@
 
       const taskList = document.getElementById('todo-list');
       const newTaskItem = document.createElement('li');
-      newTaskItem.classList.add('bg-[#2d2d2d]', 'p-4', 'rounded-lg', 'flex', 'justify-between', 'items-center');
+      newTaskItem.classList.add('bg-surface-2', 'p-4', 'rounded-lg', 'flex', 'justify-between', 'items-center');
 
       newTaskItem.innerHTML = `
         <div>
-          <h4 class="text-xl font-semibold">${taskTitle} <span class="text-xs text-gray-500 ml-2">Progress: 0%</span></h4>
-          <p class="text-gray-400 text-sm">Type: ${taskType.charAt(0).toUpperCase() + taskType.slice(1)} | Priority: ${taskPriority.charAt(0).toUpperCase() + taskPriority.slice(1)}${taskDueDate ? ' | Due: ' + taskDueDate : ''}</p>
-          ${taskSessionLink ? `<p class="text-sm text-[#00bfa6] mt-1">Session: <a href="${taskSessionLink}" target="_blank" class="hover:underline">Link to Session</a></p>` : ''}
-          <div class="w-full bg-gray-600 rounded-full h-2.5 mt-2"><div class="bg-[#00bfa6] h-2.5 rounded-full" style="width: 0%"></div></div>
+          <h4 class="text-xl font-semibold">${taskTitle} <span class="text-xs text-secondary ml-2">Progress: 0%</span></h4>
+          <p class="text-secondary text-sm">Type: ${taskType.charAt(0).toUpperCase() + taskType.slice(1)} | Priority: ${taskPriority.charAt(0).toUpperCase() + taskPriority.slice(1)}${taskDueDate ? ' | Due: ' + taskDueDate : ''}</p>
+          ${taskSessionLink ? `<p class="text-sm text-primary mt-1">Session: <a href="${taskSessionLink}" target="_blank" class="hover:underline">Link to Session</a></p>` : ''}
+          <div class="progress-bar w-full mt-2"><div class="progress-bar-fill" style="width: 0%"></div></div>
         </div>
         <div class="flex space-x-2">
-          ${taskType === 'learning' ? '<button class="text-[#00bfa6] hover:underline">Update Progress</button>' : ''}
-          ${taskType === 'teaching' ? '<button class="text-[#00bfa6] hover:underline">Mark Complete</button>' : ''}
-          <button class="text-red-500 hover:underline">Delete</button>
+          ${taskType === 'learning' ? '<button class="text-primary hover:underline">Update Progress</button>' : ''}
+          ${taskType === 'teaching' ? '<button class="text-primary hover:underline">Mark Complete</button>' : ''}
+          <button class="text-error hover:underline">Delete</button>
         </div>
       `;
 
@@ -170,6 +161,15 @@
       // Clear form
       document.getElementById('taskTitle').value = '';
       document.getElementById('taskDueDate').value = '';
+      
+      // Show toast notification
+      const toast = document.getElementById('toast');
+      document.getElementById('toast-message').textContent = 'Task added successfully!';
+      toast.classList.add('show');
+      
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3000);
     });
 
     // Placeholder for fetching user to-do data from the backend
@@ -198,8 +198,6 @@
     // Call the fetch function when the page loads (with a placeholder user ID)
     document.addEventListener('DOMContentLoaded', async () => {
       const placeholderUserId = '123'; // Replace with actual user ID retrieval logic
-      const todoItems = await fetchTodoData(placeholderUserId);
-      displayTodoData(todoItems);
     });
   </script>
 </body>

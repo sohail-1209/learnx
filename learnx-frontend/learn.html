@@ -6,32 +6,144 @@
   <title>Learn - LearnX</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css">
   <style>
     html {
       scroll-behavior: smooth;
     }
-  </style>
-  <style>
+    
     /* Custom Styles for Learn Page */
     .category-card {
       transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out;
-    }
-    .category-card:hover {
-      transform: translateY(-5px);
-    }
-    .session-card {
-      transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out;
-    }
-    .session-card:hover {
-      transform: translateY(-5px);
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
     }
     
-    /* Toast Notification Styles */
-    .toast-notification {
-      transform: translateX(100%);
-      opacity: 0;
-      transition: transform 0.3s ease, opacity 0.3s ease;
-      max-width: 350px;
+    .category-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(0, 191, 166, 0.1) 0%, rgba(0, 0, 0, 0) 70%);
+      z-index: -1;
+      transition: opacity 0.3s ease;
+    }
+    
+    .category-card:hover::before {
+      opacity: 0.8;
+    }
+    
+    .category-card:hover {
+      transform: translateY(-10px);
+    }
+    
+    .category-icon {
+      transition: all 0.3s ease;
+      background: rgba(0, 191, 166, 0.1);
+    }
+    
+    .category-card:hover .category-icon {
+      transform: scale(1.1);
+      background: rgba(0, 191, 166, 0.2);
+    }
+    
+    .session-card {
+      transition: all 0.3s ease;
+      position: relative;
+      border-left: 3px solid transparent;
+    }
+    
+    .session-card:hover {
+      border-left-color: var(--primary);
+      transform: translateX(5px);
+    }
+    
+    .session-rating {
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .session-rating::before {
+      content: '★★★★★';
+      position: absolute;
+      color: var(--surface-3);
+    }
+    
+    .session-rating-filled {
+      position: relative;
+      overflow: hidden;
+      color: var(--warning);
+    }
+    
+    .search-container {
+      position: relative;
+      overflow: hidden;
+      border-radius: var(--radius-lg);
+    }
+    
+    .search-container::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(
+        to right,
+        rgba(0, 191, 166, 0) 0%,
+        rgba(0, 191, 166, 0.1) 50%,
+        rgba(0, 191, 166, 0) 100%
+      );
+      transform: rotate(30deg);
+      animation: searchShine 3s infinite;
+      z-index: 1;
+      pointer-events: none;
+    }
+    
+    @keyframes searchShine {
+      from { transform: translateX(-100%) rotate(30deg); }
+      to { transform: translateX(100%) rotate(30deg); }
+    }
+    
+    .filter-pill {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      margin-right: 0.5rem;
+      margin-bottom: 0.5rem;
+      border-radius: 1rem;
+      background-color: var(--surface-2);
+      color: var(--foreground);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .filter-pill:hover {
+      background-color: var(--surface-3);
+    }
+    
+    .filter-pill.active {
+      background-color: var(--primary);
+      color: white;
+    }
+
+    /* Loading spinner */
+    .loader {
+      border: 3px solid rgba(0, 0, 0, 0.1);
+      border-radius: 50%;
+      border-top: 3px solid var(--primary);
+      width: 30px;
+      height: 30px;
+      animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
   </style>
 </head>
@@ -40,83 +152,377 @@
   <!-- Flex container for sidebar and content -->
   <div class="flex">
     <!-- Sidebar Placeholder - will be replaced by sidebar-loader.js -->
-    <div class="sidebar-placeholder"></div>
+    <div class="w-64 bg-[#1a1a1a] p-6 h-screen fixed top-0 left-0 shadow-xl z-10">
+      <div class="flex flex-col space-y-8">
+        <a href="dashboard.html" class="text-2xl font-bold text-white flex items-center">
+          <span class="text-[#00bfa6] mr-2">Learn</span><span class="bg-[#00bfa6] text-white px-2 py-1 rounded">X</span>
+        </a>
+        
+        <div class="flex items-center space-x-3 mb-6">
+          <div id="sidebar-avatar" class="w-10 h-10 rounded-full bg-[#00bfa6] flex items-center justify-center text-white font-semibold">
+            U
+          </div>
+          <div>
+            <p id="sidebar-name" class="font-medium">User</p>
+            <p class="text-xs text-gray-400" id="sidebar-role">Student</p>
+          </div>
+        </div>
+        
+        <nav>
+          <ul class="flex flex-col space-y-2">
+            <li><a href="dashboard.html" class="sidebar-link py-2 px-2 rounded flex items-center"><i class="fas fa-chart-line w-6"></i> Dashboard</a></li>
+            <li><a href="learn.html" class="sidebar-link py-2 px-2 rounded flex items-center"><i class="fas fa-graduation-cap w-6"></i> Learn</a></li>
+            <li><a href="teach.html" class="sidebar-link py-2 px-2 rounded flex items-center"><i class="fas fa-chalkboard-teacher w-6"></i> Teach</a></li>
+            <li><a href="schedule.html" class="sidebar-link py-2 px-2 rounded flex items-center"><i class="fas fa-calendar-alt w-6"></i> Schedule</a></li>
+            <li><a href="profile.html" class="sidebar-link active py-2 px-2 rounded flex items-center"><i class="fas fa-user w-6"></i> Profile</a></li>
+            <li><a href="chat.html" class="sidebar-link py-2 px-2 rounded flex items-center"><i class="fas fa-comments w-6"></i> Messages</a></li>
+            <li><a href="settings.html" class="sidebar-link py-2 px-2 rounded flex items-center"><i class="fas fa-cog w-6"></i> Settings</a></li>
+          </ul>
+        </nav>
+        
+        <div class="mt-auto pt-6 border-t border-gray-800">
+          <button id="logout-btn" class="flex items-center text-gray-400 hover:text-white transition-colors">
+            <i class="fas fa-sign-out-alt mr-2"></i> Logout
+          </button>
+        </div>
+      </div>
+    </div>
+
 
     <!-- Main Content -->
     <div class="flex-1 ml-64 p-8">
-      <h2 class="text-3xl md:text-4xl font-semibold mb-6" data-aos="fade-up">Find Mentors</h2>
+      <header class="mb-8" data-aos="fade-up">
+        <h2 class="text-3xl md:text-4xl font-semibold mb-4 flex items-center">
+          <i class="fas fa-graduation-cap text-primary mr-3"></i>
+          Discover Learning Opportunities
+        </h2>
+        <p class="text-lg text-secondary">Find and connect with experienced mentors in various fields</p>
+      </header>
 
       <!-- Search Bar -->
-      <div class="flex mb-8" data-aos="fade-up">
-        <input type="text" placeholder="Search for a skill, mentor, or session..." class="w-full p-4 bg-[#2d2d2d] text-white rounded-lg focus:outline-none" />
-        <button class="ml-4 bg-[#00bfa6] text-white py-3 px-6 rounded-lg hover:bg-[#009e8d] transition-colors">Search</button>
+      <div class="search-container bg-surface-1 p-1 shadow-lg mb-8" data-aos="fade-up">
+        <div class="flex flex-col md:flex-row p-4 gap-4 relative z-2">
+          <div class="flex-grow">
+            <div class="relative">
+              <input type="text" placeholder="Search for a skill, mentor, or session..." class="w-full p-4 bg-surface-2 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-primary pl-12" />
+              <i class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+            </div>
+          </div>
+          <div class="flex gap-2">
+            <div class="relative">
+              <select class="appearance-none bg-surface-2 text-white py-4 px-6 pr-10 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
+                <option>All Categories</option>
+                <option>Coding</option>
+                <option>Design</option>
+                <option>Business</option>
+                <option>Language</option>
+                <option>Music</option>
+              </select>
+              <i class="fas fa-chevron-down absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none"></i>
+            </div>
+            <button class="btn btn-primary flex items-center justify-center">
+              <i class="fas fa-search mr-2"></i>
+              Search
+            </button>
+          </div>
+        </div>
+        
+        <!-- Filter Pills -->
+        <div class="flex flex-wrap gap-2 p-4 border-t border-gray-800">
+          <span class="filter-pill px-3 py-1 bg-surface-2 rounded-full text-sm cursor-pointer active">All</span>
+          <span class="filter-pill px-3 py-1 bg-surface-2 rounded-full text-sm cursor-pointer">Online</span>
+          <span class="filter-pill px-3 py-1 bg-surface-2 rounded-full text-sm cursor-pointer">In-Person</span>
+          <span class="filter-pill px-3 py-1 bg-surface-2 rounded-full text-sm cursor-pointer">Free</span>
+          <span class="filter-pill px-3 py-1 bg-surface-2 rounded-full text-sm cursor-pointer">Paid</span>
+          <span class="filter-pill px-3 py-1 bg-surface-2 rounded-full text-sm cursor-pointer">This Week</span>
+          <span class="filter-pill px-3 py-1 bg-surface-2 rounded-full text-sm cursor-pointer">Weekends</span>
+          <span class="filter-pill px-3 py-1 bg-surface-2 rounded-full text-sm cursor-pointer">Highly Rated</span>
+        </div>
       </div>
 
       <!-- Categories -->
-      <div class="grid grid-cols-2 md:grid-cols-3 gap-6 mb-8" data-aos="fade-up">
-        <div class="bg-[#1f1f1f] p-6 rounded-lg shadow-lg text-center category-card hover:bg-[#00bfa6] transition-colors">
-          <h3 class="text-xl font-semibold">Coding</h3>
-          <p class="mt-2 text-lg">Find coding sessions in languages like Python, JavaScript, etc.</p>
-        </div>
-        <div class="bg-[#1f1f1f] p-6 rounded-lg shadow-lg text-center category-card hover:bg-[#00bfa6] transition-colors">
-          <h3 class="text-xl font-semibold">Design</h3>
-          <p class="mt-2 text-lg">Explore design skills including UI/UX and graphic design.</p>
-        </div>
-        <div class="bg-[#1f1f1f] p-6 rounded-lg shadow-lg text-center category-card hover:bg-[#00bfa6] transition-colors">
-          <h3 class="text-xl font-semibold">Music</h3>
-          <p class="mt-2 text-lg">Learn music theory, instruments, and more with experienced mentors.</p>
-        </div>
-        <div class="bg-[#1f1f1f] p-6 rounded-lg shadow-lg text-center category-card hover:bg-[#00bfa6] transition-colors">
-          <h3 class="text-xl font-semibold">Fitness</h3>
-          <p class="mt-2 text-lg">Get guidance from fitness experts and trainers.</p>
-        </div>
-        <div class="bg-[#1f1f1f] p-6 rounded-lg shadow-lg text-center category-card hover:bg-[#00bfa6] transition-colors">
-          <h3 class="text-xl font-semibold">Business</h3>
-          <p class="mt-2 text-lg">Access business mentorship and insights from experienced professionals.</p>
-        </div>
-        <div class="bg-[#1f1f1f] p-6 rounded-lg shadow-lg text-center category-card hover:bg-[#00bfa6] transition-colors">
-          <h3 class="text-xl font-semibold">Language</h3>
-          <p class="mt-2 text-lg">Learn new languages from proficient speakers.</p>
+      <div class="mb-12" data-aos="fade-up">
+        <h3 class="text-2xl font-semibold mb-6 flex items-center">
+          <i class="fas fa-th-large text-primary mr-2"></i>
+          Browse Categories
+        </h3>
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+          <div class="category-card bg-surface-1 p-6 rounded-xl shadow-lg text-center card-hover">
+            <div class="category-icon text-primary text-3xl mb-4 mx-auto w-16 h-16 flex items-center justify-center rounded-full">
+              <i class="fas fa-laptop-code"></i>
+            </div>
+            <h3 class="text-lg font-semibold">Coding</h3>
+            <p class="mt-2 text-sm text-secondary">Python, JS, Web Dev</p>
+          </div>
+          <div class="category-card bg-surface-1 p-6 rounded-xl shadow-lg text-center card-hover">
+            <div class="category-icon text-primary text-3xl mb-4 mx-auto w-16 h-16 flex items-center justify-center rounded-full">
+              <i class="fas fa-paint-brush"></i>
+            </div>
+            <h3 class="text-lg font-semibold">Design</h3>
+            <p class="mt-2 text-sm text-secondary">UI/UX, Graphics</p>
+          </div>
+          <div class="category-card bg-surface-1 p-6 rounded-xl shadow-lg text-center card-hover">
+            <div class="category-icon text-primary text-3xl mb-4 mx-auto w-16 h-16 flex items-center justify-center rounded-full">
+              <i class="fas fa-music"></i>
+            </div>
+            <h3 class="text-lg font-semibold">Music</h3>
+            <p class="mt-2 text-sm text-secondary">Instruments, Theory</p>
+          </div>
+          <div class="category-card bg-surface-1 p-6 rounded-xl shadow-lg text-center card-hover">
+            <div class="category-icon text-primary text-3xl mb-4 mx-auto w-16 h-16 flex items-center justify-center rounded-full">
+              <i class="fas fa-dumbbell"></i>
+            </div>
+            <h3 class="text-lg font-semibold">Fitness</h3>
+            <p class="mt-2 text-sm text-secondary">Yoga, Strength</p>
+          </div>
+          <div class="category-card bg-surface-1 p-6 rounded-xl shadow-lg text-center card-hover">
+            <div class="category-icon text-primary text-3xl mb-4 mx-auto w-16 h-16 flex items-center justify-center rounded-full">
+              <i class="fas fa-chart-line"></i>
+            </div>
+            <h3 class="text-lg font-semibold">Business</h3>
+            <p class="mt-2 text-sm text-secondary">Marketing, Finance</p>
+          </div>
+          <div class="category-card bg-surface-1 p-6 rounded-xl shadow-lg text-center card-hover">
+            <div class="category-icon text-primary text-3xl mb-4 mx-auto w-16 h-16 flex items-center justify-center rounded-full">
+              <i class="fas fa-language"></i>
+            </div>
+            <h3 class="text-lg font-semibold">Language</h3>
+            <p class="mt-2 text-sm text-secondary">Spanish, Chinese</p>
+          </div>
         </div>
       </div>
  
       <!-- Available Sessions -->
-      <h2 class="text-3xl md:text-4xl font-semibold mb-6" data-aos="fade-up">Available Sessions</h2>
-      <div id="available-sessions-container" class="bg-[#1f1f1f] p-6 rounded-lg shadow-lg" data-aos="fade-up">
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="available-sessions-grid">
-          <!-- Sessions will be populated by JavaScript -->
+      <div class="mb-12">
+        <div class="flex justify-between items-center mb-6">
+          <h2 class="text-2xl font-semibold flex items-center" data-aos="fade-up">
+            <i class="fas fa-calendar-alt text-primary mr-2"></i>
+            Available Sessions
+          </h2>
+          <div class="flex gap-2">
+            <button class="bg-surface-2 text-white py-2 px-4 rounded-lg hover:bg-surface-3 transition-colors flex items-center">
+              <i class="fas fa-filter mr-2"></i>Filter
+            </button>
+            <div class="relative">
+              <select class="appearance-none bg-surface-2 text-white py-2 px-4 pr-8 rounded-lg focus:outline-none focus:ring-1 focus:ring-primary">
+                <option>Newest First</option>
+                <option>Highest Rated</option>
+                <option>Price: Low to High</option>
+                <option>Price: High to Low</option>
+              </select>
+              <i class="fas fa-chevron-down absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none"></i>
+            </div>
+          </div>
         </div>
- </div>
+        <div id="available-sessions-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" data-aos="fade-up">
+          <!-- Sessions (will be populated by JS, showing sample items here) -->
+          <div class="session-card bg-surface-1 p-6 rounded-xl shadow-lg card-hover">
+            <div class="flex justify-between mb-4">
+              <span class="badge badge-primary">Coding</span>
+              <div class="session-rating">
+                <div class="session-rating-filled" style="width: 90%">★★★★★</div>
+              </div>
+            </div>
+            <h3 class="text-xl font-semibold mb-2">Advanced React Hooks</h3>
+            <p class="text-secondary mb-4">Learn how to use React's advanced hooks to build powerful components.</p>
+            <div class="flex items-center mb-4">
+              <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Instructor" class="w-10 h-10 rounded-full mr-3">
+              <div>
+                <p class="font-medium">David Wilson</p>
+                <p class="text-xs text-secondary">Senior Frontend Developer</p>
+              </div>
+            </div>
+            <div class="flex justify-between items-center pt-4 border-t border-gray-800">
+              <p class="font-bold text-primary">$45.00</p>
+              <button class="btn btn-primary py-2 px-4">Book Session</button>
+            </div>
+          </div>
+          
+          <div class="session-card bg-surface-1 p-6 rounded-xl shadow-lg card-hover">
+            <div class="flex justify-between mb-4">
+              <span class="badge badge-accent">Design</span>
+              <div class="session-rating">
+                <div class="session-rating-filled" style="width: 100%">★★★★★</div>
+              </div>
+            </div>
+            <h3 class="text-xl font-semibold mb-2">UI/UX Design Fundamentals</h3>
+            <p class="text-secondary mb-4">Master the principles of creating beautiful user interfaces.</p>
+            <div class="flex items-center mb-4">
+              <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Instructor" class="w-10 h-10 rounded-full mr-3">
+              <div>
+                <p class="font-medium">Sarah Johnson</p>
+                <p class="text-xs text-secondary">UI/UX Designer at Google</p>
+              </div>
+            </div>
+            <div class="flex justify-between items-center pt-4 border-t border-gray-800">
+              <p class="font-bold text-primary">$35.00</p>
+              <button class="btn btn-primary py-2 px-4">Book Session</button>
+            </div>
+          </div>
+          
+          <div class="session-card bg-surface-1 p-6 rounded-xl shadow-lg card-hover">
+            <div class="flex justify-between mb-4">
+              <span class="badge-primary badge">Free</span>
+              <div class="session-rating">
+                <div class="session-rating-filled" style="width: 85%">★★★★★</div>
+              </div>
+            </div>
+            <h3 class="text-xl font-semibold mb-2">Introduction to Python</h3>
+            <p class="text-secondary mb-4">Get started with Python programming with this beginner-friendly session.</p>
+            <div class="flex items-center mb-4">
+              <img src="https://randomuser.me/api/portraits/men/67.jpg" alt="Instructor" class="w-10 h-10 rounded-full mr-3">
+              <div>
+                <p class="font-medium">Michael Brown</p>
+                <p class="text-xs text-secondary">Python Developer</p>
+              </div>
+            </div>
+            <div class="flex justify-between items-center pt-4 border-t border-gray-800">
+              <p class="font-bold text-success">FREE</p>
+              <button class="btn btn-primary py-2 px-4">Book Session</button>
+            </div>
+          </div>
+        </div>
+        
+        <div class="flex justify-center mt-8">
+          <button class="btn btn-secondary py-3 px-6 flex items-center">
+            Load More <i class="fas fa-arrow-down ml-2"></i>
+          </button>
+        </div>
+      </div>
 
       <!-- User Learning Data Sections -->
-      <h2 class="text-3xl md:text-4xl font-semibold mb-6 mt-8" data-aos="fade-up">Your Learning</h2>
+      <div class="mb-12">
+        <h2 class="text-2xl font-semibold mb-6 flex items-center" data-aos="fade-up">
+          <i class="fas fa-graduation-cap text-primary mr-3"></i>Your Learning Journey
+        </h2>
 
-      <div id="enrolled-courses" class="bg-[#2d2d2d] p-6 rounded-lg shadow-lg mb-8" data-aos="fade-up">
-        <h3 class="text-xl font-semibold mb-4">Enrolled Courses</h3>
-        <!-- Enrolled courses will be populated here by JavaScript -->
-      </div>
+        <div id="enrolled-courses" class="bg-surface-1 p-6 rounded-xl shadow-lg mb-8 card" data-aos="fade-up">
+          <h3 class="text-xl font-semibold mb-4 flex items-center">
+            <i class="fas fa-book-open text-primary mr-2"></i>Enrolled Courses
+          </h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="bg-surface-2 p-4 rounded-lg hover:bg-surface-3 transition-colors">
+              <div class="flex justify-between mb-2">
+                <h4 class="font-medium">JavaScript Mastery</h4>
+                <span class="text-xs px-2 py-1 bg-primary bg-opacity-20 rounded-full text-primary">In Progress</span>
+              </div>
+              <p class="text-sm text-secondary mb-2">Next session: Tomorrow at 3:00 PM</p>
+              <div class="flex justify-between items-center">
+                <span class="text-xs text-secondary"><i class="fas fa-user mr-1 text-primary"></i> with Alex Morgan</span>
+                <a href="#" class="text-primary text-sm hover:underline">Continue</a>
+              </div>
+            </div>
+            <div class="bg-surface-2 p-4 rounded-lg hover:bg-surface-3 transition-colors">
+              <div class="flex justify-between mb-2">
+                <h4 class="font-medium">UX Research Methods</h4>
+                <span class="text-xs px-2 py-1 bg-primary bg-opacity-20 rounded-full text-primary">In Progress</span>
+              </div>
+              <p class="text-sm text-secondary mb-2">Next session: Friday at 5:00 PM</p>
+              <div class="flex justify-between items-center">
+                <span class="text-xs text-secondary"><i class="fas fa-user mr-1 text-primary"></i> with Emma Wilson</span>
+                <a href="#" class="text-primary text-sm hover:underline">Continue</a>
+              </div>
+            </div>
+          </div>
+        </div>
 
-      <div id="course-progress-learn" class="bg-[#2d2d2d] p-6 rounded-lg shadow-lg mb-8" data-aos="fade-up">
-        <h3 class="text-xl font-semibold mb-4">Course Progress</h3>
-        <!-- Course progress will be populated here by JavaScript -->
-      </div>
+        <!-- My Booked Sessions Section -->
+        <div id="booked-sessions" class="bg-surface-1 p-6 rounded-xl shadow-lg mb-8 card" data-aos="fade-up">
+          <h3 class="text-xl font-semibold mb-4 flex items-center">
+            <i class="fas fa-calendar-check text-primary mr-2"></i>My Booked Sessions
+          </h3>
+          <div id="booked-sessions-container" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <!-- Loading placeholder - will be replaced by actual booked sessions -->
+            <div class="col-span-2 text-center py-4">
+              <div class="loader mx-auto"></div>
+              <p class="text-secondary mt-3">Loading your booked sessions...</p>
+            </div>
+          </div>
+        </div>
 
-      <div id="recommended-courses" class="bg-[#2d2d2d] p-6 rounded-lg shadow-lg" data-aos="fade-up">
-        <h3 class="text-xl font-semibold mb-4">Recommended Courses</h3>
-        <!-- Recommended courses will be populated here by JavaScript -->
-      </div>
+        <div id="course-progress-learn" class="bg-surface-1 p-6 rounded-xl shadow-lg mb-8 card" data-aos="fade-up">
+          <h3 class="text-xl font-semibold mb-4 flex items-center">
+            <i class="fas fa-chart-bar text-primary mr-2"></i>Course Progress
+          </h3>
+          <div class="space-y-4">
+            <div>
+              <div class="flex justify-between mb-2">
+                <p class="font-medium">JavaScript Mastery</p>
+                <p class="text-primary font-medium">65%</p>
+              </div>
+              <div class="progress-bar w-full h-2 bg-surface-3 rounded-full overflow-hidden">
+                <div class="progress-bar-fill h-full" style="width: 65%"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between mb-2">
+                <p class="font-medium">UX Research Methods</p>
+                <p class="text-primary font-medium">35%</p>
+              </div>
+              <div class="progress-bar w-full h-2 bg-surface-3 rounded-full overflow-hidden">
+                <div class="progress-bar-fill h-full" style="width: 35%"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between mb-2">
+                <p class="font-medium">Python Basics</p>
+                <p class="text-primary font-medium">100%</p>
+              </div>
+              <div class="progress-bar w-full h-2 bg-surface-3 rounded-full overflow-hidden">
+                <div class="progress-bar-fill h-full" style="width: 100%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
 
-      <!-- Book Session Button -->
-      <div class="mt-8">
-        <a href="#book-session" class="bg-[#00bfa6] text-white py-3 px-6 rounded-lg hover:bg-[#009e8d] transition-colors">Find More Sessions</a>
+        <div id="recommended" class="bg-surface-1 p-6 rounded-xl shadow-lg card" data-aos="fade-up">
+          <h3 class="text-xl font-semibold mb-4 flex items-center">
+            <i class="fas fa-lightbulb text-primary mr-2"></i>Recommended For You
+          </h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="bg-surface-2 p-4 rounded-lg hover:bg-surface-3 transition-colors">
+              <div class="flex justify-between mb-2">
+                <span class="text-xs px-2 py-1 bg-accent bg-opacity-20 rounded-full text-accent">Advanced</span>
+                <p class="text-primary font-bold">$55</p>
+              </div>
+              <h4 class="font-medium">React Native Deep Dive</h4>
+              <p class="text-sm text-secondary mt-1 mb-3">Build cross-platform mobile apps with React Native expertise.</p>
+              <button class="w-full btn btn-primary py-1.5 text-sm">View Details</button>
+            </div>
+            <div class="bg-surface-2 p-4 rounded-lg hover:bg-surface-3 transition-colors">
+              <div class="flex justify-between mb-2">
+                <span class="text-xs px-2 py-1 bg-warning bg-opacity-20 rounded-full text-warning">Intermediate</span>
+                <p class="text-primary font-bold">$40</p>
+              </div>
+              <h4 class="font-medium">Web Animation Techniques</h4>
+              <p class="text-sm text-secondary mt-1 mb-3">Learn to create engaging web animations with CSS and JavaScript.</p>
+              <button class="w-full btn btn-primary py-1.5 text-sm">View Details</button>
+            </div>
+            <div class="bg-surface-2 p-4 rounded-lg hover:bg-surface-3 transition-colors">
+              <div class="flex justify-between mb-2">
+                <span class="text-xs px-2 py-1 bg-success bg-opacity-20 rounded-full text-success">Beginner</span>
+                <p class="text-primary font-bold">$25</p>
+              </div>
+              <h4 class="font-medium">Data Visualization Basics</h4>
+              <p class="text-sm text-secondary mt-1 mb-3">Learn how to present data effectively using modern visualization tools.</p>
+              <button class="w-full btn btn-primary py-1.5 text-sm">View Details</button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- Footer -->
-  <footer class="bg-[#1f1f1f] py-6 text-center text-white mt-8">
-    <p>&copy; 2025 LearnX - All Rights Reserved</p>
-  </footer>
+  <!-- Toast Notification -->
+  <div id="toast" class="toast-notification">
+    <div class="flex items-center">
+      <i class="fas fa-info-circle text-primary text-xl mr-3"></i>
+      <div>
+        <h4 class="font-medium">Information</h4>
+        <p class="text-sm text-gray-400" id="toast-message">This is a notification.</p>
+      </div>
+    </div>
+  </div>
 
   <!-- AOS Animation Init -->
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
@@ -127,403 +533,428 @@
       easing: 'ease-in-out',
       once: true
     });
-  </script>
-  <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      // Get the token from localStorage
-      const token = localStorage.getItem('token');
-      
-      if (!token) {
-        console.log("User not logged in.");
-        window.location.href = 'login.html'; // Redirect to login page
-        return;
-      }
-      
-      // Parse the token to get userId
-      const payload = JSON.parse(atob(token.split('.')[1]));
-      const userId = payload.userId;
-      
-      // Show loading state
-      document.getElementById('enrolled-courses').innerHTML = '<h3 class="text-xl font-semibold mb-4">Enrolled Courses</h3><p>Loading your courses...</p>';
-      document.getElementById('course-progress-learn').innerHTML = '<h3 class="text-xl font-semibold mb-4">Course Progress</h3><p>Loading your progress...</p>';
-      document.getElementById('recommended-courses').innerHTML = '<h3 class="text-xl font-semibold mb-4">Recommended Courses</h3><p>Loading recommendations...</p>';
-      
-      fetchLearnData(userId);
-    });
-
-    // Function to fetch user learning data
-    async function fetchLearnData(userId) {
-      try {
-      console.log(`Fetching learning data for user: ${userId}`);
-        console.log('API URL:', `http://127.0.0.1:5001/api/learn/${userId}`);
-        
-        const response = await fetch(`http://127.0.0.1:5001/api/learn/${userId}`, {
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
+    
+    // Handle filter pills
+    document.querySelectorAll('.filter-pill').forEach(pill => {
+      pill.addEventListener('click', function() {
+        // If it's the "All" pill, deactivate all others
+        if (this.textContent === 'All') {
+          document.querySelectorAll('.filter-pill').forEach(p => {
+            p.classList.remove('active');
+          });
+          this.classList.add('active');
+        } else {
+          // Toggle the active state of the clicked pill
+          this.classList.toggle('active');
+          
+          // If this pill is being activated, deactivate the "All" pill
+          if (this.classList.contains('active')) {
+            document.querySelector('.filter-pill:first-child').classList.remove('active');
           }
-        });
-        
-        if (!response.ok) {
-          const errorText = await response.text();
-          console.error(`API Error (${response.status}):`, errorText);
           
-          // Show error state on the page
-          document.getElementById('enrolled-courses').innerHTML = '<h3 class="text-xl font-semibold mb-4">Enrolled Courses</h3><p class="text-red-400">Error loading courses. Please try again later.</p>';
-          document.getElementById('course-progress-learn').innerHTML = '<h3 class="text-xl font-semibold mb-4">Course Progress</h3><p class="text-red-400">Error loading progress. Please try again later.</p>';
-          document.getElementById('recommended-courses').innerHTML = '<h3 class="text-xl font-semibold mb-4">Recommended Courses</h3><p class="text-red-400">Error loading recommendations. Please try again later.</p>';
-          
-          throw new Error(`Failed to fetch learning data: ${response.status} - ${errorText}`);
-        }
-        
-        const userData = await response.json();
-        console.log("Learning data received:", userData);
-        
-        // Check if userData has expected properties
-        if (!userData || typeof userData !== 'object') {
-          throw new Error('Invalid response format from API');
-        }
-        
-        // Check for availableSessions and teachers
-        if (!userData.availableSessions) {
-          console.warn('No availableSessions in response data');
-          userData.availableSessions = [];
-        }
-        
-        if (!userData.teachers) {
-          console.warn('No teachers in response data');
-          userData.teachers = [];
-        }
-        
-        console.log(`Available sessions: ${userData.availableSessions.length}`);
-        console.log(`Teachers: ${userData.teachers.length}`);
-        
-        displayLearnData(userData);
-        
-        // Also populate available sessions
-        displayAvailableSessions(userData.availableSessions, userData.teachers);
-      } catch (error) {
-        console.error("Error fetching learning data:", error);
-        // Show error state on the page if not already shown
-        if (!document.getElementById('enrolled-courses').innerHTML.includes('text-red-400')) {
-          document.getElementById('enrolled-courses').innerHTML = '<h3 class="text-xl font-semibold mb-4">Enrolled Courses</h3><p class="text-red-400">Error loading courses: ' + error.message + '</p>';
-          document.getElementById('course-progress-learn').innerHTML = '<h3 class="text-xl font-semibold mb-4">Course Progress</h3><p class="text-red-400">Error loading progress: ' + error.message + '</p>';
-          document.getElementById('recommended-courses').innerHTML = '<h3 class="text-xl font-semibold mb-4">Recommended Courses</h3><p class="text-red-400">Error loading recommendations: ' + error.message + '</p>';
-        }
-        
-        // Show empty state for available sessions
-        const availableSessionsContainer = document.getElementById('available-sessions-container');
-        if (availableSessionsContainer) {
-          const availableSessionsGrid = availableSessionsContainer.querySelector('.grid');
-          if (availableSessionsGrid) {
-            availableSessionsGrid.innerHTML = `
-              <div class="col-span-full text-center py-10">
-                <p class="text-red-400 text-lg mt-4">Error loading available sessions: ${error.message}</p>
-                <p class="mt-2 text-gray-500">Please try refreshing the page.</p>
-              </div>
-            `;
+          // If no pills are active, activate the "All" pill
+          const activePills = document.querySelectorAll('.filter-pill.active');
+          if (activePills.length === 0) {
+            document.querySelector('.filter-pill:first-child').classList.add('active');
           }
         }
-      }
-    }
-
-    // Function to display user learning data
-    function displayLearnData(userData) {
-      // Populate enrolled courses
-      const enrolledCoursesDiv = document.getElementById('enrolled-courses');
-      if (userData.enrolledSessions && userData.enrolledSessions.length > 0) {
-        let html = '<h3 class="text-xl font-semibold mb-4">Enrolled Courses</h3><div class="grid grid-cols-1 md:grid-cols-2 gap-4">';
         
-        userData.enrolledSessions.forEach(session => {
-          html += `
-            <div class="bg-[#1f1f1f] p-4 rounded-lg">
-              <h4 class="text-lg font-semibold">${session.title}</h4>
-              <p class="text-gray-400 mt-2">${session.description}</p>
-              <div class="flex justify-between mt-4">
-                <span>Category: ${session.category}</span>
-                <span>$${session.price}/hr</span>
-              </div>
-              <a href="live-session.html?id=${session.id}" class="mt-4 inline-block bg-[#00bfa6] text-white py-2 px-4 rounded-lg hover:bg-[#009e8d] transition-colors">
-                Join Session
-              </a>
-            </div>
-          `;
-        });
-        
-        html += '</div>';
-        enrolledCoursesDiv.innerHTML = html;
-      } else {
-        enrolledCoursesDiv.innerHTML = `
-          <h3 class="text-xl font-semibold mb-4">Enrolled Courses</h3>
-          <p class="text-gray-400">You are not enrolled in any courses yet.</p>
-          <p class="mt-2">Explore available sessions below to find a course that interests you.</p>
-        `;
-      }
-
-      // Populate course progress
-      const courseProgressDiv = document.getElementById('course-progress-learn');
-      if (userData.courseProgress && userData.courseProgress.length > 0) {
-        let html = '<h3 class="text-xl font-semibold mb-4">Course Progress</h3><div class="space-y-4">';
-        
-        userData.courseProgress.forEach(course => {
-          html += `
-            <div class="bg-[#1f1f1f] p-4 rounded-lg">
-              <div class="flex justify-between mb-2">
-                <h4 class="font-semibold">${course.course_name}</h4>
-                <span>${course.progress}%</span>
-              </div>
-              <div class="w-full bg-[#121212] rounded-full h-2.5">
-                <div class="bg-[#00bfa6] h-2.5 rounded-full" style="width: ${course.progress}%"></div>
-              </div>
-            </div>
-          `;
-        });
-        
-        html += '</div>';
-        courseProgressDiv.innerHTML = html;
-      } else {
-        courseProgressDiv.innerHTML = `
-          <h3 class="text-xl font-semibold mb-4">Course Progress</h3>
-          <p class="text-gray-400">No course progress to display.</p>
-        `;
-      }
-
-      // Populate recommended courses
-      const recommendedCoursesDiv = document.getElementById('recommended-courses');
-      if (userData.availableSessions && userData.availableSessions.length > 0) {
-        // Just show the first 3 available sessions as "recommended"
-        const recommendedSessions = userData.availableSessions.slice(0, 3);
-        
-        let html = '<h3 class="text-xl font-semibold mb-4">Recommended For You</h3><div class="grid grid-cols-1 md:grid-cols-3 gap-4">';
-        
-        recommendedSessions.forEach(session => {
-          // Find the teacher for this session
-          const teacher = userData.teachers.find(t => t.user_id === session.teacher_id) || { username: 'Unknown Teacher', rating: 0 };
-          
-          html += `
-            <div class="bg-[#1f1f1f] p-4 rounded-lg">
-              <h4 class="text-lg font-semibold">${session.title}</h4>
-              <p class="text-sm text-gray-400 mt-2">${session.description}</p>
-              <div class="flex justify-between mt-4">
-                <span>Mentor: ${teacher.username}</span>
-                <span>$${session.price}/hr</span>
-              </div>
-              <button onclick="enrollInSession(${session.id})" class="mt-4 w-full bg-[#00bfa6] text-white py-2 px-4 rounded-lg hover:bg-[#009e8d] transition-colors">
-                Enroll
-              </button>
-            </div>
-          `;
-        });
-        
-        html += '</div>';
-        recommendedCoursesDiv.innerHTML = html;
-      } else {
-        recommendedCoursesDiv.innerHTML = `
-          <h3 class="text-xl font-semibold mb-4">Recommended For You</h3>
-          <p class="text-gray-400">No recommendations available yet.</p>
-        `;
-      }
-    }
-
-    // Function to display available sessions
-    function displayAvailableSessions(sessions, teachers) {
-      // Target the grid container of available sessions
-      console.log('displayAvailableSessions called with:', {
-        sessionsCount: sessions ? sessions.length : 0,
-        teachersCount: teachers ? teachers.length : 0
+        // Here you would typically filter the sessions based on the active pills
+        // This would involve an API call or filtering local data
+        showToast('Filtering sessions...');
       });
+    });
+    
+    // Show a toast notification
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      const toastMessage = document.getElementById('toast-message');
       
-      if (sessions) {
-        sessions.forEach(session => {
-          console.log(`Session ${session.id}: ${session.title}, Teacher: ${session.teacher_id}`);
-        });
-      }
-      
-      if (teachers) {
-        teachers.forEach(teacher => {
-          console.log(`Teacher ${teacher.user_id}: ${teacher.username}`);
-        });
-      }
-      
-      const availableSessionsGrid = document.getElementById('available-sessions-grid');
-      console.log('Found grid by ID:', availableSessionsGrid);
-      
-      if (!availableSessionsGrid) {
-        console.error("Could not find available sessions grid with ID 'available-sessions-grid'");
-        return;
-      }
-      
-      console.log(`Displaying ${sessions ? sessions.length : 0} available sessions`);
-      
-      if (sessions && sessions.length > 0) {
-        let html = '';
+      if (toast && toastMessage) {
+        toastMessage.textContent = message;
+        toast.classList.add('show');
         
-        sessions.forEach(session => {
-          // Find the teacher for this session
-          const teacher = teachers.find(t => t.user_id === session.teacher_id) || { username: 'Unknown Teacher', rating: 0, user_id: 0 };
-          
-          // Format date
-          const sessionDate = new Date(session.schedule);
-          const dateString = sessionDate.toLocaleDateString();
-          
-          html += `
-            <div class="bg-[#2d2d2d] p-6 rounded-lg session-card hover:bg-[#3d3d3d] transition-colors">
-              <h4 class="text-xl font-semibold">${session.title}</h4>
-              <p class="mt-2 text-lg">${session.description}</p>
-              <div class="flex justify-between mt-4">
-                <a href="teacher-profile.html?id=${teacher.user_id}" class="text-[#00bfa6] hover:underline">
-                  Mentor: ${teacher.username}
-                  <span class="text-yellow-400">${'★'.repeat(Math.round(teacher.rating))}</span>
-                </a>
-                <span class="text-[#00bfa6]">$${session.price}/hr</span>
-              </div>
-              <div class="mt-2 text-sm text-gray-400">
-                <span>Date: ${dateString}</span> • <span>Duration: ${session.duration} min</span>
-              </div>
-              <button onclick="enrollInSession(${session.id})" class="mt-4 w-full bg-[#00bfa6] text-white py-3 px-6 rounded-lg hover:bg-[#009e8d] transition-colors">Book Session</button>
-            </div>
-          `;
-        });
-        
-        console.log('Generated HTML for sessions:', html.substring(0, 100) + '...');
-        availableSessionsGrid.innerHTML = html;
-        console.log("Available sessions displayed successfully");
-      } else {
-        // Display a message when no sessions are available
-        console.log('No sessions available, showing empty state');
-        availableSessionsGrid.innerHTML = `
-          <div class="col-span-full text-center py-10">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-gray-500 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            <p class="text-gray-400 text-lg mt-4">No available sessions found.</p>
-            <p class="mt-2 text-gray-500">Check back later for new session offerings or become a teacher yourself!</p>
-            <a href="teach.html" class="mt-4 inline-block bg-[#00bfa6] text-white py-2 px-4 rounded-lg hover:bg-[#009e8d] transition-colors">
-              Become a Teacher
-            </a>
+        setTimeout(() => {
+          toast.classList.remove('show');
+        }, 3000);
+      }
+    }
+    
+    // Example function to fetch available sessions
+    async function fetchAvailableSessions() {
+      try {
+        // Show loading state
+        const container = document.getElementById('available-sessions-container');
+        container.innerHTML = `
+          <div class="col-span-3 text-center py-8">
+            <p class="text-secondary mb-4">Loading available sessions...</p>
+            <div class="loader mx-auto"></div>
           </div>
         `;
-        console.log("No available sessions to display");
+        
+        // Try to fetch with a timeout to avoid hanging on network issues
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 10000);
+        
+        const response = await fetch('/api/sessions/available', {
+          signal: controller.signal
+        });
+        
+        clearTimeout(timeoutId);
+        
+        if (response.ok) {
+          const data = await response.json();
+          console.log("Available sessions data:", data);
+          
+          // Ensure data.sessions exists before trying to use it
+          if (data && Array.isArray(data.sessions)) {
+            displaySessions(data.sessions);
+          } else {
+            console.error('Invalid response format:', data);
+            displayErrorMessage(
+              'Data format error', 
+              'The server returned an unexpected response format. Please try again.'
+            );
+          }
+        } else {
+          // If there's an error, show an error message and log details
+          console.error(`Failed to fetch sessions: ${response.status} ${response.statusText}`);
+          
+          // Try to get more error details if possible
+          try {
+            const errorData = await response.json();
+            console.error('Error details:', errorData);
+            displayErrorMessage(
+              `Server Error (${response.status})`, 
+              errorData.error || `Unable to load sessions at this time. Error: ${response.statusText}`
+            );
+          } catch (e) {
+            // Response body wasn't valid JSON
+            displayErrorMessage(
+              `Server Error (${response.status})`, 
+              `Error ${response.status}: ${response.statusText}. Unable to load sessions at this time.`
+            );
+          }
+        }
+      } catch (error) {
+        console.error('Error fetching sessions:', error);
+        
+        // Handle different types of errors
+        if (error.name === 'AbortError') {
+          displayErrorMessage(
+            'Request Timeout', 
+            'The server took too long to respond. Please try again later.'
+          );
+        } else {
+          displayErrorMessage(
+            'Network Error', 
+            'Cannot connect to the server. Please check your connection and try again.'
+          );
+        }
       }
     }
+    
+    // Helper function to display error messages
+    function displayErrorMessage(title, message) {
+      const errorContainer = document.getElementById('available-sessions-container');
+      errorContainer.innerHTML = `
+        <div class="col-span-3 text-center py-8">
+          <p class="text-red-500 font-semibold mb-2">${title}</p>
+          <p class="text-secondary mb-4">${message}</p>
+          <button onclick="fetchAvailableSessions()" class="btn btn-primary mt-4">
+            <i class="fas fa-sync-alt mr-2"></i> Try Again
+          </button>
+        </div>
+      `;
+    }
+    
+    // Display sessions
+    function displaySessions(sessions) {
+      const container = document.getElementById('available-sessions-container');
+      
+      if (!sessions || sessions.length === 0) {
+        // If no sessions, display a message
+        container.innerHTML = `
+          <div class="col-span-3 text-center py-8">
+            <p class="text-secondary mb-4">No available teaching sessions found.</p>
+            <p class="text-secondary">Check back later for new sessions or try adjusting your filters.</p>
+          </div>
+        `;
+        return;
+      }
 
-    // Function to enroll in a session
-    async function enrollInSession(sessionId) {
-      try {
-        const token = localStorage.getItem('token');
+      // Clear existing sample sessions
+      container.innerHTML = '';
+      
+      console.log("Displaying sessions:", sessions);
+      
+      // Add each session card
+      sessions.forEach(session => {
+        // Format date and time
+        const startDate = new Date(session.startTime);
+        const endDate = new Date(session.endTime);
+        const dateStr = startDate.toLocaleDateString('en-US', { 
+          weekday: 'short', 
+          month: 'short', 
+          day: 'numeric' 
+        });
+        const timeStr = `${startDate.toLocaleTimeString('en-US', { 
+          hour: '2-digit', 
+          minute: '2-digit',
+          hour12: true 
+        })} - ${endDate.toLocaleTimeString('en-US', { 
+          hour: '2-digit', 
+          minute: '2-digit',
+          hour12: true 
+        })}`;
+
+        // Create session card element
+        const sessionCard = document.createElement('div');
+        sessionCard.className = 'session-card bg-surface-1 p-6 rounded-xl shadow-lg card-hover';
         
+        // Get teacher profile image
+        const profilePic = session.teacher.profilePic || `https://ui-avatars.com/api/?name=${encodeURIComponent(session.teacher.name)}&background=00bfa6&color=fff`;
+        
+        sessionCard.innerHTML = `
+          <div class="flex justify-between mb-4">
+            <span class="badge badge-primary">${session.category || 'General'}</span>
+            <span class="text-xs text-primary">${dateStr}</span>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">${session.title}</h3>
+          <p class="text-secondary mb-4">${session.description || 'No description provided.'}</p>
+          <p class="text-xs text-secondary mb-2"><i class="fas fa-calendar-alt mr-1"></i> ${timeStr}</p>
+          <div class="flex items-center mb-4">
+            <img src="${profilePic}" alt="${session.teacher.name}" class="w-10 h-10 rounded-full mr-3">
+            <div>
+              <p class="font-medium">${session.teacher.name}</p>
+              <p class="text-xs text-secondary">${session.teacher.headline || 'Teacher at LearnX'}</p>
+            </div>
+          </div>
+          <div class="flex justify-between items-center pt-4 border-t border-gray-800">
+            <p class="font-bold text-primary">$${session.price.toFixed(2)}</p>
+            <button class="btn btn-primary py-2 px-4" onclick="bookSession(${session.id})">Book Session</button>
+          </div>
+        `;
+        
+        container.appendChild(sessionCard);
+      });
+    }
+    
+    // Book a session function
+    function bookSession(sessionId) {
+      // Check if user is logged in
+      const token = localStorage.getItem('token');
+      if (!token) {
+        showToast('Please log in to book a session');
+        setTimeout(() => {
+          window.location.href = 'login.html';
+        }, 2000);
+        return;
+      }
+      
+      // Here we would typically redirect to a booking confirmation page
+      // or show a modal, but for now we'll just show a toast
+      showToast('Booking session...');
+      console.log('Booking session ID:', sessionId);
+    }
+    
+    // Fetch sessions when the page loads
+    document.addEventListener('DOMContentLoaded', () => {
+      // Initialize sidebar, then fetch sessions
+      fetchAvailableSessions();
+      fetchBookedSessions();
+    });
+    
+    // Function to fetch user's booked sessions
+    async function fetchBookedSessions() {
+      try {
+        // Show loading state
+        const container = document.getElementById('booked-sessions-container');
+        if (!container) return;
+        
+        container.innerHTML = `
+          <div class="col-span-2 text-center py-4">
+            <p class="text-secondary">Loading your booked sessions...</p>
+            <div class="loader mt-3 mx-auto"></div>
+          </div>
+        `;
+        
+        // Try to fetch booked sessions
+        const token = localStorage.getItem('token');
         if (!token) {
-          showToast("You must be logged in to enroll in a session.", "error");
-          setTimeout(() => {
-            window.location.href = 'login.html';
-          }, 2000);
+          container.innerHTML = `
+            <div class="col-span-2 text-center py-4">
+              <p class="text-secondary">Please log in to view your booked sessions</p>
+              <a href="login.html" class="btn btn-primary mt-3 inline-block">Log In</a>
+            </div>
+          `;
           return;
         }
         
-        // Parse the token to get userId
-        const payload = JSON.parse(atob(token.split('.')[1]));
-        const userId = payload.userId;
+        console.log("Attempting to fetch booked sessions with token:", token ? "Token exists" : "No token");
         
-        console.log(`Enrolling user ${userId} in session ${sessionId}`);
+        // Set up abort controller for timeout
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 15000); // Increased timeout to 15 seconds
         
-        // Disable all enroll buttons to prevent double-clicks
-        const enrollButtons = document.querySelectorAll('button[onclick^="enrollInSession"]');
-        enrollButtons.forEach(button => {
-          button.disabled = true;
-          button.innerHTML = 'Processing...';
-        });
-        
-        const response = await fetch('http://127.0.0.1:5001/api/learn/enroll', {
-          method: 'POST',
+        const response = await fetch('/api/sessions/user-bookings', {
           headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
           },
-          body: JSON.stringify({ userId, sessionId })
+          signal: controller.signal
         });
         
-        // Re-enable buttons
-        enrollButtons.forEach(button => {
-          button.disabled = false;
-          button.innerHTML = 'Book Session';
-        });
+        clearTimeout(timeoutId);
         
-        if (!response.ok) {
-          let errorMessage = `Failed to enroll in session: ${response.status}`;
+        console.log("Booked sessions response status:", response.status, response.statusText);
+        
+        if (response.ok) {
+          const data = await response.json();
+          console.log("Booked sessions data:", data);
+          
+          if (data.success) {
+            // Display the booked sessions
+            displayBookedSessions(data.sessions || []);
+          } else {
+            throw new Error(data.error || "Unknown server error");
+          }
+        } else {
+          // Try to get more detailed error information
+          let errorMessage = `${response.status} ${response.statusText}`;
           try {
             const errorData = await response.json();
+            console.error("Server error response:", errorData);
             errorMessage = errorData.error || errorMessage;
+            if (errorData.message) {
+              errorMessage += `: ${errorData.message}`;
+            }
           } catch (e) {
-            // If the response is not valid JSON, just use the status code message
+            console.error("Could not parse error response");
           }
-          throw new Error(errorMessage);
+          
+          console.error(`Failed to fetch booked sessions: ${errorMessage}`);
+          container.innerHTML = `
+            <div class="col-span-2 text-center py-4">
+              <p class="text-red-500 font-semibold">Error Loading Sessions</p>
+              <p class="text-secondary mt-2">Could not load your booked sessions: ${errorMessage}</p>
+              <button onclick="fetchBookedSessions()" class="btn btn-primary mt-3">
+                <i class="fas fa-sync-alt mr-2"></i> Try Again
+              </button>
+            </div>
+          `;
         }
-        
-        const result = await response.json();
-        
-        // Show success message
-        showToast("Enrolled successfully! Refreshing page...", "success");
-        
-        // Refresh the page after 2 seconds to show updated enrolled courses
-        setTimeout(() => {
-          location.reload();
-        }, 2000);
       } catch (error) {
-        console.error("Error enrolling in session:", error);
+        console.error('Error fetching booked sessions:', error);
+        const container = document.getElementById('booked-sessions-container');
         
-        // Show error message
-        showToast(error.message, "error");
+        if (container) {
+          container.innerHTML = `
+            <div class="col-span-2 text-center py-4">
+              <p class="text-red-500 font-semibold">Connection Error</p>
+              <p class="text-secondary mt-2">${error.message || 'Unable to connect to the server. Please check your connection.'}</p>
+              <button onclick="fetchBookedSessions()" class="btn btn-primary mt-3">
+                <i class="fas fa-sync-alt mr-2"></i> Try Again
+              </button>
+            </div>
+          `;
+        }
       }
     }
-
-    // Function to show toast notifications
-    function showToast(message, type = "info") {
-      // Remove any existing toasts
-      const existingToasts = document.querySelectorAll('.toast-notification');
-      existingToasts.forEach(toast => toast.remove());
-
-      // Create toast element
-      const toast = document.createElement('div');
-      toast.className = `toast-notification fixed top-4 right-4 p-4 rounded-lg shadow-lg z-50 ${
-        type === 'success' ? 'bg-green-500' : 
-        type === 'error' ? 'bg-red-500' : 
-        type === 'warning' ? 'bg-yellow-500' : 
-        'bg-blue-500'
-      } text-white`;
+    
+    // Function to display booked sessions
+    function displayBookedSessions(sessions) {
+      const container = document.getElementById('booked-sessions-container');
+      if (!container) return;
       
-      // Add icon based on type
-      let icon = '';
-      if (type === 'success') {
-        icon = '<span class="mr-2">✓</span>';
-      } else if (type === 'error') {
-        icon = '<span class="mr-2">⚠️</span>';
-      } else if (type === 'warning') {
-        icon = '<span class="mr-2">⚠</span>';
-      } else {
-        icon = '<span class="mr-2">ℹ️</span>';
+      if (!sessions || sessions.length === 0) {
+        container.innerHTML = `
+          <div class="col-span-2 text-center py-6">
+            <p class="text-secondary mb-3">You haven't booked any sessions yet.</p>
+            <p class="text-secondary">Explore our <a href="#available-sessions-container" class="text-primary hover:underline">available sessions</a> to find a mentor.</p>
+          </div>
+        `;
+        return;
       }
       
-      toast.innerHTML = `
-        <div class="flex items-center">
-          ${icon}
-          <span>${message}</span>
-        </div>
-      `;
+      // Clear existing content
+      container.innerHTML = '';
       
-      // Add to document
-      document.body.appendChild(toast);
-      
-      // Animate in
-      setTimeout(() => {
-        toast.style.transform = 'translateX(0)';
-        toast.style.opacity = '1';
-      }, 100);
-      
-      // Remove after 5 seconds
-      setTimeout(() => {
-        toast.style.opacity = '0';
-        setTimeout(() => toast.remove(), 300);
-      }, 5000);
+      // Add each booked session
+      sessions.forEach(session => {
+        // Format date and time
+        const startDate = new Date(session.startTime);
+        const endDate = new Date(session.endTime);
+        const dateStr = startDate.toLocaleDateString('en-US', { 
+          weekday: 'short', 
+          month: 'short', 
+          day: 'numeric' 
+        });
+        const timeStr = `${startDate.toLocaleTimeString('en-US', { 
+          hour: '2-digit', 
+          minute: '2-digit',
+          hour12: true 
+        })} - ${endDate.toLocaleTimeString('en-US', { 
+          hour: '2-digit', 
+          minute: '2-digit',
+          hour12: true 
+        })}`;
+        
+        // Calculate if the session is active (current time is between start and end time)
+        const now = new Date();
+        const isActive = now >= startDate && now <= endDate;
+        
+        // Calculate if the session is upcoming (within 30 minutes of start time)
+        const isUpcoming = now < startDate && ((startDate - now) / (1000 * 60)) <= 30;
+        
+        // Get teacher profile image
+        const profilePic = session.teacher?.profilePic || 
+          `https://ui-avatars.com/api/?name=${encodeURIComponent(session.teacher?.name || 'Teacher')}&background=00bfa6&color=fff`;
+        
+        // Create session card element
+        const sessionElement = document.createElement('div');
+        sessionElement.className = 'bg-surface-2 p-4 rounded-lg hover:bg-surface-3 transition-colors';
+        
+        sessionElement.innerHTML = `
+          <div class="flex justify-between mb-2">
+            <h4 class="font-medium">${session.title}</h4>
+            <span class="text-xs px-2 py-1 rounded-full ${
+              isActive ? 'bg-success bg-opacity-20 text-success' : 
+              isUpcoming ? 'bg-warning bg-opacity-20 text-warning' : 
+              'bg-primary bg-opacity-20 text-primary'
+            }">
+              ${isActive ? 'Live Now' : isUpcoming ? 'Starting Soon' : 'Scheduled'}
+            </span>
+          </div>
+          <p class="text-sm text-secondary mb-2">${dateStr} • ${timeStr}</p>
+          <div class="flex items-center mb-3">
+            <img src="${profilePic}" alt="${session.teacher?.name || 'Teacher'}" class="w-6 h-6 rounded-full mr-2">
+            <span class="text-xs text-secondary">with ${session.teacher?.name || 'Teacher'}</span>
+          </div>
+          <div class="flex justify-between items-center">
+            <span class="text-xs ${isActive ? 'text-success' : 'text-secondary'}">
+              ${isActive ? '<i class="fas fa-circle text-xs mr-1 animate-pulse"></i> Join Now' : 
+                 isUpcoming ? '<i class="fas fa-clock text-xs mr-1"></i> Starting Soon' : 
+                 '<i class="fas fa-calendar-alt text-xs mr-1"></i> ' + dateStr}
+            </span>
+            <button 
+              onclick="joinSession(${session.id})" 
+              class="btn ${isActive || isUpcoming ? 'btn-success' : 'btn-primary'} text-sm py-1.5 px-3"
+              ${!isActive && !isUpcoming ? 'disabled' : ''}
+            >
+              ${isActive ? 'Join Session' : isUpcoming ? 'Join Soon' : 'View Details'}
+            </button>
+          </div>
+        `;
+        
+        container.appendChild(sessionElement);
+      });
+    }
+    
+    // Function to join a live session
+    function joinSession(sessionId) {
+      // Redirect to the live session page with the session ID
+      window.location.href = `live-session.html?session=${sessionId}`;
     }
   </script>
 </body>

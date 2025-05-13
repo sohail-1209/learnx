@@ -6,96 +6,141 @@
   <title>LearnX - Peer-to-Peer Skill Exchange</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css">
   <style>
-    html {
-      scroll-behavior: smooth;
+    .hero-section {
+      min-height: 80vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .hero-cta {
+      border-radius: var(--radius-full);
+      font-weight: 600;
     }
   </style>
 </head>
-<body class="bg-[#121212] text-white font-sans">
+<body class="gradient-bg text-white font-sans">
 
   <!-- Navbar -->
-  <nav class="bg-[#1f1f1f] shadow-lg py-4">
-    <div class="max-w-6xl mx-auto flex justify-between items-center px-6">
-      <a href="#" class="text-2xl font-semibold text-[#00bfa6]">LearnX</a>
+  <nav class="navbar py-4">
+    <div class="container mx-auto flex justify-between items-center px-6">
+      <a href="index.html" class="text-2xl font-bold text-white flex items-center">
+        <span class="text-primary mr-2">Learn</span><span class="bg-primary text-white px-2 py-1 rounded">X</span>
+      </a>
       <ul class="flex space-x-6">
-        <li><a href=teach.html class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Teach</a></li>
-          <li><a href=learn.html class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Learn</a></li>
-          <li><a href=profile.html class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Profile</a></li>
-          <li><a href=chat.html class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Chat</a></li>
-          <li><a href=settings.html class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Settings</a></li>
+        <li><a href="learn.html" class="nav-link hover:text-primary transition-colors"><i class="fas fa-graduation-cap mr-1"></i> Learn</a></li>
+        <li><a href="teach.html" class="nav-link hover:text-primary transition-colors"><i class="fas fa-chalkboard-teacher mr-1"></i> Teach</a></li>
+        <li><a href="login.html" class="nav-link hover:text-primary transition-colors"><i class="fas fa-sign-in-alt mr-1"></i> Login</a></li>
+        <li><a href="register.html" class="btn btn-primary py-2 px-4 rounded-lg hover:bg-primary-dark transition-colors"><i class="fas fa-user-plus mr-1"></i> Register</a></li>
       </ul>
     </div>
   </nav>
 
   <!-- Hero Section -->
-  <section class="bg-[#121212] py-24 px-6 text-center" id="home" data-aos="fade-up">
- <h1 class="text-5xl md:text-6xl font-extrabold mb-4 animate__animated animate__fadeInDown">LearnX</h1>
-    <p class="text-lg md:text-xl mb-6">A peer-to-peer skill exchange platform for learning and mentorship. <span id="personalized-greeting"></span></p>
-    <a href="register.html" class="bg-[#00bfa6] px-8 py-3 rounded-full text-white font-semibold text-lg hover:bg-[#009e8d] transition-transform transform hover:scale-105 duration-300">
-      Join Now →
-    </a>
+  <section class="hero-section bg-surface-1 py-24 px-6 text-center" id="home" data-aos="fade-up">
+    <h1 class="text-5xl md:text-6xl font-extrabold mb-6">LearnX</h1>
+    <p class="text-lg md:text-xl mb-8 text-secondary max-w-2xl mx-auto">A peer-to-peer skill exchange platform for learning and mentorship. <span id="personalized-greeting" class="text-primary"></span></p>
+    <div class="flex justify-center space-x-6">
+      <a href="register.html" class="btn btn-primary hero-cta px-8 py-3 text-lg">
+        Join Now <i class="fas fa-arrow-right ml-2"></i>
+      </a>
+    </div>
   </section>
 
   <!-- Features -->
   <section class="py-20 px-6" id="features" data-aos="zoom-in">
-    <h2 class="text-4xl font-bold text-center mb-12">Why Choose LearnX?</h2>
-    <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-      <div class="bg-[#1f1f1f] p-6 rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 animate__animated animate__fadeInLeft" data-aos="fade-up">
-        <h3 class="text-2xl font-semibold mb-4">Peer-to-Peer Mentorship</h3>
-        <p>Collaborate with mentors or learners directly. No middlemen, just genuine interaction.</p>
-      </div>
-      <div class="bg-[#1f1f1f] p-6 rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 animate__animated animate__fadeInUp" data-aos="fade-up">
-        <h3 class="text-2xl font-semibold mb-4">Affordable Learning</h3>
-        <p>Learn at your own pace with personalized, affordable mentorship from skilled peers.</p>
-      </div>
-      <div class="bg-[#1f1f1f] p-6 rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 animate__animated animate__fadeInRight" data-aos="fade-up">
-        <h3 class="text-2xl font-semibold mb-4">Skill Bartering</h3>
-        <p>Offer your skills in exchange for learning, building a stronger community.</p>
+    <div class="container mx-auto">
+      <h2 class="text-4xl font-bold text-center mb-12">Why Choose LearnX?</h2>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="card card-hover" data-aos="fade-up">
+          <i class="fas fa-users text-primary text-4xl mb-4"></i>
+          <h3 class="text-2xl font-semibold mb-4">Peer-to-Peer Mentorship</h3>
+          <p class="text-secondary">Collaborate with mentors or learners directly. No middlemen, just genuine interaction.</p>
+        </div>
+        <div class="card card-hover" data-aos="fade-up" data-aos-delay="100">
+          <i class="fas fa-coins text-primary text-4xl mb-4"></i>
+          <h3 class="text-2xl font-semibold mb-4">Affordable Learning</h3>
+          <p class="text-secondary">Learn at your own pace with personalized, affordable mentorship from skilled peers.</p>
+        </div>
+        <div class="card card-hover" data-aos="fade-up" data-aos-delay="200">
+          <i class="fas fa-exchange-alt text-primary text-4xl mb-4"></i>
+          <h3 class="text-2xl font-semibold mb-4">Skill Bartering</h3>
+          <p class="text-secondary">Offer your skills in exchange for learning, building a stronger community.</p>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- Call to Action -->
-  <section class="bg-[#0b2c2d] py-20 text-center text-white" id="register">
-    <h2 class="text-3xl md:text-4xl font-semibold mb-6">Ready to Start Your Skill Journey?</h2>
- <div class="flex justify-center space-x-6">
-      <a href="register.html" class="bg-[#00bfa6] px-8 py-3 rounded-full text-white font-semibold text-lg hover:bg-[#009e8d] transition-transform transform hover:scale-105 duration-300 animate__animated animate__pulse animate__infinite">
-        Join as Learner →
-      </a>
-      <a href="register.html" class="bg-transparent border-2 border-[#00bfa6] px-8 py-3 rounded-full text-[#00bfa6] font-semibold text-lg hover:bg-[#00bfa6] hover:text-white transition-all duration-300 transform hover:scale-105">
-        Join as Teacher →
-      </a>
+  <section class="bg-surface-2 py-20 text-center" id="register">
+    <div class="container mx-auto">
+      <h2 class="text-3xl md:text-4xl font-semibold mb-6">Ready to Start Your Skill Journey?</h2>
+      <div class="flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-6">
+        <a href="register.html" class="btn btn-primary px-8 py-3 rounded-full text-lg animate-pulse-green">
+          Join as Learner <i class="fas fa-graduation-cap ml-2"></i>
+        </a>
+        <a href="register.html" class="btn btn-secondary px-8 py-3 rounded-full text-lg">
+          Join as Teacher <i class="fas fa-chalkboard-teacher ml-2"></i>
+        </a>
+      </div>
     </div>
   </section>
 
   <!-- User Stories -->
   <section class="py-20 px-6" id="user-stories" data-aos="zoom-in">
-    <h2 class="text-4xl font-bold text-center mb-12">Hear from Our Users</h2>
-    <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-      <div class="bg-[#1f1f1f] p-6 rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 animate__animated animate__fadeInLeft" data-aos="fade-up">
-        <p class="italic mb-4">"LearnX helped me connect with a fantastic mentor who guided me through learning web development. The peer-to-peer approach is truly effective!"</p>
-        <p class="text-right font-semibold">- Sarah, Learner</p>
-      </div>
-      <div class="bg-[#1f1f1f] p-6 rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300 animate__animated animate__fadeInRight" data-aos="fade-up">
-        <p class="italic mb-4">"I love being able to share my coding knowledge on LearnX and earn some extra income. It's a rewarding experience to help others grow."</p>
-        <p class="text-right font-semibold">- David, Teacher</p>
+    <div class="container mx-auto">
+      <h2 class="text-4xl font-bold text-center mb-12">Hear from Our Users</h2>
+      <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        <div class="testimonial-card" data-aos="fade-up">
+          <p class="italic mb-4 text-secondary">"LearnX helped me connect with a fantastic mentor who guided me through learning web development. The peer-to-peer approach is truly effective!"</p>
+          <p class="text-right font-semibold">- Sarah, Learner</p>
+        </div>
+        <div class="testimonial-card" data-aos="fade-up" data-aos-delay="100">
+          <p class="italic mb-4 text-secondary">"I love being able to share my coding knowledge on LearnX and earn some extra income. It's a rewarding experience to help others grow."</p>
+          <p class="text-right font-semibold">- David, Teacher</p>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- Final Call to Action -->
-  <section class="bg-[#121212] py-20 text-center text-white">
-    <h2 class="text-3xl md:text-4xl font-semibold mb-6">Ready to Start Your Skill Journey?</h2>
-    <a href="register.html" class="bg-[#00bfa6] px-8 py-3 rounded-full text-white font-semibold text-lg hover:bg-[#009e8d] transition-transform transform hover:scale-105 duration-300">
-      Register Now →
-    </a>
+  <section class="bg-surface-1 py-20 text-center">
+    <div class="container mx-auto">
+      <h2 class="text-3xl md:text-4xl font-semibold mb-6">Ready to Start Your Skill Journey?</h2>
+      <a href="register.html" class="btn btn-primary px-8 py-3 rounded-full text-lg">
+        Register Now <i class="fas fa-arrow-right ml-2"></i>
+      </a>
+    </div>
   </section>
 
   <!-- Footer -->
-  <footer class="bg-[#1f1f1f] py-6 text-center text-white">
-    <p>&copy; 2025 LearnX - All Rights Reserved</p>
+  <footer class="bg-surface-2 py-6 text-center text-secondary">
+    <div class="container mx-auto">
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <p>&copy; 2025 LearnX - All Rights Reserved</p>
+        <div class="flex space-x-4 mt-4 md:mt-0">
+          <a href="#" class="text-gray-400 hover:text-primary transition-colors"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="text-gray-400 hover:text-primary transition-colors"><i class="fab fa-facebook"></i></a>
+          <a href="#" class="text-gray-400 hover:text-primary transition-colors"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="text-gray-400 hover:text-primary transition-colors"><i class="fab fa-linkedin"></i></a>
+        </div>
+      </div>
+    </div>
   </footer>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="toast-notification">
+    <div class="flex items-center">
+      <i class="fas fa-info-circle text-primary text-xl mr-3"></i>
+      <div>
+        <h4 class="font-medium">Information</h4>
+        <p class="text-sm text-secondary" id="toast-message">This is a notification.</p>
+      </div>
+    </div>
+  </div>
 
   <!-- AOS Animation Init -->
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>

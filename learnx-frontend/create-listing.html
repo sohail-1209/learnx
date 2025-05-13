@@ -6,82 +6,41 @@
   <title>Create Teaching Listing - LearnX</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
-  <style>
-    html {
-      scroll-behavior: smooth;
-    }
-    
-    /* Custom form styles */
-    input, textarea, select {
-      background-color: #2d2d2d;
-      border: 1px solid #3d3d3d;
-      color: white;
-      transition: border-color 0.3s ease;
-    }
-    
-    input:focus, textarea:focus, select:focus {
-      border-color: #00bfa6;
-      outline: none;
-    }
-    
-    .form-label {
-      margin-bottom: 0.5rem;
-      display: block;
-      font-weight: 500;
-    }
-    
-    button[type="submit"] {
-      transition: all 0.3s ease;
-    }
-    
-    button[type="submit"]:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(0, 191, 166, 0.4);
-    }
-  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css">
 </head>
-<body class="bg-[#121212] text-white font-sans">
+<body class="gradient-bg text-white font-sans">
 
-  <!-- Sidebar Navigation -->
+  <!-- Flex container for sidebar and content -->
   <div class="flex">
-    <div class="w-64 bg-[#1f1f1f] p-6 h-screen fixed top-0 left-0">
-      <div class="flex flex-col space-y-6">
-        <a href="index.html" class="text-2xl font-semibold text-[#00bfa6] hover:text-[#009e8d] transition-colors">LearnX</a>
-        <ul class="flex flex-col space-y-4">
-          <li><a href="teach.html" class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Teach</a></li>
-          <li><a href="learn.html" class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Learn</a></li>
-          <li><a href="profile.html" class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Profile</a></li>
-          <li><a href="dashboard.html" class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Dashboard</a></li>
-          <li><a href="chat.html" class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Chat</a></li>
-          <li><a href="settings.html" class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Settings</a></li>
-        </ul>
-      </div>
-    </div>
+    <!-- Sidebar Placeholder - will be replaced by sidebar-loader.js -->
+    <div class="sidebar-placeholder"></div>
 
     <!-- Main Content -->
     <div class="flex-1 ml-64 p-8">
       <h2 class="text-3xl md:text-4xl font-semibold mb-6" data-aos="fade-up">Create a Teaching Listing</h2>
       
-      <div class="bg-[#1f1f1f] p-6 rounded-lg shadow-lg mb-8" data-aos="fade-up">
-        <p class="mb-6 text-gray-300">Share your expertise with others. Fill out the form below to create a teaching session.</p>
+      <div class="card bg-surface-1 p-6 rounded-xl shadow-lg mb-8" data-aos="fade-up">
+        <p class="mb-6 text-secondary">Share your expertise with others. Fill out the form below to create a teaching session.</p>
         
         <form id="create-listing-form" class="space-y-6">
           <!-- Title -->
           <div>
-            <label for="title" class="form-label">Session Title</label>
-            <input type="text" id="title" name="title" class="w-full p-3 rounded-lg" placeholder="E.g., JavaScript for Beginners" required />
+            <label for="title" class="block text-lg mb-2">Session Title</label>
+            <input type="text" id="title" name="title" class="input-field w-full p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary" placeholder="E.g., JavaScript for Beginners" required />
           </div>
           
           <!-- Description -->
           <div>
-            <label for="description" class="form-label">Description</label>
-            <textarea id="description" name="description" rows="4" class="w-full p-3 rounded-lg" placeholder="Describe what students will learn in this session..." required></textarea>
+            <label for="description" class="block text-lg mb-2">Description</label>
+            <textarea id="description" name="description" rows="4" class="input-field w-full p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary" placeholder="Describe what students will learn in this session..." required></textarea>
           </div>
           
           <!-- Category -->
           <div>
-            <label for="category" class="form-label">Category</label>
-            <select id="category" name="category" class="w-full p-3 rounded-lg" required>
+            <label for="category" class="block text-lg mb-2">Category</label>
+            <select id="category" name="category" class="input-field w-full p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary" required>
               <option value="" disabled selected>Select a category</option>
               <option value="Coding">Coding</option>
               <option value="Design">Design</option>
@@ -95,14 +54,14 @@
           
           <!-- Price -->
           <div>
-            <label for="price" class="form-label">Price ($ per hour)</label>
-            <input type="number" id="price" name="price" min="1" step="1" class="w-full p-3 rounded-lg" placeholder="25" required />
+            <label for="price" class="block text-lg mb-2">Price ($ per hour)</label>
+            <input type="number" id="price" name="price" min="1" step="1" class="input-field w-full p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary" placeholder="25" required />
           </div>
           
           <!-- Duration -->
           <div>
-            <label for="duration" class="form-label">Duration (minutes)</label>
-            <select id="duration" name="duration" class="w-full p-3 rounded-lg" required>
+            <label for="duration" class="block text-lg mb-2">Duration (minutes)</label>
+            <select id="duration" name="duration" class="input-field w-full p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary" required>
               <option value="" disabled selected>Select duration</option>
               <option value="30">30 minutes</option>
               <option value="60">60 minutes</option>
@@ -113,20 +72,20 @@
           
           <!-- Schedule -->
           <div>
-            <label for="schedule" class="form-label">Schedule Date and Time</label>
-            <input type="datetime-local" id="schedule" name="schedule" class="w-full p-3 rounded-lg" required />
+            <label for="schedule" class="block text-lg mb-2">Schedule Date and Time</label>
+            <input type="datetime-local" id="schedule" name="schedule" class="input-field w-full p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary" required />
           </div>
           
           <!-- Max Students -->
           <div>
-            <label for="max_students" class="form-label">Maximum Students</label>
-            <input type="number" id="max_students" name="max_students" min="1" max="20" class="w-full p-3 rounded-lg" placeholder="10" required />
+            <label for="max_students" class="block text-lg mb-2">Maximum Students</label>
+            <input type="number" id="max_students" name="max_students" min="1" max="20" class="input-field w-full p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary" placeholder="10" required />
           </div>
           
           <!-- Submit Button -->
           <div class="pt-4">
-            <button type="submit" class="bg-[#00bfa6] text-white py-3 px-8 rounded-lg hover:bg-[#009e8d] transition-colors font-semibold w-full md:w-auto">
-              Create Session
+            <button type="submit" class="btn btn-primary py-3 px-8 rounded-lg font-semibold w-full md:w-auto">
+              <i class="fas fa-plus-circle mr-2"></i> Create Session
             </button>
           </div>
         </form>
@@ -134,13 +93,20 @@
     </div>
   </div>
 
-  <!-- Footer -->
-  <footer class="bg-[#1f1f1f] py-6 text-center text-white mt-8">
-    <p>&copy; 2025 LearnX - All Rights Reserved</p>
-  </footer>
+  <!-- Toast Notification -->
+  <div id="toast" class="toast-notification">
+    <div class="flex items-center">
+      <i class="fas fa-info-circle text-primary text-xl mr-3"></i>
+      <div>
+        <h4 class="font-medium">Information</h4>
+        <p class="text-sm text-secondary" id="toast-message">This is a notification.</p>
+      </div>
+    </div>
+  </div>
 
   <!-- AOS Animation Init -->
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script src="js/sidebar-loader.js"></script>
   <script>
     AOS.init({
       duration: 800,
@@ -160,11 +126,139 @@
       const token = localStorage.getItem('token');
       
       if (!token) {
-        console.log("User not logged in.");
-        window.location.href = 'login.html'; // Redirect to login page
+        showToast("You must be logged in to create a teaching listing");
+        setTimeout(() => {
+          window.location.href = 'login.html'; // Redirect to login page
+        }, 2000);
         return;
       }
       
+      // Check if user just became a teacher (flag set in localStorage)
+      const justBecameTeacher = localStorage.getItem('becameTeacher');
+      if (justBecameTeacher === 'true') {
+        // Clear the flag
+        localStorage.removeItem('becameTeacher');
+        console.log("User just became a teacher, showing form directly");
+        // Skip the isTeacher check and proceed to form handling
+        setupForm();
+        return;
+      }
+      
+      // Parse the token and check if user is a teacher
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      const userId = payload.userId;
+      
+      // If user is not a teacher, show the become-teacher prompt
+      if (!payload.isTeacher) {
+        const form = document.getElementById('create-listing-form');
+        form.innerHTML = `
+          <div class="text-center p-8">
+            <h3 class="text-xl font-bold mb-4">Become a Teacher First</h3>
+            <p class="mb-6 text-secondary">You need to register as a teacher before you can create sessions.</p>
+            <button id="become-teacher-btn" class="btn btn-primary py-3 px-8 rounded-lg font-semibold">
+              <i class="fas fa-chalkboard-teacher mr-2"></i> Become a Teacher
+            </button>
+          </div>
+        `;
+        
+        // Add event listener to the become teacher button
+        document.getElementById('become-teacher-btn').addEventListener('click', async function() {
+          try {
+            // Show loading state
+            this.disabled = true;
+            this.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Processing...';
+            
+            // Send request to become a teacher
+            const response = await fetch('http://localhost:5000/api/teach/become', {
+              method: 'POST',
+              headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+              }
+            });
+            
+            if (!response.ok) {
+              const data = await response.json();
+              
+              // Special handling for when user is already a teacher
+              if (response.status === 400 && data.error === 'User is already a teacher') {
+                console.log('User is already a teacher, refreshing token to get updated status');
+                
+                // Just refresh the token to get updated isTeacher status
+                const refreshResponse = await fetch('http://localhost:5000/api/auth/refresh-token', {
+                  method: 'POST',
+                  headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                  }
+                });
+                
+                if (!refreshResponse.ok) {
+                  throw new Error('Failed to refresh authentication token');
+                }
+                
+                const refreshData = await refreshResponse.json();
+                // Store the new token with updated teacher status
+                localStorage.setItem('token', refreshData.token);
+                
+                // Set flag and reload to show form
+                localStorage.setItem('becameTeacher', 'true');
+                showToast("Loading teaching form...");
+                
+                setTimeout(() => {
+                  window.location.reload();
+                }, 1500);
+                return;
+              }
+              
+              throw new Error(data.error || 'Failed to become a teacher');
+            }
+            
+            // Get a fresh token with updated teacher status
+            const refreshResponse = await fetch('http://localhost:5000/api/auth/refresh-token', {
+              method: 'POST',
+              headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+              }
+            });
+            
+            if (!refreshResponse.ok) {
+              throw new Error('Failed to refresh authentication token');
+            }
+            
+            const refreshData = await refreshResponse.json();
+            // Store the new token with updated teacher status
+            localStorage.setItem('token', refreshData.token);
+            
+            // Successfully became a teacher, show toast message
+            showToast("You are now registered as a teacher!");
+            
+            // First, store a flag to indicate we need to load the form
+            localStorage.setItem('becameTeacher', 'true');
+            
+            // Then reload the page after a short delay
+            setTimeout(() => {
+              window.location.reload();
+            }, 2000);
+            
+          } catch (error) {
+            console.error("Error becoming a teacher:", error);
+            showToast("Error: " + error.message);
+            this.disabled = false;
+            this.innerHTML = '<i class="fas fa-chalkboard-teacher mr-2"></i> Become a Teacher';
+          }
+        });
+        
+        return;
+      }
+      
+      // Setup the form if user is a teacher
+      setupForm();
+    });
+    
+    // Form setup and handling function
+    function setupForm() {
       // Check for URL parameters (e.g., category)
       const urlParams = new URLSearchParams(window.location.search);
       const category = urlParams.get('category');
@@ -188,7 +282,7 @@
         const submitBtn = this.querySelector('button[type="submit"]');
         const originalBtnText = submitBtn.innerHTML;
         submitBtn.disabled = true;
-        submitBtn.innerHTML = 'Creating session...';
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Creating session...';
         
         // Get form data
         const title = document.getElementById('title').value;
@@ -199,119 +293,137 @@
         const schedule = document.getElementById('schedule').value;
         const maxStudents = document.getElementById('max_students').value;
         
-        // Parse the token to get userId
-        const payload = JSON.parse(atob(token.split('.')[1]));
-        const userId = payload.userId;
-        
-        // Create payload for debugging
-        const requestPayload = {
-          userId: userId,
-          title: title,
-          description: description,
-          category: category,
+        // Create data object
+        const data = {
+          title,
+          description,
+          courseId: null, // This is a standalone session, not associated with a course
+          startTime: new Date(schedule).toISOString(),
+          endTime: new Date(new Date(schedule).getTime() + parseInt(duration) * 60000).toISOString(), // Add duration in minutes
           price: Number(price),
-          duration: Number(duration),
-          schedule: schedule,
-          maxStudents: Number(maxStudents)
+          maxStudents: Number(maxStudents),
+          category: category // Include category for session display
         };
         
-        console.log('Sending request to create teaching session with payload:', requestPayload);
+        console.log("Submitting teaching session:", data);
         
         try {
-          // Submit the form data
-          const response = await fetch('http://127.0.0.1:5000/api/teach/create-session', {
+          // Send request to API
+          const response = await fetch('http://localhost:5000/api/sessions', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
-              'Accept': 'application/json'
+              'Accept': 'application/json',
+              'Authorization': `Bearer ${localStorage.getItem('token')}` // Add token for authorization
             },
-            body: JSON.stringify(requestPayload)
+            body: JSON.stringify(data)
           });
+          
+          if (!response.ok) {
+            // Check if this is a 403 Forbidden error (possibly due to token not having teacher status)
+            if (response.status === 403) {
+              // Try to refresh the token
+              const refreshResponse = await fetch('http://localhost:5000/api/auth/refresh-token', {
+                method: 'POST',
+                headers: {
+                  'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                  'Content-Type': 'application/json'
+                }
+              });
+              
+              if (refreshResponse.ok) {
+                const refreshData = await refreshResponse.json();
+                localStorage.setItem('token', refreshData.token);
+                
+                // Try the request again with the new token
+                const retryResponse = await fetch('http://localhost:5000/api/sessions', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    'Authorization': `Bearer ${refreshData.token}`
+                  },
+                  body: JSON.stringify(data)
+                });
+                
+                if (!retryResponse.ok) {
+                  throw new Error(`Failed to create session: ${retryResponse.status}`);
+                }
+                
+                const result = await retryResponse.json();
+                console.log("Session created successfully:", result);
+                
+                // Show success message
+                showToast("Session created successfully!");
+                
+                // Reset form
+                document.getElementById('create-listing-form').reset();
+                
+                // Store the session ID in localStorage so we can highlight it on the teach page
+                if (result.session && result.session.id) {
+                  const sessionId = result.session.id;
+                  console.log("Storing session ID for highlighting:", sessionId);
+                  localStorage.setItem('lastCreatedSessionId', sessionId);
+                } else {
+                  console.warn("Session created but no ID returned:", result);
+                }
+                
+                // Redirect to teach page after short delay
+                setTimeout(() => {
+                  console.log("Redirecting to teach.html with lastCreatedSessionId:", localStorage.getItem('lastCreatedSessionId'));
+                  window.location.href = 'teach.html';
+                }, 2000);
+                return;
+              }
+            }
+            
+            throw new Error(`Failed to create session: ${response.status}`);
+          }
+          
+          const result = await response.json();
+          console.log("Session created successfully:", result);
+          
+          // Show success message
+          showToast("Session created successfully!");
+          
+          // Reset form
+          document.getElementById('create-listing-form').reset();
+          
+          // Store the session ID in localStorage so we can highlight it on the teach page
+          if (result.session && result.session.id) {
+            const sessionId = result.session.id;
+            console.log("Storing session ID for highlighting:", sessionId);
+            localStorage.setItem('lastCreatedSessionId', sessionId);
+          } else {
+            console.warn("Session created but no ID returned:", result);
+          }
+          
+          // Redirect to teach page after short delay
+          setTimeout(() => {
+            console.log("Redirecting to teach.html with lastCreatedSessionId:", localStorage.getItem('lastCreatedSessionId'));
+            window.location.href = 'teach.html';
+          }, 2000);
+        } catch (error) {
+          console.error("Error creating session:", error);
+          showToast("Error creating session: " + error.message);
           
           // Reset button state
           submitBtn.disabled = false;
           submitBtn.innerHTML = originalBtnText;
-          
-          console.log('Response status:', response.status);
-          
-          // Check response status
-          if (!response.ok) {
-            // Try to get response text
-            const responseText = await response.text();
-            console.log('Error response text:', responseText);
-            
-            // Try to parse as JSON if possible
-            let errorMessage = `Failed to create session: ${response.status}`;
-            try {
-              // Only try to parse if it looks like JSON
-              if (responseText.trim().startsWith('{')) {
-                const errorData = JSON.parse(responseText);
-                errorMessage = errorData.error || errorMessage;
-              } else {
-                errorMessage = `API Error (${response.status}): Not a valid JSON response`;
-              }
-            } catch (parseError) {
-              console.error('Error parsing response:', parseError);
-              errorMessage = `API Error (${response.status}): ${responseText.substring(0, 100)}...`;
-            }
-            
-            throw new Error(errorMessage);
-          }
-          
-          // Try to parse the success response
-          let result;
-          try {
-            const responseText = await response.text();
-            console.log('Success response text:', responseText);
-            
-            if (responseText.trim()) {
-              result = JSON.parse(responseText);
-            } else {
-              result = { success: true };
-            }
-          } catch (parseError) {
-            console.error('Error parsing success response:', parseError);
-            throw new Error('Invalid response format from server');
-          }
-          
-          // Show success message
-          const successMessage = document.createElement('div');
-          successMessage.className = 'fixed top-4 right-4 bg-green-500 text-white p-4 rounded-lg shadow-lg z-50';
-          successMessage.innerHTML = `
-            <div class="flex items-center">
-              <span class="mr-2">✓</span>
-              <span>Teaching session created successfully! Redirecting to teach page...</span>
-            </div>
-          `;
-          document.body.appendChild(successMessage);
-          
-          // Remove the message after 3 seconds and redirect
-          setTimeout(() => {
-            successMessage.remove();
-            // Redirect to teach page
-            window.location.href = 'teach.html';
-          }, 2000);
-        } catch (error) {
-          console.error('Error creating teaching session:', error);
-          
-          // Show error message
-          const errorMessage = document.createElement('div');
-          errorMessage.className = 'fixed top-4 right-4 bg-red-500 text-white p-4 rounded-lg shadow-lg z-50';
-          errorMessage.innerHTML = `
-            <div class="flex items-center">
-              <span class="mr-2">⚠️</span>
-              <span>${error.message}</span>
-            </div>
-          `;
-          document.body.appendChild(errorMessage);
-          
-          // Remove the message after 5 seconds
-          setTimeout(() => {
-            errorMessage.remove();
-          }, 5000);
         }
       });
-    });
+    }
+    
+    // Toast notification function
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      document.getElementById('toast-message').textContent = message;
+      toast.classList.add('show');
+      
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3000);
+    }
   </script>
 </body>
 </html> 

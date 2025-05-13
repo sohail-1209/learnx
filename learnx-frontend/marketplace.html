@@ -6,40 +6,28 @@
   <title>Skill Marketplace - LearnX</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
-  <style>
-    html {
-      scroll-behavior: smooth;
-    }
-  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css">
 </head>
-<body class="bg-[#121212] text-white font-sans">
+<body class="gradient-bg text-white font-sans">
 
-  <!-- Sidebar Navigation -->
+  <!-- Flex container for sidebar and content -->
   <div class="flex">
-    <div class="w-64 bg-[#1f1f1f] p-6 h-screen fixed top-0 left-0">
-      <div class="flex flex-col space-y-6">
-        <a href="#" class="text-2xl font-semibold text-[#00bfa6] hover:text-[#009e8d] transition-colors">LearnX</a>
-        <ul class="flex flex-col space-y-4">
-          <li><a href="teach.html" class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Teach</a></li>
-          <li><a href="learn.html" class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Learn</a></li>
-          <li><a href="profile.html" class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Profile</a></li>
-          <li><a href="chat.html" class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Chat</a></li>
-          <li><a href="settings.html" class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Settings</a></li>
-        </ul>
-      </div>
-    </div>
+    <!-- Sidebar Placeholder - will be replaced by sidebar-loader.js -->
+    <div class="sidebar-placeholder"></div>
 
     <!-- Main Content -->
     <div class="flex-1 ml-64 p-8">
-      <h2 class="text-3xl md:text-4xl font-bold mb-6 text-[#00bfa6] tracking-wide" data-aos="fade-down">Skill Marketplace</h2>
+      <h2 class="text-3xl md:text-4xl font-bold mb-6 text-primary tracking-wide" data-aos="fade-down">Skill Marketplace</h2>
 
       <!-- Search and Filter -->
       <div class="flex flex-col md:flex-row items-center gap-6 mb-8" data-aos="fade-up">
         <div class="flex-grow">
-          <input type="text" placeholder="Search for skills, mentors, or sessions..." class="w-full p-4 bg-[#2d2d2d] text-white rounded-lg focus:outline-none" />
+          <input type="text" placeholder="Search for skills, mentors, or sessions..." class="input-field w-full p-4 rounded-lg focus:outline-none" />
         </div>
         <div>
-          <select class="p-4 bg-[#2d2d2d] text-white rounded-lg focus:outline-none">
+          <select class="input-field p-4 rounded-lg focus:outline-none">
             <option value="">Filter by Category</option>
             <option value="coding">Coding</option>
             <option value="design">Design</option>
@@ -51,7 +39,7 @@
           </select>
         </div>
         <div class="w-full md:w-auto">
-          <button class="bg-[#00bfa6] text-white font-bold py-4 px-8 rounded-full hover:bg-[#009e8d] transition-all transform hover:scale-105">Search</button>
+          <button class="btn btn-primary font-bold py-4 px-8 rounded-full transform hover:scale-105">Search</button>
         </div>
       </div>
 
@@ -59,39 +47,39 @@
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" data-aos="fade-up">
 
         <!-- Example Mentor Card 1 -->
-        <div class="bg-[#1f1f1f] p-6 rounded-lg shadow-lg hover:bg-[#2d2d2d] transition-colors">
+        <div class="card bg-surface-1 p-6 rounded-xl shadow-lg card-hover">
           <div class="flex items-center space-x-4 mb-4">
-            <img src="https://via.placeholder.com/80" alt="Mentor Avatar" class="w-16 h-16 rounded-full border-2 border-[#00bfa6]">
+            <img src="https://via.placeholder.com/80" alt="Mentor Avatar" class="w-16 h-16 rounded-full border-2 border-primary">
             <div>
               <h3 class="text-xl font-semibold">Jane Doe</h3>
-              <p class="text-sm text-gray-400">Expert in UI/UX Design</p>
+              <p class="text-sm text-secondary">Expert in UI/UX Design</p>
             </div>
           </div>
-          <p class="text-sm text-gray-400 mb-4">Passionate designer helping others learn the fundamentals of good design.</p>
+          <p class="text-sm text-secondary mb-4">Passionate designer helping others learn the fundamentals of good design.</p>
           <div class="flex flex-wrap gap-2 mb-4">
-            <span class="bg-[#00bfa6] text-[#121212] text-xs px-3 py-1 rounded-full font-semibold">UI Design</span>
-            <span class="bg-[#00bfa6] text-[#121212] text-xs px-3 py-1 rounded-full font-semibold">UX Research</span>
-            <span class="bg-[#00bfa6] text-[#121212] text-xs px-3 py-1 rounded-full font-semibold">Figma</span>
+            <span class="badge badge-primary text-xs px-3 py-1 rounded-full font-semibold">UI Design</span>
+            <span class="badge badge-primary text-xs px-3 py-1 rounded-full font-semibold">UX Research</span>
+            <span class="badge badge-primary text-xs px-3 py-1 rounded-full font-semibold">Figma</span>
           </div>
-          <a href="book-session.html" class="block w-full text-center bg-[#00bfa6] text-white py-2 rounded-lg hover:bg-[#009e8d] transition-colors">Book Session</a>
+          <a href="book-session.html" class="block w-full text-center btn btn-primary py-2 rounded-lg">Book Session</a>
         </div>
 
         <!-- Example Mentor Card 2 -->
-        <div class="bg-[#1f1f1f] p-6 rounded-lg shadow-lg hover:bg-[#2d2d2d] transition-colors">
+        <div class="card bg-surface-1 p-6 rounded-xl shadow-lg card-hover">
           <div class="flex items-center space-x-4 mb-4">
-            <img src="https://via.placeholder.com/80" alt="Mentor Avatar" class="w-16 h-16 rounded-full border-2 border-[#00bfa6]">
+            <img src="https://via.placeholder.com/80" alt="Mentor Avatar" class="w-16 h-16 rounded-full border-2 border-primary">
             <div>
               <h3 class="text-xl font-semibold">Peter Jones</h3>
-              <p class="text-sm text-gray-400">Python Programming Mentor</p>
+              <p class="text-sm text-secondary">Python Programming Mentor</p>
             </div>
           </div>
-          <p class="text-sm text-gray-400 mb-4">Helping beginners and intermediate learners master Python.</p>
+          <p class="text-sm text-secondary mb-4">Helping beginners and intermediate learners master Python.</p>
           <div class="flex flex-wrap gap-2 mb-4">
-            <span class="bg-[#00bfa6] text-[#121212] text-xs px-3 py-1 rounded-full font-semibold">Python</span>
-            <span class="bg-[#00bfa6] text-[#121212] text-xs px-3 py-1 rounded-full font-semibold">Data Science</span>
-            <span class="bg-[#00bfa6] text-[#121212] text-xs px-3 py-1 rounded-full font-semibold">Machine Learning</span>
+            <span class="badge badge-primary text-xs px-3 py-1 rounded-full font-semibold">Python</span>
+            <span class="badge badge-primary text-xs px-3 py-1 rounded-full font-semibold">Data Science</span>
+            <span class="badge badge-primary text-xs px-3 py-1 rounded-full font-semibold">Machine Learning</span>
           </div>
-          <a href="book-session.html" class="block w-full text-center bg-[#00bfa6] text-white py-2 rounded-lg hover:bg-[#009e8d] transition-colors">Book Session</a>
+          <a href="book-session.html" class="block w-full text-center btn btn-primary py-2 rounded-lg">Book Session</a>
         </div>
 
         <!-- Add more mentor cards here -->
@@ -100,21 +88,21 @@
 
       <!-- User Specific Marketplace Data Sections -->
       <div class="mt-8" data-aos="fade-up">
-        <h3 class="text-2xl font-semibold mb-4 text-[#00bfa6]">Your Listings</h3>
+        <h3 class="text-2xl font-semibold mb-4 text-primary">Your Listings</h3>
         <div id="user-listings" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           <!-- User listings will be populated here -->
         </div>
       </div>
 
       <div class="mt-8" data-aos="fade-up">
-        <h3 class="text-2xl font-semibold mb-4 text-[#00bfa6]">Your Purchase History</h3>
+        <h3 class="text-2xl font-semibold mb-4 text-primary">Your Purchase History</h3>
         <div id="purchase-history" class="space-y-4">
           <!-- Purchase history will be populated here -->
         </div>
       </div>
 
       <div class="mt-8" data-aos="fade-up">
-        <h3 class="text-2xl font-semibold mb-4 text-[#00bfa6]">Recommended for You</h3>
+        <h3 class="text-2xl font-semibold mb-4 text-primary">Recommended for You</h3>
         <div id="recommended-items" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           <!-- Recommended items will be populated here -->
         </div>
@@ -122,13 +110,20 @@
     </div>
   </div>
 
-  <!-- Footer -->
-  <footer class="bg-[#1f1f1f] py-6 text-center text-white mt-8">
-    <p>&copy; 2025 LearnX - All Rights Reserved</p>
-  </footer>
+  <!-- Toast Notification -->
+  <div id="toast" class="toast-notification">
+    <div class="flex items-center">
+      <i class="fas fa-info-circle text-primary text-xl mr-3"></i>
+      <div>
+        <h4 class="font-medium">Information</h4>
+        <p class="text-sm text-secondary" id="toast-message">This is a notification.</p>
+      </div>
+    </div>
+  </div>
 
   <!-- AOS Animation Init -->
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script src="js/sidebar-loader.js"></script>
   <script>
     AOS.init({
       duration: 800,
@@ -150,6 +145,15 @@
         document.getElementById('user-listings').parentElement.style.display = 'none';
         document.getElementById('purchase-history').parentElement.style.display = 'none';
         document.getElementById('recommended-items').parentElement.style.display = 'none';
+        
+        // Show toast notification
+        const toast = document.getElementById('toast');
+        document.getElementById('toast-message').textContent = 'Please log in to view personalized content.';
+        toast.classList.add('show');
+        
+        setTimeout(() => {
+          toast.classList.remove('show');
+        }, 3000);
       }
     });
 
@@ -158,6 +162,15 @@
       // TODO: Integrate with your backend API to fetch user listings, purchase history, and recommendations
       console.log(`Fetching marketplace data for user: ${userId}`);
       // Once data is fetched, call displayMarketplaceData(data);
+      
+      // For demonstration purposes
+      const toast = document.getElementById('toast');
+      document.getElementById('toast-message').textContent = 'Marketplace data loaded successfully!';
+      toast.classList.add('show');
+      
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3000);
     }
 
     // Placeholder function to display user-specific marketplace data

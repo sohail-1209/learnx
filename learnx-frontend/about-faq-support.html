@@ -6,12 +6,12 @@
   <title>About, FAQ, Support - LearnX</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css">
   <style>
-    html {
-      scroll-behavior: smooth;
-    }
     .faq-item {
-      border-bottom: 1px solid #2d2d2d;
+      border-bottom: 1px solid var(--surface-3);
       padding-bottom: 1.5rem;
       margin-bottom: 1.5rem;
       transition: transform 0.3s ease-in-out;
@@ -21,118 +21,86 @@
     }
   </style>
 </head>
-<body class="bg-[#121212] text-white font-sans">
+<body class="gradient-bg text-white font-sans">
 
-  <!-- Sidebar Navigation -->
+  <!-- Flex container for sidebar and content -->
   <div class="flex">
-    <div class="w-64 bg-[#1f1f1f] p-6 h-screen fixed top-0 left-0">
-      <div class="flex flex-col space-y-6">
-        <a href="#" class="text-2xl font-semibold text-[#00bfa6] hover:text-[#009e8d] transition-colors">LearnX</a>
-        <ul class="flex flex-col space-y-4">
-          <li><a href="teach.html" class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Teach</a></li>
-          <li><a href="learn.html" class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Learn</a></li>
-          <li><a href="profile.html" class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Profile</a></li>
-          <li><a href="chat.html" class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Chat</a></li>
-          <li><a href="settings.html" class="hover:text-[#00bfa6] hover:scale-105 transition-transform">Settings</a></li>
-        </ul>
-      </div>
-    </div>
+    <!-- Sidebar Placeholder - will be replaced by sidebar-loader.js -->
+    <div class="sidebar-placeholder"></div>
 
     <!-- Main Content -->
     <div class="flex-1 ml-64 p-8">
       <h2 class="text-3xl md:text-4xl font-semibold mb-6" data-aos="fade-up">About LearnX</h2>
 
       <!-- About Section -->
-      <div class="bg-[#1f1f1f] rounded-lg p-6 mb-8 shadow-lg" data-aos="fade-up">
+      <div class="card bg-surface-1 p-6 rounded-xl shadow-lg mb-8" data-aos="fade-up">
         <h3 class="text-2xl font-semibold mb-4">Our Mission</h3>
-        <p class="text-gray-400">LearnX is a peer-to-peer skill exchange platform dedicated to connecting individuals who want to learn new skills with those who are passionate about teaching them. Our mission is to foster a collaborative and accessible learning environment where knowledge is shared freely or through fair exchange.</p>
-        <p class="text-gray-400 mt-4">We believe that everyone has valuable skills to share, and everyone has the potential to learn. By removing traditional barriers and focusing on direct interaction, LearnX empowers individuals to expand their horizons and build a supportive learning community.</p>
+        <p class="text-secondary">LearnX is a peer-to-peer skill exchange platform dedicated to connecting individuals who want to learn new skills with those who are passionate about teaching them. Our mission is to foster a collaborative and accessible learning environment where knowledge is shared freely or through fair exchange.</p>
+        <p class="text-secondary mt-4">We believe that everyone has valuable skills to share, and everyone has the potential to learn. By removing traditional barriers and focusing on direct interaction, LearnX empowers individuals to expand their horizons and build a supportive learning community.</p>
       </div>
 
       <!-- FAQ Section -->
-      <div class="bg-[#1f1f1f] rounded-lg p-6 mb-8 shadow-lg" data-aos="fade-up">
+      <div class="card bg-surface-1 p-6 rounded-xl shadow-lg mb-8" data-aos="fade-up">
         <h3 class="text-2xl font-semibold mb-4">Frequently Asked Questions</h3>
         <div class="space-y-6">
           <div class="faq-item">
-            <h4 class="text-xl font-semibold text-[#00bfa6]">How does LearnX work?</h4>
-            <p class="text-gray-400 mt-2">LearnX connects learners with mentors for one-on-one or group sessions. You can search for skills you want to learn or list skills you can teach. Sessions can be paid or based on skill bartering.</p>
+            <h4 class="text-xl font-semibold text-primary">How does LearnX work?</h4>
+            <p class="text-secondary mt-2">LearnX connects learners with mentors for one-on-one or group sessions. You can search for skills you want to learn or list skills you can teach. Sessions can be paid or based on skill bartering.</p>
           </div>
           <div class="faq-item">
-            <h4 class="text-xl font-semibold text-[#00bfa6]">What kind of skills can I learn or teach?</h4>
-            <p class="text-gray-400 mt-2">You can learn or teach a wide range of skills, including coding, design, music, languages, fitness, business, and more. If you have a skill you want to share, you can create a listing.</p>
-          </div>
- <div>
- <h4 class="text-xl font-semibold text-[#00bfa6]">How do I become a mentor?</h4>
- <p class="text-gray-400 mt-2">To become a mentor, simply sign up for an account and select the "Teacher" role. You can then create listings for the skills you want to teach and set your availability and session details.</p>
- </div>
-          <div class="faq-item">
-            <h4 class="text-xl font-semibold text-[#00bfa6]">How do I book a session with a mentor?</h4>
-            <p class="text-gray-400 mt-2">Browse the skill marketplace or use the search bar to find mentors in the skill you're interested in. On the mentor's profile or session listing, you'll find an option to book a session. You can choose the session type (paid or barter) and preferred time.</p>
+            <h4 class="text-xl font-semibold text-primary">What kind of skills can I learn or teach?</h4>
+            <p class="text-secondary mt-2">You can learn or teach a wide range of skills, including coding, design, music, languages, fitness, business, and more. If you have a skill you want to share, you can create a listing.</p>
           </div>
           <div class="faq-item">
-            <h4 class="text-xl font-semibold text-[#00bfa6]">How do payments or bartering work?</h4>
-            <p class="text-gray-400 mt-2">Mentors can set a price for their sessions, or offer sessions for bartering (exchanging skills). Our platform facilitates secure payments for paid sessions. Bartering agreements are handled between the users.</p>
+            <h4 class="text-xl font-semibold text-primary">How do I become a mentor?</h4>
+            <p class="text-secondary mt-2">To become a mentor, simply sign up for an account and select the "Teacher" role. You can then create listings for the skills you want to teach and set your availability and session details.</p>
           </div>
           <div class="faq-item">
-            <h4 class="text-xl font-semibold text-[#00bfa6]">Is there a mobile app?</h4>
-            <p class="text-gray-400 mt-2">Currently, LearnX is a web-based platform. We are exploring options for a mobile application in the future.</p>
+            <h4 class="text-xl font-semibold text-primary">How do I book a session with a mentor?</h4>
+            <p class="text-secondary mt-2">Browse the skill marketplace or use the search bar to find mentors in the skill you're interested in. On the mentor's profile or session listing, you'll find an option to book a session. You can choose the session type (paid or barter) and preferred time.</p>
+          </div>
+          <div class="faq-item">
+            <h4 class="text-xl font-semibold text-primary">How do payments or bartering work?</h4>
+            <p class="text-secondary mt-2">Mentors can set a price for their sessions, or offer sessions for bartering (exchanging skills). Our platform facilitates secure payments for paid sessions. Bartering agreements are handled between the users.</p>
+          </div>
+          <div class="faq-item">
+            <h4 class="text-xl font-semibold text-primary">Is there a mobile app?</h4>
+            <p class="text-secondary mt-2">Currently, LearnX is a web-based platform. We are exploring options for a mobile application in the future.</p>
           </div>
         </div>
       </div>
 
       <!-- Support Section -->
-      <div class="bg-[#1f1f1f] rounded-lg p-6 shadow-lg" data-aos="fade-up">
+      <div class="card bg-surface-1 p-6 rounded-xl shadow-lg" data-aos="fade-up">
         <h3 class="text-2xl font-semibold mb-4">Contact Support</h3>
-        <p class="text-gray-400 mb-4">If you have any questions, issues, or feedback, please feel free to reach out to our support team.</p>
-        <p class="text-gray-400">Email: <a href="mailto:support@learnx.com" class="text-[#00bfa6] hover:underline">support@learnx.com</a></p>
-        <p class="text-gray-400 mt-2">For urgent matters, you can also use the chat feature within the platform (if available).</p>
+        <p class="text-secondary mb-4">If you have any questions, issues, or feedback, please feel free to reach out to our support team.</p>
+        <p class="text-secondary">Email: <a href="mailto:support@learnx.com" class="text-primary hover:underline">support@learnx.com</a></p>
+        <p class="text-secondary mt-2">For urgent matters, you can also use the chat feature within the platform (if available).</p>
       </div>
 
     </div>
   </div>
 
-  <!-- Footer -->
-  <footer class="bg-[#1f1f1f] py-6 text-center text-white mt-8">
-    <p>&copy; 2025 LearnX - All Rights Reserved</p>
-  </footer>
+  <!-- Toast Notification -->
+  <div id="toast" class="toast-notification">
+    <div class="flex items-center">
+      <i class="fas fa-info-circle text-primary text-xl mr-3"></i>
+      <div>
+        <h4 class="font-medium">Information</h4>
+        <p class="text-sm text-secondary" id="toast-message">This is a notification.</p>
+      </div>
+    </div>
+  </div>
 
   <!-- AOS Animation Init -->
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script src="js/sidebar-loader.js"></script>
   <script>
     AOS.init({
       duration: 800,
       easing: 'ease-in-out',
       once: true
     });
-  </script>
- <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      // Get the user_id from localStorage
-      const userId = localStorage.getItem('user_id');
-
-      if (userId) {
-        // This is where you would typically fetch user-specific data if needed for this page.
-        // For a static page like this, it might not be necessary unless you plan to
-        // personalize content based on the user (e.g., show past support tickets).
-
-        // Example of a placeholder function (replace with your actual API call)
-        // fetchUserData(userId);
-      } else {
-        // Handle cases where the user is not logged in, if necessary for this page.
-        // window.location.href = 'login.html'; // Example: redirect to login
-      }
-    });
-
-    // Placeholder function for fetching user data (replace with your actual backend API call)
-    function fetchUserData(userId) {
-      console.log(`Fetching data for user: ${userId}`);
-      // Example: fetch('/api/user/' + userId)
-      //   .then(response => response.json())
-      //   .then(data => {
-      //     // Process and display data if needed for this page
-      //   })
-      //   .catch(error => console.error('Error fetching user data:', error));
-    }
   </script>
 </body>
 </html>
